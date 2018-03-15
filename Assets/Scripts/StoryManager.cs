@@ -13,12 +13,17 @@ using UnityEngine.EventSystems;
 public class StoryManager : MonoBehaviour {
 
     public static StoryManager instance;
+    public Phrase phrase;
+
 
 	private AudioSource audioSource; // plays the words audiofile
     private List<Word> words; // Contains all words in the story
+    private Story story;
+    private int storyProgress;
+    private int previousProgress;
 
-	private void Awake()
-	{
+	private void Awake() { 
+	
         audioSource = GetComponent<AudioSource>();
         if (instance == null) // singleton pattern, instance of StoryManager
         {
@@ -34,8 +39,13 @@ public class StoryManager : MonoBehaviour {
 	void Start () {
 
         words = new List<Word>();
+        story = new Story();
+        storyProgress = 0;
+        previousProgress = 0;
 
+        LoadStory();
         LoadSounds(); // Load the sounds from file
+        UpdateText(1);
 
 	}
 	
@@ -102,6 +112,82 @@ public class StoryManager : MonoBehaviour {
 
         clip.name = Path.GetFileName(path);
         words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower() ,clip, true));
+    }
+
+    /// <summary>
+    /// Loads the entire story from a file
+    /// </summary>
+    void LoadStory()
+    {
+
+        string tmp;
+        try
+        {
+            StreamReader file = new StreamReader(Application.dataPath + "/story.txt");
+            while ((tmp = file.ReadLine()) != null)
+            {
+                story.Sentences.Add(tmp.Trim());
+            }
+        }
+        catch (FileNotFoundException ex)
+        {
+            Debug.Log("story.txt is not found in the Assets Folder. Exception: " + ex.Message);
+            return;
+        }
+
+        story.setPhrases();
+
+    }
+
+    /// <summary>
+    /// Updates the text on screen
+    /// </summary>
+    /// <param name="dir">Which direction to update, -1 for previous, 1 for next</param>
+    void UpdateText(int dir)
+    {
+        
+        if(dir > 0)
+        {
+            if (storyProgress < story.Phrases.Count)
+            {
+                phrase.SetPhrase(story.Phrases[storyProgress++]);
+            }
+        }
+        else
+        {
+            if(storyProgress > 1)
+            {
+                phrase.SetPhrase(story.Phrases[--storyProgress-1]);
+            }
+
+        }
+        
+    }
+
+    /// <summary>
+    /// Changes to the next event in the application
+    /// </summary>
+    public void NextStoryEvent()
+    {
+        // could change depending on how many sentences we want before an activity
+        // could possibly put some delimiter or something in the story to show it should be the end of a story block
+        if(storyProgress < story.Sentences.Count)
+        {
+            UpdateText(1);
+        }
+        return;
+    }
+
+    /// <summary>
+    /// Changes to the previous event in the application
+    /// </summary>
+    public void PreviousStoryEvent()
+    {
+        if (storyProgress > 0)
+        {
+            UpdateText(-1);
+        }
+        return;
     }
 
 }

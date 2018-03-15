@@ -49,6 +49,16 @@ public class Phrase : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void SetPhrase(string phrase)
+    {
+        TMP.text = phrase;
+    }
+
+    public string GetPhrase()
+    {
+        return TMP.text;
+    }
+
     /// <summary>
     /// Resets word color after a certain time based on word length
     /// </summary>
