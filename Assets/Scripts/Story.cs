@@ -9,7 +9,7 @@ public class Story {
 
     public const int PHRASE_MAX = 75;
 
-    private List<string> sentences;
+    private List<string> sentences; // these will be lists of sentence and phrase objects in the future once the recordings are recieved
     private List<string> phrases;
 
     public Story()
@@ -44,7 +44,7 @@ public class Story {
     /// <summary>
     /// Automatically sets the phrases for story mode
     /// </summary>
-    public void setPhrases()
+    public void setPhrases() // Once there are recordings for all sentences, make a sentence class and use StoryPhrase Class
     {
 
         string tmp = "";

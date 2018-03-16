@@ -13,14 +13,15 @@ using UnityEngine.EventSystems;
 public class StoryManager : MonoBehaviour {
 
     public static StoryManager instance;
-    public Phrase phrase;
+    public TextMeshControl phrase;
 
 
 	private AudioSource audioSource; // plays the words audiofile
     private List<Word> words; // Contains all words in the story
-    private Story story;
-    private int storyProgress;
-    private int previousProgress;
+    private Story story; //  all sentences and phrases in the story
+    private int storyProgress; // how far along they are in the story
+    private bool slowAudio; // toggle switch control boolean
+    // private int level; // eventually will be for different levels
 
 	private void Awake() { 
 	
@@ -41,7 +42,8 @@ public class StoryManager : MonoBehaviour {
         words = new List<Word>();
         story = new Story();
         storyProgress = 0;
-        previousProgress = 0;
+        slowAudio = false;
+        //level = 0;
 
         LoadStory();
         LoadSounds(); // Load the sounds from file
@@ -69,7 +71,16 @@ public class StoryManager : MonoBehaviour {
         {
             if (!audioSource.isPlaying)
             {
-                audioSource.Play();
+                if(slowAudio)
+                {
+                    audioSource.pitch = .7f;
+                    audioSource.Play();
+                }
+                else
+                {
+                    audioSource.pitch = 1;
+                    audioSource.Play();
+                }
             }
         }
     }
@@ -188,6 +199,17 @@ public class StoryManager : MonoBehaviour {
             UpdateText(-1);
         }
         return;
+    }
+
+
+    public void UpdateSlowAudio()
+    {
+        slowAudio = !slowAudio;
+    }
+
+    public void PlaySentence()
+    {
+
     }
 
 }
