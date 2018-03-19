@@ -13,6 +13,8 @@ public class clickToChange : MonoBehaviour {
 	public AudioSource Eng_RegularAudio;
 	public AudioSource Eng_SlowAudio;
 
+	public Button PreviousButton;
+
 	public AudioClip banana_eng;
 	public Sprite BananaVisual;
 
@@ -35,6 +37,7 @@ public class clickToChange : MonoBehaviour {
 			VocabImage.GetComponent<Image> ().sprite = BananaVisual;
 			Eng_RegularAudio.GetComponent <AudioSource>().clip = banana_eng;
 			Eng_SlowAudio.GetComponent <AudioSource>().clip = banana_eng;
+			PreviousButton.interactable = false;
 
 
 		}
@@ -44,7 +47,7 @@ public class clickToChange : MonoBehaviour {
 			VocabImage.GetComponent<Image> ().sprite = LeavesVisual;
 			Eng_RegularAudio.GetComponent <AudioSource>().clip = leaves_eng;
 			Eng_SlowAudio.GetComponent <AudioSource>().clip = leaves_eng;
-
+			PreviousButton.interactable = true;
 
 		}
 
@@ -53,6 +56,7 @@ public class clickToChange : MonoBehaviour {
 			VocabImage.GetComponent<Image> ().sprite = LikeVisual;
 			Eng_RegularAudio.GetComponent <AudioSource>().clip = like_eng;
 			Eng_SlowAudio.GetComponent <AudioSource>().clip = like_eng;
+			PreviousButton.interactable = true;
 
 
 		}
@@ -62,6 +66,7 @@ public class clickToChange : MonoBehaviour {
 			VocabImage.GetComponent<Image> ().sprite = BreadVisual;
 			Eng_RegularAudio.GetComponent <AudioSource>().clip = bread_eng;
 			Eng_SlowAudio.GetComponent <AudioSource>().clip = bread_eng;
+			PreviousButton.interactable = true;
 	
 		}
 			
@@ -69,6 +74,7 @@ public class clickToChange : MonoBehaviour {
 	}
 
 	public void changeScenes(){
+		
 		SceneManager.LoadScene("Story - Level1");
 		
 	}
