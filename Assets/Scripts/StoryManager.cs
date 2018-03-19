@@ -5,7 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Oversees all aspects of the story
@@ -193,7 +193,10 @@ public class StoryManager : MonoBehaviour {
 		{
 			UpdateText(1);
 		}
-		return;
+		else
+        {
+            // SceneManager.LoadScene(""); load the activity
+        }
 	}
 
 	/// <summary>
@@ -201,12 +204,16 @@ public class StoryManager : MonoBehaviour {
 	/// </summary>
 	public void PreviousStoryEvent()
 	{
-		if (storyProgress > 0)
-		{
-			UpdateText(-1);
-		}
-		return;
-	}
+        if (storyProgress > 1)
+        {
+            UpdateText(-1);
+        }
+        else
+        {
+            SceneManager.LoadScene("Level1Round1");
+        }
+
+    }
 
     /// <summary>
     /// instantiates a popUp prefab at the words location
