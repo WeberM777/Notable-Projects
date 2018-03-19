@@ -30,7 +30,9 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
             int index = TMP_TextUtilities.FindIntersectingWord(TMP, eventData.position, eventData.enterEventCamera); // gets the words index in the sentence.
             if (index != -1)
             {
+                int line = TMP_TextUtilities.FindIntersectingLine(TMP, eventData.position, eventData.enterEventCamera); // gets what line the word is on
                 TMP_WordInfo wordInfo = TMP.textInfo.wordInfo[index]; // gets the wordInfo of the given index
+                StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData.position);
                 StoryManager.instance.PlayWord(wordInfo.GetWord()); // plays audiofile of word
                 Debug.Log("Word [" + wordInfo.GetWord() + "]");
 
@@ -77,18 +79,22 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
         if (word.Length < 2)
         {
             yield return new WaitForSeconds(.5f * word.Length);
+            StartCoroutine(StoryManager.instance.DestroyPopUp(.5f * word.Length));
         }
         else if (word.Length < 4)
         {
             yield return new WaitForSeconds(.3f * word.Length);
+            StartCoroutine(StoryManager.instance.DestroyPopUp(.3f * word.Length));
         }
         else if (word.Length < 8)
         {
             yield return new WaitForSeconds(.2f * word.Length);
+            StartCoroutine(StoryManager.instance.DestroyPopUp(.2f * word.Length));
         }
         else
         {
             yield return new WaitForSeconds(.1f * word.Length);
+            StartCoroutine(StoryManager.instance.DestroyPopUp(.1f * word.Length));
         }
         TMP.text = text;
         locked = false;
