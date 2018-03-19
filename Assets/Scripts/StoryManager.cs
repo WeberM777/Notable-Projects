@@ -45,11 +45,11 @@ public class StoryManager : MonoBehaviour {
 		story = new Story();
 		storyProgress = 0;
 		slowAudio = false;
-		//level = 0;
+        // level = 0;
 
 		LoadStory();
 		LoadSounds(); // Load the sounds from file
-		UpdateText(1);
+        StartStory();
 
 	}
 	
@@ -57,6 +57,11 @@ public class StoryManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void StartStory()
+    {
+        UpdateText(1);
+    }
 
 	/// <summary>
 	/// Plays the sound of a word
@@ -217,7 +222,7 @@ public class StoryManager : MonoBehaviour {
             pos.y += .75f;
             popUp = Instantiate(popUpTopPrefab, pos, popUpTopPrefab.transform.rotation);
             // this is where it would look up the english word to the thai word
-            popUp.GetComponentInChildren<TextMeshPro>().text = "ดีใจ";
+            popUp.GetComponentInChildren<TextMeshPro>().text = "Thai";
            }
         else
         {
