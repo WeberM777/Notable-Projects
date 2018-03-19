@@ -171,7 +171,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0, g: 0.64705884, b: 1, a: 0.916}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -188,9 +188,97 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: PreviousStoryEvent
-        m_Mode: 1
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWord
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Bread
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWordThai
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Bread In Thai
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWord
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Like
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWordThai
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Like In Thai
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWord
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Leaves
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWordThai
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Leaves In Thai
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWord
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Banana
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWordThai
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Banana In Thai
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 78673075}
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -246,6 +334,7 @@ GameObject:
   - component: {fileID: 178712176}
   - component: {fileID: 178712175}
   - component: {fileID: 178712179}
+  - component: {fileID: 178712180}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -329,10 +418,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textshowed: {fileID: 891385702}
   thai_textshowed: {fileID: 665952981}
-  LeavesVisual: {fileID: 21300000, guid: 47fd2c965c342474dbcdc977c5db8e5d, type: 3}
   VocabImage: {fileID: 818236464}
-  Eng_SpeakButton: {fileID: 0}
-  leaves_english: {fileID: 0}
+  Eng_RegularAudio: {fileID: 702652966}
+  Eng_SlowAudio: {fileID: 784959638}
+  banana_eng: {fileID: 8300000, guid: 3020c068fe26c014db5d87c25e3806bb, type: 3}
+  BananaVisual: {fileID: 21300000, guid: 9d1f17b4a55ea4cab988347a6d19712b, type: 3}
+  leaves_eng: {fileID: 8300000, guid: 3b4e9179680904082b352c0aa4308199, type: 3}
+  LeavesVisual: {fileID: 21300000, guid: 47fd2c965c342474dbcdc977c5db8e5d, type: 3}
+  like_eng: {fileID: 8300000, guid: c1d2b0916e61c424b9a8c9a5fb0a61ea, type: 3}
+  LikeVisual: {fileID: 21300000, guid: 7d47eaa110f8d473e95b0c3397973697, type: 3}
+  bread_eng: {fileID: 8300000, guid: db00aa9574e204f718bee009cdd1c71c, type: 3}
+  BreadVisual: {fileID: 21300000, guid: 6fe68d5cf472341cc9917fe3f1c4d51d, type: 3}
+--- !u!114 &178712180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 178712174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c17750f3ccd254a58aec00f418f5950f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textshowed2: {fileID: 891385702}
+  thai_textshowed2: {fileID: 665952981}
+  VocabImage: {fileID: 818236464}
+  Eng_RegularAudio: {fileID: 702652966}
+  Eng_SlowAudio: {fileID: 784959638}
+  bread_eng: {fileID: 8300000, guid: db00aa9574e204f718bee009cdd1c71c, type: 3}
+  BreadVisual: {fileID: 21300000, guid: 6fe68d5cf472341cc9917fe3f1c4d51d, type: 3}
 --- !u!1 &275467466
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,7 +709,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Thai Text
+  m_Text: Banana In Thai
 --- !u!222 &665952982
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -624,8 +738,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 702652964}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.000030517578, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1718404119}
@@ -640,8 +754,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 3020c068fe26c014db5d87c25e3806bb, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -733,7 +847,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 784959636}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -749,8 +863,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 3020c068fe26c014db5d87c25e3806bb, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 0.58
   Loop: 0
@@ -763,7 +877,7 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -1101,12 +1215,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 784959638}
-        m_MethodName: PlayOneShot
-        m_Mode: 2
+        m_MethodName: Play
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3020c068fe26c014db5d87c25e3806bb,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1221,7 +1334,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1005380640}
   m_OnClick:
     m_PersistentCalls:
-
       m_Calls:
       - m_Target: {fileID: 178712179}
         m_MethodName: changeWord
@@ -1242,8 +1354,74 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: New Thai Word
+          m_StringArgument: Leaves In Thai
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWord
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Like
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWordThai
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Like In Thai
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWord
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Bread
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeWordThai
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Bread In Thai
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178712179}
+        m_MethodName: changeScenes
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 78673075}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -1608,12 +1786,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 702652966}
-        m_MethodName: PlayOneShot
-        m_Mode: 2
+        m_MethodName: Play
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3020c068fe26c014db5d87c25e3806bb,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
