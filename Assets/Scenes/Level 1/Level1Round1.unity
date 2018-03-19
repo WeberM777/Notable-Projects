@@ -334,7 +334,6 @@ GameObject:
   - component: {fileID: 178712176}
   - component: {fileID: 178712175}
   - component: {fileID: 178712179}
-  - component: {fileID: 178712180}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -427,24 +426,6 @@ MonoBehaviour:
   LeavesVisual: {fileID: 21300000, guid: 47fd2c965c342474dbcdc977c5db8e5d, type: 3}
   like_eng: {fileID: 8300000, guid: c1d2b0916e61c424b9a8c9a5fb0a61ea, type: 3}
   LikeVisual: {fileID: 21300000, guid: 7d47eaa110f8d473e95b0c3397973697, type: 3}
-  bread_eng: {fileID: 8300000, guid: db00aa9574e204f718bee009cdd1c71c, type: 3}
-  BreadVisual: {fileID: 21300000, guid: 6fe68d5cf472341cc9917fe3f1c4d51d, type: 3}
---- !u!114 &178712180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 178712174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c17750f3ccd254a58aec00f418f5950f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textshowed2: {fileID: 891385702}
-  thai_textshowed2: {fileID: 665952981}
-  VocabImage: {fileID: 818236464}
-  Eng_RegularAudio: {fileID: 702652966}
-  Eng_SlowAudio: {fileID: 784959638}
   bread_eng: {fileID: 8300000, guid: db00aa9574e204f718bee009cdd1c71c, type: 3}
   BreadVisual: {fileID: 21300000, guid: 6fe68d5cf472341cc9917fe3f1c4d51d, type: 3}
 --- !u!1 &275467466
