@@ -11,12 +11,12 @@ public class GameManager : MonoBehaviour {
 
 	public void StartBeginnerGame()
 	{
-        SceneManager.LoadScene("Round1Vocab_dancing");
+        SceneManager.LoadScene("Level1Round1");
 	}
 
 	public void StartIntermediateGame()
 	{
-        SceneManager.LoadScene("Round1Vocab_dancing"); // this is temporary, will be the intermediate vocabs
+        SceneManager.LoadScene("Level1Round1"); // this is temporary, will be the intermediate vocabs
     }
 
 	// Use this for initialization
