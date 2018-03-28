@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: dcc6302b08c704734a8c6aa1a570695a
+timeCreated: 1522209606
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Circular
+  fontNames:
+  - Circular
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: be4f9ac5708d041ef8bc3262d9398477, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
