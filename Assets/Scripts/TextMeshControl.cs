@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
 
     private TextMeshProUGUI TMP; // TextMesh gameObject in the UI
-    bool locked = false;
+    private bool locked = false;
 
 
     private void Awake()
@@ -32,7 +32,9 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
             {
                 int line = TMP_TextUtilities.FindIntersectingLine(TMP, eventData.position, eventData.enterEventCamera); // gets what line the word is on
                 TMP_WordInfo wordInfo = TMP.textInfo.wordInfo[index]; // gets the wordInfo of the given index
-                StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData.position);
+                //StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData.position);
+                StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData);
+                StoryManager.instance.currWord = wordInfo.GetWord();
                 StoryManager.instance.PlayWord(wordInfo.GetWord()); // plays audiofile of word
                 Debug.Log("Word [" + wordInfo.GetWord() + "]");
 
@@ -98,5 +100,6 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
         }
         TMP.text = text;
         locked = false;
+        StoryManager.instance.currWord = "";
     }
 }

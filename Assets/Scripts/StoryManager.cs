@@ -16,6 +16,8 @@ public class StoryManager : MonoBehaviour {
 	public TextMeshControl phrase;
     public GameObject popUpBottomPrefab;
     public GameObject popUpTopPrefab;
+    public TextMeshProUGUI thaiHelp;
+    public string currWord;
 
 
 	private AudioSource audioSource; // plays the words audiofile
@@ -45,6 +47,8 @@ public class StoryManager : MonoBehaviour {
 		story = new Story();
 		storyProgress = 0;
 		slowAudio = false;
+        thaiHelp.text = "";
+        currWord = "";
         // level = 0;
 
 		LoadStory();
@@ -82,6 +86,7 @@ public class StoryManager : MonoBehaviour {
 				{
 					audioSource.pitch = .7f;
 					audioSource.Play();
+                    slowAudio = false;
 				}
 				else
 				{
@@ -187,15 +192,19 @@ public class StoryManager : MonoBehaviour {
 	/// </summary>
 	public void NextStoryEvent()
 	{
-		// could change depending on how many sentences we want before an activity
-		// could possibly put some delimiter or something in the story to show it should be the end of a story block
+        //if(story.Phrases[storyProgress].Contains("What color do you like?"))
+        //{
+        //    SceneManager.LoadScene("Round0MiniGame");
+        //    storyProgress++;
+        //}
 		if(storyProgress < story.Sentences.Count)
 		{
-			UpdateText(1);
+            thaiHelp.text = "";
+            UpdateText(1);
 		}
 		else
         {
-            // SceneManager.LoadScene(""); load the activity
+            // SceneManager.LoadScene(""); // load the activity
         }
 	}
 
@@ -206,6 +215,7 @@ public class StoryManager : MonoBehaviour {
 	{
         if (storyProgress > 1)
         {
+            thaiHelp.text = "";
             UpdateText(-1);
         }
         else
@@ -219,21 +229,26 @@ public class StoryManager : MonoBehaviour {
     /// instantiates a popUp prefab at the words location
     /// </summary>
     /// <param name="wordInfo">WordInfo of the word to be shown in Thai</param>
-    public void ShowThaiPopUp(string word, bool firstLine, Vector2 position)
+    public void ShowThaiPopUp(string word, bool firstLine, PointerEventData eventData)
     {
+
         // find location of word on screen, move up and instantiate a pop up
-        Vector2 pos = Camera.main.ScreenToWorldPoint(position);
+        GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
+
+
+        Vector2 pos = Camera.main.ScreenToWorldPoint(eventData.position);
+
         GameObject popUp;
         if (firstLine)
         {
-            pos.y += .75f;
+            pos.y += 1f;
             popUp = Instantiate(popUpTopPrefab, pos, popUpTopPrefab.transform.rotation);
             // this is where it would look up the english word to the thai word
             popUp.GetComponentInChildren<TextMeshPro>().text = "Thai";
-           }
+        }
         else
         {
-            pos.y -= .75f;
+            pos.y -= 1f;
             popUp = Instantiate(popUpBottomPrefab, pos, popUpTopPrefab.transform.rotation);
         }
         popUp.transform.parent = transform;
@@ -249,9 +264,10 @@ public class StoryManager : MonoBehaviour {
     /// <summary>
     /// toggles the slowAudio bool
     /// </summary>
-	public void UpdateSlowAudio()
+	public void PlaySlowAudio()
 	{
 		slowAudio = !slowAudio;
+        PlayWord(currWord);
 	}
 
     /// <summary>
@@ -261,5 +277,22 @@ public class StoryManager : MonoBehaviour {
 	{
 
 	}
+
+    /// <summary>
+    /// Shows a summary of the phrase in thai
+    /// </summary>
+    public void ShowThaiHelpText()
+    {
+        // Eventually will add a mapper to the words from english to thai and access the translation that way
+        if (thaiHelp.text == "")
+        {
+            thaiHelp.text = "Phrase in thai";
+        }
+        else
+        {
+            thaiHelp.text = "";
+        }
+
+    }
 
 }
