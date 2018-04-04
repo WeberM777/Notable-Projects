@@ -10,7 +10,6 @@ using UnityEngine.EventSystems;
 public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
 
     private TextMeshProUGUI TMP; // TextMesh gameObject in the UI
-    private bool locked = false;
 
 
     private void Awake()
@@ -24,9 +23,9 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!locked)
+        if (!StoryManager.instance.locked)
         {
-            locked = true;
+            StoryManager.instance.locked = true;
             int index = TMP_TextUtilities.FindIntersectingWord(TMP, eventData.position, eventData.enterEventCamera); // gets the words index in the sentence.
             if (index != -1)
             {
@@ -34,7 +33,6 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
                 TMP_WordInfo wordInfo = TMP.textInfo.wordInfo[index]; // gets the wordInfo of the given index
                 //StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData.position);
                 StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData);
-                StoryManager.instance.currWord = wordInfo.GetWord();
                 StoryManager.instance.PlayWord(wordInfo.GetWord()); // plays audiofile of word
                 Debug.Log("Word [" + wordInfo.GetWord() + "]");
 
@@ -81,25 +79,24 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
         if (word.Length < 2)
         {
             yield return new WaitForSeconds(.5f * word.Length);
-            StartCoroutine(StoryManager.instance.DestroyPopUp(.5f * word.Length));
+            StartCoroutine(StoryManager.instance.DestroyPopUp(.7f * word.Length));
         }
         else if (word.Length < 4)
         {
             yield return new WaitForSeconds(.3f * word.Length);
-            StartCoroutine(StoryManager.instance.DestroyPopUp(.3f * word.Length));
+            StartCoroutine(StoryManager.instance.DestroyPopUp(.5f * word.Length));
         }
         else if (word.Length < 8)
         {
             yield return new WaitForSeconds(.2f * word.Length);
-            StartCoroutine(StoryManager.instance.DestroyPopUp(.2f * word.Length));
+            StartCoroutine(StoryManager.instance.DestroyPopUp(.4f * word.Length));
         }
         else
         {
             yield return new WaitForSeconds(.1f * word.Length);
-            StartCoroutine(StoryManager.instance.DestroyPopUp(.1f * word.Length));
+            StartCoroutine(StoryManager.instance.DestroyPopUp(.3f * word.Length));
         }
         TMP.text = text;
-        locked = false;
-        StoryManager.instance.currWord = "";
+        StoryManager.instance.locked = false;
     }
 }

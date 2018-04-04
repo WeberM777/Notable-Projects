@@ -17,7 +17,9 @@ public class StoryManager : MonoBehaviour {
     public GameObject popUpBottomPrefab;
     public GameObject popUpTopPrefab;
     public TextMeshProUGUI thaiHelp;
-    public string currWord;
+    
+    public bool locked = false;
+    private string currWord;
 
 
 	private AudioSource audioSource; // plays the words audiofile
@@ -230,12 +232,7 @@ public class StoryManager : MonoBehaviour {
     /// </summary>
     /// <param name="wordInfo">WordInfo of the word to be shown in Thai</param>
     public void ShowThaiPopUp(string word, bool firstLine, PointerEventData eventData)
-    {
-
-        // find location of word on screen, move up and instantiate a pop up
-        GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
-
-
+    { 
         Vector2 pos = Camera.main.ScreenToWorldPoint(eventData.position);
 
         GameObject popUp;
@@ -243,15 +240,16 @@ public class StoryManager : MonoBehaviour {
         {
             pos.y += 1f;
             popUp = Instantiate(popUpTopPrefab, pos, popUpTopPrefab.transform.rotation);
-            // this is where it would look up the english word to the thai word
-            popUp.GetComponentInChildren<TextMeshPro>().text = "Thai";
+            popUp.GetComponentInChildren<TextMeshPro>().text = Thai.WORDS[word.ToLower()];
         }
         else
         {
             pos.y -= 1f;
             popUp = Instantiate(popUpBottomPrefab, pos, popUpTopPrefab.transform.rotation);
+            popUp.GetComponentInChildren<TextMeshPro>().text = Thai.WORDS[word.ToLower()];
         }
         popUp.transform.parent = transform;
+        currWord = word;
     }   
 
     public IEnumerator DestroyPopUp(float wait)
@@ -266,7 +264,7 @@ public class StoryManager : MonoBehaviour {
     /// </summary>
 	public void PlaySlowAudio()
 	{
-		slowAudio = !slowAudio;
+        slowAudio = true;
         PlayWord(currWord);
 	}
 
