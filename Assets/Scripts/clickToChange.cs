@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 
 public class clickToChange : MonoBehaviour {
+
+	/*public static List<string> vocabTextArr;
+	public int[] vocabReadRows;
+	public string vocabTextFile = "vocab";
+	private TextAsset vocabTextAsset;*/
 
 	public Text textshowed = null;
 	public Text thai_textshowed = null;
@@ -27,9 +34,26 @@ public class clickToChange : MonoBehaviour {
 	public AudioClip bread_eng;
 	public Sprite BreadVisual;
 
+	/*void Start(){
+		vocabTextAsset = (TextAsset)Resources.Load(vocabTextFile);
+	}*/
+
+	/*public void vocabReadTextFile(){
+		vocabTextArr = vocabTextAsset.text.Split ('\n').ToList ();
+
+		for (int i = 0; i < vocabReadRows.Length; i++) {
+			if (vocabReadRows [0] < 0 || vocabReadRows.Length == 0) {
+				textshowed.text = vocabTextAsset.text;
+			} else {
+				textshowed.text += vocabTextArr [vocabReadRows[i]] + "\n";
+			}
+		}
+	}*/
 
 	public void changeWord (string vocabWord)
 	{
+		//vocabReadTextFile ();
+		
 		textshowed.text = vocabWord;
 
 		if (vocabWord == "Banana") {
@@ -38,8 +62,6 @@ public class clickToChange : MonoBehaviour {
 			Eng_RegularAudio.GetComponent <AudioSource>().clip = banana_eng;
 			Eng_SlowAudio.GetComponent <AudioSource>().clip = banana_eng;
 			PreviousButton.interactable = false;
-
-
 		}
 			
 		if (vocabWord == "Leaves") {
