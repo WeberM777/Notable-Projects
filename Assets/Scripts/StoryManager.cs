@@ -201,9 +201,13 @@ public class StoryManager : MonoBehaviour {
         //}
 		if(storyProgress < story.Sentences.Count)
 		{
-            thaiHelp.text = "";
-            UpdateText(1);
-		}
+            if (!locked)
+            {
+                thaiHelp.text = "";
+                UpdateText(1);
+                StartCoroutine(DestroyPopUp(0));
+            }
+        }
 		else
         {
             // SceneManager.LoadScene(""); // load the activity
@@ -232,7 +236,8 @@ public class StoryManager : MonoBehaviour {
     /// </summary>
     /// <param name="wordInfo">WordInfo of the word to be shown in Thai</param>
     public void ShowThaiPopUp(string word, bool firstLine, PointerEventData eventData)
-    { 
+    {
+        HideThaiHelp();
         Vector2 pos = Camera.main.ScreenToWorldPoint(eventData.position);
 
         GameObject popUp;
@@ -240,15 +245,21 @@ public class StoryManager : MonoBehaviour {
         {
             pos.y += 1f;
             popUp = Instantiate(popUpTopPrefab, pos, popUpTopPrefab.transform.rotation);
-            popUp.GetComponentInChildren<TextMeshPro>().text = Thai.WORDS[word.ToLower()];
+            if(Thai.WORDS.ContainsKey(word.ToLower()))
+            {
+                popUp.GetComponentInChildren<TextMesh>().text = Thai.WORDS[word.ToLower()];
+            }
         }
         else
         {
             pos.y -= 1f;
             popUp = Instantiate(popUpBottomPrefab, pos, popUpTopPrefab.transform.rotation);
-            popUp.GetComponentInChildren<TextMeshPro>().text = Thai.WORDS[word.ToLower()];
+            if (Thai.WORDS.ContainsKey(word.ToLower()))
+            {
+                popUp.GetComponentInChildren<TextMesh>().text = Thai.WORDS[word.ToLower()];
+            }
         }
-        popUp.transform.parent = transform;
+        popUp.transform.SetParent(transform);
         currWord = word;
     }   
 
@@ -284,6 +295,7 @@ public class StoryManager : MonoBehaviour {
         // Eventually will add a mapper to the words from english to thai and access the translation that way
         if (thaiHelp.text == "")
         {
+            StartCoroutine(DestroyPopUp(0));
             thaiHelp.text = "Phrase in thai";
         }
         else
@@ -291,6 +303,11 @@ public class StoryManager : MonoBehaviour {
             thaiHelp.text = "";
         }
 
+    }
+
+    private void HideThaiHelp()
+    {
+        thaiHelp.text = "";
     }
 
 }
