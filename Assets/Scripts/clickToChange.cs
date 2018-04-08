@@ -9,102 +9,164 @@ using UnityEngine.SceneManagement;
 
 public class clickToChange : MonoBehaviour {
 
-	/*public static List<string> vocabTextArr;
-	public int[] vocabReadRows;
+	/* Not Used -Text list
+	public static List<string> vocabTextArr;
+	private string[] vocabReadRows;
 	public string vocabTextFile = "vocab";
-	private TextAsset vocabTextAsset;*/
+	private TextAsset vocabTextAsset;
+	*/
 
+	public int currentIndex; //keeps track of the index for words
+
+	//english text on screen
 	public Text textshowed = null;
+	//thai text on screen
 	public Text thai_textshowed = null;
+	//vocab placeholder for images on screen
 	public Image VocabImage;
+	//english audio button
 	public AudioSource Eng_RegularAudio;
+	//english slow audio button
 	public AudioSource Eng_SlowAudio;
-
+	//previous button (left)
 	public Button PreviousButton;
 
+	//banana
 	public AudioClip banana_eng;
 	public Sprite BananaVisual;
-
+	//leaves
 	public AudioClip leaves_eng;
 	public Sprite LeavesVisual;
-
+	//like
 	public AudioClip like_eng;
 	public Sprite LikeVisual;
-
+	//bread
 	public AudioClip bread_eng;
 	public Sprite BreadVisual;
+	//wish
+	public AudioClip wish_eng;
+	public Sprite WishVisual;
+	//river
+	public AudioClip river_eng;
+	public Sprite RiverVisual;
 
-	/*void Start(){
-		vocabTextAsset = (TextAsset)Resources.Load(vocabTextFile);
-	}*/
+	/*The rest of the vocab words*/
+	//moon
+	//bright
+	//candles
+	//music
+	//dancing
+	//friend
 
-	/*public void vocabReadTextFile(){
-		vocabTextArr = vocabTextAsset.text.Split ('\n').ToList ();
+	//next button push
+	public void nextMouseClick(){
+		//vocabTextAsset = (TextAsset)Resources.Load(vocabTextFile);
+		//vocabTextArr = vocabTextAsset.text.Split ('\n').ToList ();
 
-		for (int i = 0; i < vocabReadRows.Length; i++) {
-			if (vocabReadRows [0] < 0 || vocabReadRows.Length == 0) {
-				textshowed.text = vocabTextAsset.text;
-			} else {
-				textshowed.text += vocabTextArr [vocabReadRows[i]] + "\n";
-			}
+		if (currentIndex <= 6) {
+			currentIndex++;	
 		}
-	}*/
+		//loads everything for that screen
+		allTheStuff ();
+	}
 
-	public void changeWord (string vocabWord)
-	{
-		//vocabReadTextFile ();
-		
-		textshowed.text = vocabWord;
+	//previous button push
+	public void previousMouseClick(){
+		if (currentIndex <= 6) {
+			currentIndex--;
+		}
+		//loads everthing for that screen
+		allTheStuff ();
+	}
 
-		if (vocabWord == "Banana") {
+	//all the components for each word
+	public void allTheStuff(){
 
+		//pull in images and audio for word
+		if (currentIndex == 0) {
+
+			textshowed.text = "Banana";
+			thai_textshowed.text = "กล้วย";
 			VocabImage.GetComponent<Image> ().sprite = BananaVisual;
-			Eng_RegularAudio.GetComponent <AudioSource>().clip = banana_eng;
-			Eng_SlowAudio.GetComponent <AudioSource>().clip = banana_eng;
+			Eng_RegularAudio.GetComponent <AudioSource> ().clip = banana_eng;
+			Eng_SlowAudio.GetComponent <AudioSource> ().clip = banana_eng;
 			PreviousButton.interactable = false;
 		}
-			
-		if (vocabWord == "Leaves") {
 
+		if (currentIndex == 1) {
+
+			textshowed.text = "Leaves";
+			thai_textshowed.text = "ใบไม้";
 			VocabImage.GetComponent<Image> ().sprite = LeavesVisual;
-			Eng_RegularAudio.GetComponent <AudioSource>().clip = leaves_eng;
-			Eng_SlowAudio.GetComponent <AudioSource>().clip = leaves_eng;
+			Eng_RegularAudio.GetComponent <AudioSource> ().clip = leaves_eng;
+			Eng_SlowAudio.GetComponent <AudioSource> ().clip = leaves_eng;
 			PreviousButton.interactable = true;
 
 		}
 
-		if (vocabWord == "Like") {
+		if (currentIndex == 2) {
 
+			textshowed.text = "Like";
+			thai_textshowed.text = "ชอบ";
 			VocabImage.GetComponent<Image> ().sprite = LikeVisual;
-			Eng_RegularAudio.GetComponent <AudioSource>().clip = like_eng;
-			Eng_SlowAudio.GetComponent <AudioSource>().clip = like_eng;
+			Eng_RegularAudio.GetComponent <AudioSource> ().clip = like_eng;
+			Eng_SlowAudio.GetComponent <AudioSource> ().clip = like_eng;
 			PreviousButton.interactable = true;
-
 
 		}
 
-		if (vocabWord == "Bread") {
+		if (currentIndex == 3) {
 
+			textshowed.text = "Bread";
+			thai_textshowed.text = "ขนมปัง";
 			VocabImage.GetComponent<Image> ().sprite = BreadVisual;
-			Eng_RegularAudio.GetComponent <AudioSource>().clip = bread_eng;
-			Eng_SlowAudio.GetComponent <AudioSource>().clip = bread_eng;
+			Eng_RegularAudio.GetComponent <AudioSource> ().clip = bread_eng;
+			Eng_SlowAudio.GetComponent <AudioSource> ().clip = bread_eng;
 			PreviousButton.interactable = true;
-	
+
+		}
+
+		if (currentIndex == 4) {
+
+			textshowed.text = "Wish";
+			thai_textshowed.text = "ประสงค์";
+			VocabImage.GetComponent<Image> ().sprite = WishVisual;
+			Eng_RegularAudio.GetComponent <AudioSource> ().clip = wish_eng;
+			Eng_SlowAudio.GetComponent <AudioSource> ().clip = wish_eng;
+			PreviousButton.interactable = true;
+
+		}
+
+		if (currentIndex == 5) {
+
+			textshowed.text = "River";
+			thai_textshowed.text = "แม่น้ำ";
+			VocabImage.GetComponent<Image> ().sprite = RiverVisual;
+			Eng_RegularAudio.GetComponent <AudioSource> ().clip = river_eng;
+			Eng_SlowAudio.GetComponent <AudioSource> ().clip = river_eng;
+			PreviousButton.interactable = true;
+
+		}
+
+		if (currentIndex == 6) {
+
+			changeScenes2 ();
+
 		}
 			
-
 	}
-
-	public void changeScenes(){
 		
+	//change the scene to pre activity
+	/*public void changeScenes1(){
+
+		SceneManager.LoadScene("Level1- vocabActivity1");
+
+	}*/
+
+	//change the scene to story scene
+	public void changeScenes2(){
+
 		SceneManager.LoadScene("Story - Level1");
+	}
 		
-	}
-
-
-	public void changeWordThai(string thai_vocabWord)
-	{
-		thai_textshowed.text = thai_vocabWord;
-	}
-
 }
