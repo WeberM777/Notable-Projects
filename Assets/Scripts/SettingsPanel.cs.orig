@@ -1,0 +1,24 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class SettingsPanel : MonoBehaviour {
+
+	public Animator settingsAn;
+	bool animateSet = false;
+
+	//Will animate settings panel
+	public void showSettingsPanel()
+	{
+		// add code for if a profile is not selected
+<<<<<<< HEAD
+		animateSettings = !animateSettings;
+		settingsAnimator.SetBool("AnimatePanel", animateSettings);
+=======
+		animateSet = !animateSet;
+		settingsAn.SetBool("AnimateSettings", animateSet);
+>>>>>>> 4fafabccfd85c92dbd1bfc5fe874916baee89f83
+
+	}
+}
