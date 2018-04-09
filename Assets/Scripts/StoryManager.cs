@@ -125,6 +125,7 @@ public class StoryManager : MonoBehaviour {
         else
         {
             AudioClip[] files = Resources.LoadAll<AudioClip>("Words/");
+            Debug.Log(files.ToString());
             foreach (var clip in files)
             {
                 words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
