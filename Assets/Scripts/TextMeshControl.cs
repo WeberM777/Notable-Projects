@@ -25,10 +25,10 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
     {
         if (!StoryManager.instance.locked)
         {
-            StoryManager.instance.locked = true;
             int index = TMP_TextUtilities.FindIntersectingWord(TMP, eventData.position, eventData.enterEventCamera); // gets the words index in the sentence.
             if (index != -1)
             {
+                StoryManager.instance.locked = true;
                 int line = TMP_TextUtilities.FindIntersectingLine(TMP, eventData.position, eventData.enterEventCamera); // gets what line the word is on
                 TMP_WordInfo wordInfo = TMP.textInfo.wordInfo[index]; // gets the wordInfo of the given index
                 //StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData.position);
@@ -96,7 +96,7 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
             yield return new WaitForSeconds(.1f * word.Length);
             StartCoroutine(StoryManager.instance.DestroyPopUp(.3f * word.Length));
         }
-        TMP.text = text;
         StoryManager.instance.locked = false;
+        TMP.text = text;
     }
 }

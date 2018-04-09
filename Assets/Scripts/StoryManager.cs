@@ -104,55 +104,79 @@ public class StoryManager : MonoBehaviour {
 	/// </summary>
 	void LoadSounds()
 	{
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            FileInfo[] files;
+            string fileName = Application.dataPath + "/" + "Sounds/Words/";
+            var info = new DirectoryInfo(fileName);
 
-		FileInfo[] files;
-		string fileName = Application.dataPath + "/" + "Sounds/Words/";
-		var info = new DirectoryInfo(fileName);
-
-		files = info.GetFiles()
-			.Where(f => Path.GetExtension(f.Name) == ".wav" || Path.GetExtension(f.Name) == ".ogg" || Path.GetExtension(f.Name) == ".mp3")
-			.ToArray();
+            files = info.GetFiles()
+                .Where(f => Path.GetExtension(f.Name) == ".wav" || Path.GetExtension(f.Name) == ".ogg" || Path.GetExtension(f.Name) == ".mp3")
+                .ToArray();
 
 
-		foreach (var file in files)
-		{
-			StartCoroutine(LoadFile(file.FullName));
-		}
+            foreach (var file in files)
+            {
+                StartCoroutine(LoadFile(file.FullName));
+            }
+
+        }
+        else
+        {
+            AudioClip[] files = Resources.LoadAll<AudioClip>("Sounds/Words/");
+            foreach (var clip in files)
+            {
+                words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
+            }
+        }
 
 
 	}
 
-	/// <summary>
-	/// Loads a single audio clip from file into the List words
-	/// </summary>
-	/// <param name="path">path of audiofile</param>
-	/// <returns></returns>
-	IEnumerator LoadFile(string path)
-	{
-		WWW www = new WWW("file://" + path);
+    /// <summary>
+    /// Loads a single audio clip from file into the List words
+    /// </summary>
+    /// <param name="path">path of audiofile</param>
+    /// <returns></returns>
+    IEnumerator LoadFile(string path)
+    {
+        WWW www = new WWW("file://" + path);
 
-		AudioClip clip = www.GetAudioClip(false);
-		while (clip.loadState != AudioDataLoadState.Loaded)
-			yield return www;
+        AudioClip clip = www.GetAudioClip(false);
+        while (clip.loadState != AudioDataLoadState.Loaded)
+            yield return www;
 
-		clip.name = Path.GetFileName(path);
-		words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower() ,clip, true));
-	}
+        clip.name = Path.GetFileName(path);
+        words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
+    }
 
-	/// <summary>
-	/// Loads the entire story from a file
-	/// </summary>
-	void LoadStory()
+    /// <summary>
+    /// Loads the entire story from a file
+    /// </summary>
+    void LoadStory()
 	{
 
 		string tmp;
 		try
 		{
-			StreamReader file = new StreamReader(Application.dataPath + "/story.txt");
-			while ((tmp = file.ReadLine()) != null)
-			{
-				story.Sentences.Add(tmp.Trim());
-			}
+            if(SystemInfo.deviceType == DeviceType.Handheld)
+            {
+                TextAsset file = Resources.Load("story.txt") as TextAsset;
+                string[] text = file.text.Split("\n"[0]);
+                foreach (string line in text)
+                {
+                    story.Sentences.Add(line.Trim());
+                }
+
+            }
+            else
+            {
+                StreamReader file = new StreamReader(Application.dataPath + "/story.txt");
+                while ((tmp = file.ReadLine()) != null)
+                {
+                    story.Sentences.Add(tmp.Trim());
+                }
+            }
 		}
 		catch (FileNotFoundException ex)
 		{
