@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -108,7 +107,7 @@ public class StoryManager : MonoBehaviour {
         if (SystemInfo.deviceType == DeviceType.Desktop)
         {
             FileInfo[] files;
-            string fileName = Application.dataPath + "/Resources/Words/";
+            string fileName = Application.dataPath + "/" + "Sounds/Words/";
             var info = new DirectoryInfo(fileName);
 
             files = info.GetFiles()
@@ -124,7 +123,7 @@ public class StoryManager : MonoBehaviour {
         }
         else
         {
-            AudioClip[] files = Resources.LoadAll<AudioClip>("Words/");
+            AudioClip[] files = Resources.LoadAll<AudioClip>("Sounds/Words/");
             foreach (var clip in files)
             {
                 words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
@@ -160,22 +159,22 @@ public class StoryManager : MonoBehaviour {
 		string tmp;
 		try
 		{
-            if(SystemInfo.deviceType == DeviceType.Desktop)
+            if(SystemInfo.deviceType == DeviceType.Handheld)
             {
-                StreamReader file = new StreamReader(Application.dataPath + "/Resources/story.txt");
-                while ((tmp = file.ReadLine()) != null)
+                TextAsset file = Resources.Load("story.txt") as TextAsset;
+                string[] text = file.text.Split("\n"[0]);
+                foreach (string line in text)
                 {
-                    story.Sentences.Add(tmp.Trim());
+                    story.Sentences.Add(line.Trim());
                 }
 
             }
             else
             {
-                TextAsset file = Resources.Load("story") as TextAsset;
-                string[] text = file.text.Split("\n"[0]);
-                foreach (string line in text)
+                StreamReader file = new StreamReader(Application.dataPath + "/story.txt");
+                while ((tmp = file.ReadLine()) != null)
                 {
-                    story.Sentences.Add(line.Trim());
+                    story.Sentences.Add(tmp.Trim());
                 }
             }
 		}
@@ -184,13 +183,8 @@ public class StoryManager : MonoBehaviour {
 			Debug.Log("story.txt is not found in the Assets Folder. Exception: " + ex.Message);
 			return;
 		}
-        catch (NullReferenceException ex)
-        {
-            Debug.Log("story.txt is not found in the Assets Folder. Exception: " + ex.Message);
-            return;
-        }
 
-        story.setPhrases();
+		story.setPhrases();
 
 	}
 

@@ -14,5 +14,6 @@ public class SettingsPanel : MonoBehaviour {
 		// add code for if a profile is not selected
 		animateSet = !animateSet;
 		settingsAn.SetBool("AnimateSettings", animateSet);
+
 	}
 }
