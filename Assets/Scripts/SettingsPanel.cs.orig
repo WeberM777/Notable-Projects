@@ -12,7 +12,13 @@ public class SettingsPanel : MonoBehaviour {
 	public void showSettingsPanel()
 	{
 		// add code for if a profile is not selected
+<<<<<<< HEAD
+		animateSettings = !animateSettings;
+		settingsAnimator.SetBool("AnimatePanel", animateSettings);
+=======
 		animateSet = !animateSet;
 		settingsAn.SetBool("AnimateSettings", animateSet);
+>>>>>>> 4fafabccfd85c92dbd1bfc5fe874916baee89f83
+
 	}
 }
