@@ -7,7 +7,7 @@ public class TypeScript : MonoBehaviour {
 	public float delay = 2.1f;
 	public string fullText;
 	public string currentText = "";
-	public int vCount;
+	//public int vCount;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,7 @@ public class TypeScript : MonoBehaviour {
 	}
 
 	public IEnumerator ShowText(){
-		vCount++;
+		/*vCount++;
 		if (vCount <= 5) {
 
 			if (vCount == 0) {
@@ -37,7 +37,7 @@ public class TypeScript : MonoBehaviour {
 				fullText = "River";
 			}
 				
-		}
+		}*/
 
 		for(int i = 0; i < fullText.Length; i++){
 			currentText = fullText.Substring(0,i);
