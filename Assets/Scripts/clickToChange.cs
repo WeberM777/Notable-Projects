@@ -163,10 +163,10 @@ public class clickToChange : MonoBehaviour {
 
 	}*/
 
-	//change the scene to story scene
+	//change the scene to Color Activiyt (then that scene is programed to go to story
 	public void changeScenes2(){
 
-		SceneManager.LoadScene("Story - Level1");
+		SceneManager.LoadScene("Level1Round1Activity");
 	}
 		
 }
