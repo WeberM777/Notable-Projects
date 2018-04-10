@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GetUsername : MonoBehaviour {
+public class UserController : MonoBehaviour {
 
 	public Text userEntry;
 
 	public void showUserName()
 	{
-
 		PlayerPrefs.SetString("Username", userEntry.text);
 	}
 }
