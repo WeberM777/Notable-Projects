@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Canvas
   - PopUp
+  - Fire
+  - Button
+  - NextButton
   layers:
   - Default
   - TransparentFX

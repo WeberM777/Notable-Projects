@@ -35,14 +35,14 @@ public class StoryManager : MonoBehaviour
 	{
 
 		audioSource = GetComponent<AudioSource>();
-		if (instance == null) // singleton pattern, instance of StoryManager
-		{
+		//if (instance == null) // singleton pattern, instance of StoryManager
+		//{
 			instance = this;
-		}
-		else
-		{
-			Destroy(gameObject);
-		}
+		//}
+		//else
+		//{
+		//	Destroy(gameObject);
+		//}
 	}
 
 	// Use this for initialization
@@ -228,12 +228,12 @@ public class StoryManager : MonoBehaviour
 	/// </summary>
 	public void NextStoryEvent()
 	{
-		//if(story.Phrases[storyProgress].Contains("What color do you like?"))
-		//{
-		//    SceneManager.LoadScene("Round0MiniGame");
-		//    storyProgress++;
-		//}
-		if (storyProgress < story.Sentences.Count)
+        if (story.Phrases[storyProgress].Contains("What color do you like?"))
+        {
+            SceneManager.LoadScene("Round1MidActivity", LoadSceneMode.Additive);
+            storyProgress++;
+        }
+        if (storyProgress < story.Sentences.Count)
 		{
 			if (!locked)
 			{

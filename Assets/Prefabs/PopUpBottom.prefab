@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4210497886658514}
   - component: {fileID: 212891594937961902}
+  - component: {fileID: 210220740129768774}
   m_Layer: 0
   m_Name: PopUpBottom
   m_TagString: PopUp
@@ -184,6 +185,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51852cf33caed094f8e6e8a318c7c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &210220740129768774
+SortingGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1357254569441940}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!212 &212880670979922510
 SpriteRenderer:
   m_ObjectHideFlags: 1

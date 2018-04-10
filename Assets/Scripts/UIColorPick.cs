@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,39 +8,137 @@ using UnityEngine.SceneManagement;
 public class UIColorPick : MonoBehaviour
 {
 
-    // Use this for initialization
-    public Animator GreenColorAnim;
-    public Animator BlueColorAnim;
-    public Animator RedColorAnim;
-    public Animator YellowColorAnim;
+    private bool firstRound = true;
+    public TMPro.TextMeshProUGUI textMesh;
+    public TMPro.TextMeshProUGUI textMeshCorrect;
+    private int questNum = 0;
+    private string color = "";
+    public GameObject doneButton;
+
+    Dictionary<string, string> questions;
+    List<string> colors;
+
+    private void Start()
+    {
+        questions = new Dictionary<string, string>();
+        questions.Add("red", "Touch the color RED?");
+        questions.Add("blue", "Touch the color BLUE?");
+        questions.Add("green", "Touch the color GREEN?");
+        questions.Add("yellow", "Touch the color YELLOW?");
+
+        colors = new List<string>();
+        colors.Add("red");
+        colors.Add("blue");
+        colors.Add("green");
+        colors.Add("yellow");
+
+        System.Random rnd = new System.Random();
+        colors = colors.OrderBy(x => rnd.Next()).ToList();
+    }
 
     public void RunGreenAnim()
     {
-        LoadMenuScene(1);
-        GreenColorAnim.SetTrigger("Active");
+        if(firstRound)
+        {
+            loadColorQuestions();
+            firstRound = false;
+        }
+        else if(color == "green")
+        {
+            textMeshCorrect.text = "";
+            loadColorQuestions();
+        }
+        else
+        {
+            textMeshCorrect.text = "Try Again";
+        }
     }
     public void RunBlueAnim()
     {
-        LoadMenuScene(1);
-        BlueColorAnim.SetTrigger("Active");
+        if (firstRound)
+        {
+            loadColorQuestions();
+            firstRound = false;
+        }
+
+        else if (color == "blue")
+        {
+            textMeshCorrect.text = "";
+            loadColorQuestions();
+        }
+        else
+        {
+            textMeshCorrect.text = "Try Again";
+        }
     }
     public void RunRedAnim()
     {
-        LoadMenuScene(1);
-        RedColorAnim.SetTrigger("Active");
+        if (firstRound)
+        {
+            loadColorQuestions();
+            firstRound = false;
+        }
+
+        else if (color == "red")
+        {
+            textMeshCorrect.text = "";
+            loadColorQuestions();
+        }
+        else
+        {
+            textMeshCorrect.text = "Try Again";
+        }
     }
     public void RunYellowAnim()
     {
-        LoadMenuScene(1);
-        YellowColorAnim.SetTrigger("Active");
+        if (firstRound)
+        {
+            loadColorQuestions();
+            firstRound = false;
+        }
+
+        else if (color == "yellow")
+        {
+            textMeshCorrect.text = "";
+            loadColorQuestions();
+        }
+        else
+        {
+            textMeshCorrect.text = "Try Again";
+        }
     }
-    public void LoadMenuScene(float delay)
+    public void LoadStoryScene()
     {
-        StartCoroutine(LoadMenuSceneDelay(delay));
+        StartCoroutine(LoadStorySceneDelay(0));
     }
-    private IEnumerator LoadMenuSceneDelay(float delay)
+    private IEnumerator LoadStorySceneDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene("Menu");
+        SceneManager.UnloadSceneAsync("Round1MidActivity");
+    }
+
+    private void loadColorQuestions()
+    {
+        if(questNum < 4)
+        {
+            textMesh.text = questions[colors[questNum]];
+            color = colors[questNum];
+            questNum++;
+        }
+        else
+        {
+            loadFriendActivity();
+        }
+    }
+
+    private void loadFriendActivity()
+    {
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+        foreach (var button in buttons)
+        {
+            button.SetActive(false);
+        }
+        doneButton.SetActive(true);
+        textMesh.text = "Now ask a friend what color they like!";
     }
 }
