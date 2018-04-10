@@ -6,17 +6,18 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
     public Animator difficultyPanel;
-    public Animator profilePanel;
+    //public Animator profilePanel;
 
     bool animateDiff = false;
-    bool animateProf = false;
+    //bool animateProf = false;
 
 	public GameObject krathongImage;
-	public GameObject SelectProfile;
+	//public GameObject SelectProfile;
 	public GameObject PlayButton;
 	public GameObject purpbck;
+	public GameObject userName;
 	public Text GameTitle;
-	public Text select;
+	//public Text select;
 
 
     // bool profileSelected = false;
@@ -32,10 +33,11 @@ public class UIManager : MonoBehaviour {
 
 		//hide other ui elements - from martha
 		krathongImage.SetActive(false);
-		SelectProfile.SetActive (false);
+		//SelectProfile.SetActive (false);
 		PlayButton.SetActive (false);
 		purpbck.SetActive (false);
-		select.GetComponent<Text>().enabled = false;
+		userName.SetActive (false);
+		//select.GetComponent<Text>().enabled = false;
 		GameTitle.GetComponent<Text>().enabled = false;
 
     }
