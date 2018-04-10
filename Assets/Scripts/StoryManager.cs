@@ -10,16 +10,17 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Oversees all aspects of the story
 /// </summary>
-public class StoryManager : MonoBehaviour {
+public class StoryManager : MonoBehaviour
+{
 
 	public static StoryManager instance;
 	public TextMeshControl phrase;
-    public GameObject popUpBottomPrefab;
-    public GameObject popUpTopPrefab;
-    public TextMeshProUGUI thaiHelp;
-    
-    public bool locked = false;
-    private string currWord;
+	public GameObject popUpBottomPrefab;
+	public GameObject popUpTopPrefab;
+	public TextMeshProUGUI thaiHelp;
+
+	public bool locked = false;
+	private string currWord;
 
 
 	private AudioSource audioSource; // plays the words audiofile
@@ -27,10 +28,11 @@ public class StoryManager : MonoBehaviour {
 	private Story story; //  all sentences and phrases in the story
 	private int storyProgress; // how far along they are in the story
 	private bool slowAudio; // toggle switch control boolean
-	// private int level; // eventually will be for different levels
+							// private int level; // eventually will be for different levels
 
-	private void Awake() { 
-	
+	private void Awake()
+	{
+
 		audioSource = GetComponent<AudioSource>();
 		if (instance == null) // singleton pattern, instance of StoryManager
 		{
@@ -43,31 +45,33 @@ public class StoryManager : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 
 		words = new List<Word>();
 		story = new Story();
 		storyProgress = 0;
 		slowAudio = false;
-        thaiHelp.text = "";
-        currWord = "";
-        // level = 0;
+		thaiHelp.text = "";
+		currWord = "";
+		// level = 0;
 
 		LoadStory();
 		LoadSounds(); // Load the sounds from file
-        StartStory();
+		StartStory();
 
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		
+	void Update()
+	{
+
 	}
 
-    public void StartStory()
-    {
-        UpdateText(1);
-    }
+	public void StartStory()
+	{
+		UpdateText(1);
+	}
 
 	/// <summary>
 	/// Plays the sound of a word
@@ -84,11 +88,11 @@ public class StoryManager : MonoBehaviour {
 		{
 			if (!audioSource.isPlaying)
 			{
-				if(slowAudio)
+				if (slowAudio)
 				{
 					audioSource.pitch = .7f;
 					audioSource.Play();
-                    slowAudio = false;
+					slowAudio = false;
 				}
 				else
 				{
@@ -104,22 +108,31 @@ public class StoryManager : MonoBehaviour {
 	/// </summary>
 	void LoadSounds()
 	{
+<<<<<<< HEAD
         if (SystemInfo.deviceType == DeviceType.Desktop)
         {
             FileInfo[] files;
             string fileName = Application.dataPath + "/" + "Sounds/Words/";
             var info = new DirectoryInfo(fileName);
+=======
+		if (SystemInfo.deviceType == DeviceType.Desktop)
+		{
+			FileInfo[] files;
+			string fileName = Application.dataPath + "/Resources/Words/";
+			var info = new DirectoryInfo(fileName);
+>>>>>>> f41ebbf2fb6074d27c945f718975c0604a6b0c65
 
-            files = info.GetFiles()
-                .Where(f => Path.GetExtension(f.Name) == ".wav" || Path.GetExtension(f.Name) == ".ogg" || Path.GetExtension(f.Name) == ".mp3")
-                .ToArray();
+			files = info.GetFiles()
+				.Where(f => Path.GetExtension(f.Name) == ".wav" || Path.GetExtension(f.Name) == ".ogg" || Path.GetExtension(f.Name) == ".mp3")
+				.ToArray();
 
 
-            foreach (var file in files)
-            {
-                StartCoroutine(LoadFile(file.FullName));
-            }
+			foreach (var file in files)
+			{
+				StartCoroutine(LoadFile(file.FullName));
+			}
 
+<<<<<<< HEAD
         }
         else
         {
@@ -129,36 +142,49 @@ public class StoryManager : MonoBehaviour {
                 words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
             }
         }
+=======
+		}
+		else
+		{
+			AudioClip[] files = Resources.LoadAll<AudioClip>("Words/");
+			Debug.Log(files.ToString());
+			foreach (var clip in files)
+			{
+				words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
+			}
+		}
 
 
 	}
 
-    /// <summary>
-    /// Loads a single audio clip from file into the List words
-    /// </summary>
-    /// <param name="path">path of audiofile</param>
-    /// <returns></returns>
-    IEnumerator LoadFile(string path)
-    {
-        WWW www = new WWW("file://" + path);
+	/// <summary>
+	/// Loads a single audio clip from file into the List words
+	/// </summary>
+	/// <param name="path">path of audiofile</param>
+	/// <returns></returns>
+	IEnumerator LoadFile(string path)
+	{
+		WWW www = new WWW("file://" + path);
+>>>>>>> f41ebbf2fb6074d27c945f718975c0604a6b0c65
 
-        AudioClip clip = www.GetAudioClip(false);
-        while (clip.loadState != AudioDataLoadState.Loaded)
-            yield return www;
+		AudioClip clip = www.GetAudioClip(false);
+		while (clip.loadState != AudioDataLoadState.Loaded)
+			yield return www;
 
-        clip.name = Path.GetFileName(path);
-        words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
-    }
+		clip.name = Path.GetFileName(path);
+		words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
+	}
 
-    /// <summary>
-    /// Loads the entire story from a file
-    /// </summary>
-    void LoadStory()
+	/// <summary>
+	/// Loads the entire story from a file
+	/// </summary>
+	void LoadStory()
 	{
 
 		string tmp;
 		try
 		{
+<<<<<<< HEAD
             if(SystemInfo.deviceType == DeviceType.Handheld)
             {
                 TextAsset file = Resources.Load("story.txt") as TextAsset;
@@ -177,12 +203,40 @@ public class StoryManager : MonoBehaviour {
                     story.Sentences.Add(tmp.Trim());
                 }
             }
+=======
+			if (SystemInfo.deviceType == DeviceType.Desktop)
+			{
+				StreamReader file = new StreamReader(Application.dataPath + "/Resources/story.txt");
+				while ((tmp = file.ReadLine()) != null)
+				{
+					story.Sentences.Add(tmp.Trim());
+				}
+
+			}
+			else
+			{
+				TextAsset file = Resources.Load("story") as TextAsset;
+				string[] text = file.text.Split("\n"[0]);
+				foreach (string line in text)
+				{
+					story.Sentences.Add(line.Trim());
+				}
+			}
+>>>>>>> f41ebbf2fb6074d27c945f718975c0604a6b0c65
 		}
 		catch (FileNotFoundException ex)
 		{
 			Debug.Log("story.txt is not found in the Assets Folder. Exception: " + ex.Message);
 			return;
 		}
+<<<<<<< HEAD
+=======
+		catch (NullReferenceException ex)
+		{
+			Debug.Log("story.txt is not found in the Assets Folder. Exception: " + ex.Message);
+			return;
+		}
+>>>>>>> f41ebbf2fb6074d27c945f718975c0604a6b0c65
 
 		story.setPhrases();
 
@@ -194,8 +248,8 @@ public class StoryManager : MonoBehaviour {
 	/// <param name="dir">Which direction to update, -1 for previous, 1 for next</param>
 	void UpdateText(int dir)
 	{
-		
-		if(dir > 0)
+
+		if (dir > 0)
 		{
 			if (storyProgress < story.Phrases.Count)
 			{
@@ -204,13 +258,13 @@ public class StoryManager : MonoBehaviour {
 		}
 		else
 		{
-			if(storyProgress > 1)
+			if (storyProgress > 1)
 			{
-				phrase.SetPhrase(story.Phrases[--storyProgress-1]);
+				phrase.SetPhrase(story.Phrases[--storyProgress - 1]);
 			}
 
 		}
-		
+
 	}
 
 	/// <summary>
@@ -218,24 +272,24 @@ public class StoryManager : MonoBehaviour {
 	/// </summary>
 	public void NextStoryEvent()
 	{
-        //if(story.Phrases[storyProgress].Contains("What color do you like?"))
-        //{
-        //    SceneManager.LoadScene("Round0MiniGame");
-        //    storyProgress++;
-        //}
-		if(storyProgress < story.Sentences.Count)
+		//if(story.Phrases[storyProgress].Contains("What color do you like?"))
+		//{
+		//    SceneManager.LoadScene("Round0MiniGame");
+		//    storyProgress++;
+		//}
+		if (storyProgress < story.Sentences.Count)
 		{
-            if (!locked)
-            {
-                thaiHelp.text = "";
-                UpdateText(1);
-                StartCoroutine(DestroyPopUp(0));
-            }
-        }
+			if (!locked)
+			{
+				thaiHelp.text = "";
+				UpdateText(1);
+				StartCoroutine(DestroyPopUp(0));
+			}
+		}
 		else
-        {
-            // SceneManager.LoadScene(""); // load the activity
-        }
+		{
+			// SceneManager.LoadScene(""); // load the activity
+		}
 	}
 
 	/// <summary>
@@ -243,95 +297,95 @@ public class StoryManager : MonoBehaviour {
 	/// </summary>
 	public void PreviousStoryEvent()
 	{
-        if (storyProgress > 1)
-        {
-            thaiHelp.text = "";
-            UpdateText(-1);
-        }
-        else
-        {
-            SceneManager.LoadScene("Level1Round1");
-        }
+		if (storyProgress > 1)
+		{
+			thaiHelp.text = "";
+			UpdateText(-1);
+		}
+		else
+		{
+			SceneManager.LoadScene("Level1Round1");
+		}
 
-    }
-
-    /// <summary>
-    /// instantiates a popUp prefab at the words location
-    /// </summary>
-    /// <param name="wordInfo">WordInfo of the word to be shown in Thai</param>
-    public void ShowThaiPopUp(string word, bool firstLine, PointerEventData eventData)
-    {
-        HideThaiHelp();
-        Vector2 pos = Camera.main.ScreenToWorldPoint(eventData.position);
-
-        GameObject popUp;
-        if (firstLine)
-        {
-            pos.y += 1f;
-            popUp = Instantiate(popUpTopPrefab, pos, popUpTopPrefab.transform.rotation);
-            if(Thai.WORDS.ContainsKey(word.ToLower()))
-            {
-                popUp.GetComponentInChildren<TextMesh>().text = Thai.WORDS[word.ToLower()];
-            }
-        }
-        else
-        {
-            pos.y -= 1f;
-            popUp = Instantiate(popUpBottomPrefab, pos, popUpTopPrefab.transform.rotation);
-            if (Thai.WORDS.ContainsKey(word.ToLower()))
-            {
-                popUp.GetComponentInChildren<TextMesh>().text = Thai.WORDS[word.ToLower()];
-            }
-        }
-        popUp.transform.SetParent(transform);
-        currWord = word;
-    }   
-
-    public IEnumerator DestroyPopUp(float wait)
-    {
-        yield return new WaitForSeconds(wait);
-        Destroy(GameObject.FindGameObjectWithTag("PopUp"));
-
-    }
-
-    /// <summary>
-    /// toggles the slowAudio bool
-    /// </summary>
-	public void PlaySlowAudio()
-	{
-        slowAudio = true;
-        PlayWord(currWord);
 	}
 
-    /// <summary>
-    /// Plays the Audio of the sentences, of the current phrase
-    /// </summary>
+	/// <summary>
+	/// instantiates a popUp prefab at the words location
+	/// </summary>
+	/// <param name="wordInfo">WordInfo of the word to be shown in Thai</param>
+	public void ShowThaiPopUp(string word, bool firstLine, PointerEventData eventData)
+	{
+		HideThaiHelp();
+		Vector2 pos = Camera.main.ScreenToWorldPoint(eventData.position);
+
+		GameObject popUp;
+		if (firstLine)
+		{
+			pos.y += 1f;
+			popUp = Instantiate(popUpTopPrefab, pos, popUpTopPrefab.transform.rotation);
+			if (Thai.WORDS.ContainsKey(word.ToLower()))
+			{
+				popUp.GetComponentInChildren<TextMesh>().text = Thai.WORDS[word.ToLower()];
+			}
+		}
+		else
+		{
+			pos.y -= 1f;
+			popUp = Instantiate(popUpBottomPrefab, pos, popUpTopPrefab.transform.rotation);
+			if (Thai.WORDS.ContainsKey(word.ToLower()))
+			{
+				popUp.GetComponentInChildren<TextMesh>().text = Thai.WORDS[word.ToLower()];
+			}
+		}
+		popUp.transform.SetParent(transform);
+		currWord = word;
+	}
+
+	public IEnumerator DestroyPopUp(float wait)
+	{
+		yield return new WaitForSeconds(wait);
+		Destroy(GameObject.FindGameObjectWithTag("PopUp"));
+
+	}
+
+	/// <summary>
+	/// toggles the slowAudio bool
+	/// </summary>
+	public void PlaySlowAudio()
+	{
+		slowAudio = true;
+		PlayWord(currWord);
+	}
+
+	/// <summary>
+	/// Plays the Audio of the sentences, of the current phrase
+	/// </summary>
 	public void PlayPhrase()
 	{
 
 	}
 
-    /// <summary>
-    /// Shows a summary of the phrase in thai
-    /// </summary>
-    public void ShowThaiHelpText()
-    {
-        // Eventually will add a mapper to the words from english to thai and access the translation that way
-        if (thaiHelp.text == "")
-        {
-            StartCoroutine(DestroyPopUp(0));
-            thaiHelp.text = "Phrase in thai";
-        }
-        else
-        {
-            thaiHelp.text = "";
-        }
+	/// <summary>
+	/// Shows a summary of the phrase in thai
+	/// </summary>
+	public void ShowThaiHelpText()
+	{
+		// Eventually will add a mapper to the words from english to thai and access the translation that way
+		if (thaiHelp.text == "")
+		{
+			StartCoroutine(DestroyPopUp(0));
+			thaiHelp.text = "Phrase in thai";
+		}
+		else
+		{
+			thaiHelp.text = "";
+		}
 
-    }
+	}
 
-    private void HideThaiHelp()
-    {
-        thaiHelp.text = "";
-    }
+	private void HideThaiHelp()
+	{
+		thaiHelp.text = "";
+	}
 
 }
