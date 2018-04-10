@@ -40,6 +40,8 @@ public class UIManager : MonoBehaviour {
 
     }
 
+
+	/* We may use this later
     public void showProfilePanel()
     {
         animateProf = !animateProf;
@@ -52,6 +54,6 @@ public class UIManager : MonoBehaviour {
 		purpbck.SetActive (false);
 		select.GetComponent<Text>().enabled = false;
 		GameTitle.GetComponent<Text>().enabled = false;
-    }
+    }*/
 
 }
