@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -108,19 +109,11 @@ public class StoryManager : MonoBehaviour
 	/// </summary>
 	void LoadSounds()
 	{
-<<<<<<< HEAD
-        if (SystemInfo.deviceType == DeviceType.Desktop)
-        {
-            FileInfo[] files;
-            string fileName = Application.dataPath + "/" + "Sounds/Words/";
-            var info = new DirectoryInfo(fileName);
-=======
 		if (SystemInfo.deviceType == DeviceType.Desktop)
 		{
 			FileInfo[] files;
 			string fileName = Application.dataPath + "/Resources/Words/";
 			var info = new DirectoryInfo(fileName);
->>>>>>> f41ebbf2fb6074d27c945f718975c0604a6b0c65
 
 			files = info.GetFiles()
 				.Where(f => Path.GetExtension(f.Name) == ".wav" || Path.GetExtension(f.Name) == ".ogg" || Path.GetExtension(f.Name) == ".mp3")
@@ -131,18 +124,6 @@ public class StoryManager : MonoBehaviour
 			{
 				StartCoroutine(LoadFile(file.FullName));
 			}
-
-<<<<<<< HEAD
-        }
-        else
-        {
-            AudioClip[] files = Resources.LoadAll<AudioClip>("Sounds/Words/");
-            foreach (var clip in files)
-            {
-                words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
-            }
-        }
-=======
 		}
 		else
 		{
@@ -165,7 +146,6 @@ public class StoryManager : MonoBehaviour
 	IEnumerator LoadFile(string path)
 	{
 		WWW www = new WWW("file://" + path);
->>>>>>> f41ebbf2fb6074d27c945f718975c0604a6b0c65
 
 		AudioClip clip = www.GetAudioClip(false);
 		while (clip.loadState != AudioDataLoadState.Loaded)
@@ -184,26 +164,6 @@ public class StoryManager : MonoBehaviour
 		string tmp;
 		try
 		{
-<<<<<<< HEAD
-            if(SystemInfo.deviceType == DeviceType.Handheld)
-            {
-                TextAsset file = Resources.Load("story.txt") as TextAsset;
-                string[] text = file.text.Split("\n"[0]);
-                foreach (string line in text)
-                {
-                    story.Sentences.Add(line.Trim());
-                }
-
-            }
-            else
-            {
-                StreamReader file = new StreamReader(Application.dataPath + "/story.txt");
-                while ((tmp = file.ReadLine()) != null)
-                {
-                    story.Sentences.Add(tmp.Trim());
-                }
-            }
-=======
 			if (SystemInfo.deviceType == DeviceType.Desktop)
 			{
 				StreamReader file = new StreamReader(Application.dataPath + "/Resources/story.txt");
@@ -222,21 +182,17 @@ public class StoryManager : MonoBehaviour
 					story.Sentences.Add(line.Trim());
 				}
 			}
->>>>>>> f41ebbf2fb6074d27c945f718975c0604a6b0c65
 		}
 		catch (FileNotFoundException ex)
 		{
 			Debug.Log("story.txt is not found in the Assets Folder. Exception: " + ex.Message);
 			return;
 		}
-<<<<<<< HEAD
-=======
 		catch (NullReferenceException ex)
 		{
 			Debug.Log("story.txt is not found in the Assets Folder. Exception: " + ex.Message);
 			return;
 		}
->>>>>>> f41ebbf2fb6074d27c945f718975c0604a6b0c65
 
 		story.setPhrases();
 
