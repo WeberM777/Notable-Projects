@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingsPanel : MonoBehaviour {
@@ -15,4 +16,9 @@ public class SettingsPanel : MonoBehaviour {
 		animateSet = !animateSet;
 		settingsAn.SetBool("AnimateSettings", animateSet);
 	}
+
+    public void SaveAndQuit()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }
