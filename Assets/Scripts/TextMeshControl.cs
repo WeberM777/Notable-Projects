@@ -31,7 +31,7 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
                 StoryManager.instance.locked = true;
                 int line = TMP_TextUtilities.FindIntersectingLine(TMP, eventData.position, eventData.enterEventCamera); // gets what line the word is on
                 TMP_WordInfo wordInfo = TMP.textInfo.wordInfo[index]; // gets the wordInfo of the given index
-                //StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData.position);
+
                 StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData);
                 StoryManager.instance.PlayWord(wordInfo.GetWord()); // plays audiofile of word
                 Debug.Log("Word [" + wordInfo.GetWord() + "]");

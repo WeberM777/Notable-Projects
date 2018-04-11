@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 1/Round1MidActivity.unity
     guid: c2f2388bc6f535a44afc4ba3db95014f
+  - enabled: 1
+    path: Assets/Scenes/Level 1/Level1Activity.unity
+    guid: fd02e5ddcf965e34489f3c8c36e39842

@@ -35,14 +35,14 @@ public class StoryManager : MonoBehaviour
 	{
 
 		audioSource = GetComponent<AudioSource>();
-		//if (instance == null) // singleton pattern, instance of StoryManager
-		//{
-			instance = this;
-		//}
-		//else
-		//{
-		//	Destroy(gameObject);
-		//}
+        if (instance == null) // singleton pattern, instance of StoryManager
+        {
+            instance = this;
+    }
+		else
+		{
+			Destroy(gameObject);
+}
 	}
 
 	// Use this for initialization
@@ -99,6 +99,7 @@ public class StoryManager : MonoBehaviour
 				{
 					audioSource.pitch = 1;
 					audioSource.Play();
+                    slowAudio = false;
 				}
 			}
 		}
@@ -228,14 +229,14 @@ public class StoryManager : MonoBehaviour
 	/// </summary>
 	public void NextStoryEvent()
 	{
-        if (story.Phrases[storyProgress].Contains("What color do you like?"))
-        {
-            SceneManager.LoadScene("Round1MidActivity", LoadSceneMode.Additive);
-            storyProgress++;
-        }
-        if (storyProgress < story.Sentences.Count)
+        if (storyProgress < story.Phrases.Count)
 		{
-			if (!locked)
+            if (story.Phrases[storyProgress].Contains("What color do you like?"))
+            {
+                SceneManager.LoadScene("Round1MidActivity", LoadSceneMode.Additive);
+                storyProgress++;
+            }
+            else if (!locked)
 			{
 				thaiHelp.text = "";
 				UpdateText(1);
@@ -244,7 +245,7 @@ public class StoryManager : MonoBehaviour
 		}
 		else
 		{
-			// SceneManager.LoadScene(""); // load the activity
+			SceneManager.LoadScene("Level1Activity"); // load the activity
 		}
 	}
 
@@ -311,6 +312,7 @@ public class StoryManager : MonoBehaviour
 	{
 		slowAudio = true;
 		PlayWord(currWord);
+        slowAudio = false;
 	}
 
 	/// <summary>
