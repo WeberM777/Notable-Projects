@@ -50,6 +50,10 @@ public class clickToChange : MonoBehaviour {
 	public AudioClip river_eng;
 	public Sprite RiverVisual;
 
+	//string m_textshowed;
+	//public string currentText = "";
+	//public float delay = 2.1f;
+
 	/*The rest of the vocab words*/
 	//moon
 	//bright
@@ -57,6 +61,12 @@ public class clickToChange : MonoBehaviour {
 	//music
 	//dancing
 	//friend
+
+	/*
+	// Use this for initialization
+	void Start () {
+		StartCoroutine(ShowText());
+	}*/
 
 	//next button push
 	public void nextMouseClick(){
@@ -76,6 +86,7 @@ public class clickToChange : MonoBehaviour {
 			currentIndex--;
 		}
 		//loads everthing for that screen
+		//ShowText();
 		allTheStuff ();
 	}
 
@@ -85,7 +96,7 @@ public class clickToChange : MonoBehaviour {
 		//pull in images and audio for word
 		if (currentIndex == 0) {
 
-			textshowed.text = "Banana";
+			textshowed.text = "banana";
 			thai_textshowed.text = "กล้วย";
 			VocabImage.GetComponent<Image> ().sprite = BananaVisual;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = banana_eng;
@@ -95,7 +106,8 @@ public class clickToChange : MonoBehaviour {
 
 		if (currentIndex == 1) {
 
-			textshowed.text = "Leaves";
+			//ShowText ();
+			textshowed.text = "leaves";
 			thai_textshowed.text = "ใบไม้";
 			VocabImage.GetComponent<Image> ().sprite = LeavesVisual;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = leaves_eng;
@@ -106,7 +118,7 @@ public class clickToChange : MonoBehaviour {
 
 		if (currentIndex == 2) {
 
-			textshowed.text = "Like";
+			textshowed.text = "like";
 			thai_textshowed.text = "ชอบ";
 			VocabImage.GetComponent<Image> ().sprite = LikeVisual;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = like_eng;
@@ -117,7 +129,7 @@ public class clickToChange : MonoBehaviour {
 
 		if (currentIndex == 3) {
 
-			textshowed.text = "Bread";
+			textshowed.text = "bread";
 			thai_textshowed.text = "ขนมปัง";
 			VocabImage.GetComponent<Image> ().sprite = BreadVisual;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = bread_eng;
@@ -128,7 +140,7 @@ public class clickToChange : MonoBehaviour {
 
 		if (currentIndex == 4) {
 
-			textshowed.text = "Wish";
+			textshowed.text = "wish";
 			thai_textshowed.text = "ประสงค์";
 			VocabImage.GetComponent<Image> ().sprite = WishVisual;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = wish_eng;
@@ -139,7 +151,7 @@ public class clickToChange : MonoBehaviour {
 
 		if (currentIndex == 5) {
 
-			textshowed.text = "River";
+			textshowed.text = "river";
 			thai_textshowed.text = "แม่น้ำ";
 			VocabImage.GetComponent<Image> ().sprite = RiverVisual;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = river_eng;
@@ -156,17 +168,23 @@ public class clickToChange : MonoBehaviour {
 			
 	}
 		
-	//change the scene to pre activity
-	/*public void changeScenes1(){
 
-		SceneManager.LoadScene("Level1- vocabActivity1");
-
-	}*/
-
-	//change the scene to Color Activiyt (then that scene is programed to go to story
+	//change the scene to Color Activity (then that scene is programed to go to story
 	public void changeScenes2(){
 
 		SceneManager.LoadScene("Level1Round1Activity");
 	}
-		
+
+	/*public IEnumerator ShowText(){
+
+		m_textshowed = textshowed.text;
+
+		for(int i = 0; i < m_textshowed.Length; i++){
+			currentText = m_textshowed.Substring(0,i);
+			this.GetComponent<Text>().text = currentText;
+			yield return new WaitForSeconds(delay);
+		}
+
+			
+	}*/
 }

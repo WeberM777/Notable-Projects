@@ -1622,7 +1622,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0E2A\u0E35\u0E41\u0E14\u0E07\nRED"
+  m_Text: "\u0E2A\u0E35\u0E41\u0E14\u0E07\nred"
 --- !u!222 &556290113
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2159,7 +2159,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0E2A\u0E35\u0E19\u0E49\u0E33\u0E40\u0E07\u0E34\u0E19\nBLUE"
+  m_Text: "\u0E2A\u0E35\u0E19\u0E49\u0E33\u0E40\u0E07\u0E34\u0E19\nblue"
 --- !u!222 &1091644536
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2309,8 +2309,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 339, y: 13}
-  m_SizeDelta: {x: 30, y: 90}
+  m_AnchoredPosition: {x: 341, y: -17}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1373404592
 MonoBehaviour:
@@ -2394,7 +2394,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ce3b7650036ff4fc6b13af896e5155d1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ac101b8076f90433d8b247efe42e4fce, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2475,7 +2475,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0E2A\u0E35\u0E40\u0E02\u0E35\u0E22\u0E27\nGREEN"
+  m_Text: "\u0E2A\u0E35\u0E40\u0E02\u0E35\u0E22\u0E27\ngreen"
 --- !u!222 &1489710760
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2563,8 +2563,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -357, y: -8.3054}
-  m_SizeDelta: {x: 30, y: 90}
+  m_AnchoredPosition: {x: -358, y: -17}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1622937818
 MonoBehaviour:
@@ -2588,7 +2588,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.5084227, g: 0.12106998, b: 0.6586207, a: 1}
-    m_DisabledColor: {r: 0.9758621, g: 0.14350915, b: 0.5474453, a: 0.5019608}
+    m_DisabledColor: {r: 0.7275862, g: 0.7275862, b: 0.7275862, a: 0.672}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2626,7 +2626,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 2462f3ad1206a47c5ab2c1de0e6e887e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d2b5630af40af4ae486c78a1330273ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2707,7 +2707,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0E2A\u0E35\u0E40\u0E2B\u0E25\u0E37\u0E2D\u0E07\nYELLOW"
+  m_Text: "\u0E2A\u0E35\u0E40\u0E2B\u0E25\u0E37\u0E2D\u0E07\nyellow"
 --- !u!222 &1631387377
 CanvasRenderer:
   m_ObjectHideFlags: 0
