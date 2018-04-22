@@ -28,13 +28,11 @@ public class Level1GameManager : MonoBehaviour {
         if (Application.platform != RuntimePlatform.Android)
         {
             Debug.Log("Speech recognition is only available on Android platform.");
-            return;
         }
 
         if (!SpeechRecognizerManager.IsAvailable())
         {
             Debug.Log("Speech recognition is not available on this device.");
-            return;
         }
 
         // We pass the game object's name that will receive the callback messages.
