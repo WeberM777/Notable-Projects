@@ -19,6 +19,7 @@ public class StoryManager : MonoBehaviour
 	public GameObject popUpBottomPrefab;
 	public GameObject popUpTopPrefab;
 	public TextMeshProUGUI thaiHelp;
+    public GameObject ThaiHelpPanel;
 
 	public bool locked = false;
 	private string currWord;
@@ -245,7 +246,8 @@ public class StoryManager : MonoBehaviour
 		}
 		else
 		{
-			SceneManager.LoadScene("Level1Activity"); // load the activity
+            GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene("Level1Activity"); // load the activity
 		}
 	}
 
@@ -333,17 +335,21 @@ public class StoryManager : MonoBehaviour
 		{
 			StartCoroutine(DestroyPopUp(0));
 			thaiHelp.text = "Phrase in thai";
+            ThaiHelpPanel.SetActive(true);
 		}
 		else
 		{
 			thaiHelp.text = "";
-		}
+            ThaiHelpPanel.SetActive(false);
+
+        }
 
 	}
 
 	private void HideThaiHelp()
 	{
 		thaiHelp.text = "";
-	}
+        ThaiHelpPanel.SetActive(false);
+    }
 
 }

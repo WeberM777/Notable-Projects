@@ -7,7 +7,7 @@ public class changeScenes : MonoBehaviour {
 
 	//change the scene to story scene
 	public void changeStory1(){
-
-		SceneManager.LoadScene("Story - Level1");
+        FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("Story - Level1");
 	}
 }

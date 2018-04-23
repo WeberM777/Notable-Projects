@@ -170,8 +170,9 @@ public class clickToChange : MonoBehaviour {
 		
 
 	//change the scene to Color Activity (then that scene is programed to go to story
-	public void changeScenes2(){
+	public void changeScenes2() {
 
+        FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
 		SceneManager.LoadScene("Level1Round1Activity");
 	}
 

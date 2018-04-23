@@ -139,6 +139,6 @@ public class UIColorPick : MonoBehaviour
             button.SetActive(false);
         }
         doneButton.SetActive(true);
-        textMesh.text = "Now ask a friend what color they like!";
+        textMesh.text = "Ask a friend, \"What color do you like?\"";
     }
 }

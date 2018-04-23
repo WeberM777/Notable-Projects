@@ -9,9 +9,18 @@ public class GameManager : MonoBehaviour {
 	const int BEGINNER = 0;
 	const int INTERMEDIATE = 1;
 
-	public void StartBeginnerGame()
+
+    private string userName;
+    public int progress;
+    public UIManager UIManager;
+
+    public string[] scenes;
+
+    public void StartBeginnerGame()
 	{
-        SceneManager.LoadScene("Level1Round1");
+        if (scenes[progress] == "Round1MidActivity")
+            progress++;
+        SceneManager.LoadScene(scenes[progress]);
 	}
 
 	public void StartIntermediateGame()
@@ -19,13 +28,64 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene("Level1Round1"); // this is temporary, will be the intermediate vocabs
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    private void Awake()
+    {
+        // allows game manager to remain active through entire application
+        DontDestroyOnLoad(this);
+    }
+    
+    public void StartApplication()
+    {
+        loadUserProgress();
+        UIManager.showDifficultyPanel();
+    }
+
+    public string UserName
+    {
+        get
+        {
+            return userName;
+        }
+    }
+
+    public void setUserName(string userName)
+    {
+        this.userName = userName;
+    }
+
+    /// <summary>
+    /// Saves the users progress for continuation at a later time
+    /// </summary>
+    public void SaveUserProgress(int progress)
+    {
+        if(progress >= scenes.Length)
+        {
+            PlayerPrefs.SetInt(userName, 0);
+        }
+        else
+        {
+                PlayerPrefs.SetInt(userName, progress);
+        }
+    }
+
+
+    /// <summary>
+    /// loads the users progress if exists
+    /// </summary>
+    private void loadUserProgress()
+    {
+        progress = PlayerPrefs.GetInt(userName);
+    }
 }

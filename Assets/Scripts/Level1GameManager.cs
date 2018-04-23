@@ -22,6 +22,7 @@ public class Level1GameManager : MonoBehaviour {
     private bool voiceOpen = false;
     private Vector2 origRudee;
     private Vector2 origLamon;
+    private int misses;
 
 	// Use this for initialization
 	void Start () {
@@ -149,6 +150,7 @@ public class Level1GameManager : MonoBehaviour {
     {
         resetTMs();
         yield return new WaitForSeconds(1);
+        misses = 0;
         status.text = "";
         voiceOpen = true;
         int index = Random.Range(0, 3);
@@ -167,7 +169,7 @@ public class Level1GameManager : MonoBehaviour {
     {
         foreach (string text in texts) 
         {
-            if(text.ToLower().Equals(sentences[progress].ToLower()))
+            if(text.ToLower().Equals(sentences[progress].ToLower()) || misses > 2)
             {
                 progress++;
                 if(progress < sentences.Count)
@@ -239,11 +241,13 @@ public class Level1GameManager : MonoBehaviour {
     private IEnumerator LoadNextSceneDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadScene("Menu");
     }
 
     private IEnumerator tryAgain()
     {
+        misses++;
         voiceOpen = false;
         status.text = "Try Again ลองอีกครั้ง";
         yield return new WaitForSeconds(1);

@@ -9,6 +9,7 @@ TagManager:
   - Fire
   - Button
   - NextButton
+  - Panel
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,7 @@ public class SettingsPanel : MonoBehaviour {
 
 	public Animator settingsAn;
 	bool animateSet = false;
+    public Text userName;
 
 	//Will animate settings panel
 	public void showSettingsPanel()
