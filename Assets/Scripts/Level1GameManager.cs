@@ -17,12 +17,12 @@ public class Level1GameManager : MonoBehaviour {
     private List<string> sentences;
     private bool listening = false;
     private string message = "";
-    private int progress = 0;
+    private int progress = 0; // what progress they are in the game
     private int movement;
-    private bool voiceOpen = false;
+    private bool voiceOpen = false; // value that if true tells the speech recognizer it should be listening for a response
     private Vector2 origRudee;
     private Vector2 origLamon;
-    private int misses;
+    private int misses; // how many missed pronounced phrases
 
 	// Use this for initialization
 	void Start () {
@@ -38,17 +38,17 @@ public class Level1GameManager : MonoBehaviour {
 
         // We pass the game object's name that will receive the callback messages.
         speech = new SpeechRecognizerManager(gameObject.name);
+
+        // Adds sentences to the game
         sentences = new List<string>();
         sentences.Add("She is glad");
         sentences.Add("He is sad");
         sentences.Add("She likes pink");
-        sentences.Add("His brother helped him");
         sentences.Add("He will make a wish");
-        sentences.Add("The Moon is bright");
         sentences.Add("I wish I had a friend");
         sentences.Add("He likes pink too");
         sentences.Add("His wish came true");
-        movement = (Screen.width - 500) / 2 / sentences.Count;
+        movement = (Screen.width - 500) / 2 / sentences.Count; // calculates the movement of the characters based on the screen size
         origLamon = lamon.transform.position;
         origRudee = rudee.transform.position;
     }
@@ -60,6 +60,7 @@ public class Level1GameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        // allows for a reprompt of the phrase if the speech recognizer times out
         if (SpeechRecognizerManager.IsAvailable() && voiceOpen)
         {
             if (!listening)
@@ -69,6 +70,11 @@ public class Level1GameManager : MonoBehaviour {
             }
         }
     }
+
+    /// <summary>
+    /// Event handler, used for debugging purposes
+    /// </summary>
+    /// <param name="e"></param>
     void OnSpeechEvent(string e)
     {
         switch (int.Parse(e))
@@ -85,6 +91,10 @@ public class Level1GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Event handler for when the speech recognizer returns results
+    /// </summary>
+    /// <param name="results"></param>
     void OnSpeechResults(string results)
     {
         listening = false;
@@ -98,6 +108,10 @@ public class Level1GameManager : MonoBehaviour {
         validateSpeech(texts);
     }
 
+    /// <summary>
+    /// Event handler for errors, mainly for debugging
+    /// </summary>
+    /// <param name="error"></param>
     void OnSpeechError(string error)
     {
         switch (int.Parse(error))
@@ -139,6 +153,9 @@ public class Level1GameManager : MonoBehaviour {
         listening = false;
     }
 
+    /// <summary>
+    /// Enables all Game objects and prepares them for the game
+    /// </summary>
     public void StartGame()
     {
         instructionPanel.SetActive(false);
@@ -146,6 +163,10 @@ public class Level1GameManager : MonoBehaviour {
         StartCoroutine(NextSentence());
     }
 
+    /// <summary>
+    /// Moves on the the next sentence in the list.  This is called at the beginning of the game and after each correct sentence
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator NextSentence()
     {
         resetTMs();
@@ -165,6 +186,11 @@ public class Level1GameManager : MonoBehaviour {
         }
     }
 
+
+    /// <summary>
+    /// Validates if what the user said matches the sentence given
+    /// </summary>
+    /// <param name="texts"></param>
     private void validateSpeech(string[] texts)
     {
         foreach (string text in texts) 
@@ -192,6 +218,9 @@ public class Level1GameManager : MonoBehaviour {
         StartCoroutine(tryAgain());
     }
 
+    /// <summary>
+    /// Moves the characters on the screen
+    /// </summary>
     private void movePeopleForward()
     {
         Vector2 pos = new Vector2(rudee.transform.position.x - movement, rudee.transform.position.y);
@@ -200,7 +229,10 @@ public class Level1GameManager : MonoBehaviour {
         lamon.transform.position = pos;
     }
 
-    private void movePeopleBackward()
+    /// <summary>
+    /// Moves characters backward
+    /// </summary>
+    private void movePeopleBackward() // this is not working right now
     {
         Vector2 pos;
         if (rudee.transform.position.x + movement < -50 || lamon.transform.position.x - movement < 50)
@@ -217,6 +249,9 @@ public class Level1GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Resets all the text meshes before each new round
+    /// </summary>
     private void resetTMs()
     {
         foreach (var TM in SentenceTextMesh)
@@ -225,6 +260,9 @@ public class Level1GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Ends the game
+    /// </summary>
     private void endGame()
     {
         status.text = "";
@@ -245,6 +283,10 @@ public class Level1GameManager : MonoBehaviour {
         SceneManager.LoadScene("Menu");
     }
 
+    /// <summary>
+    /// Called when users input is not validated correctly
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator tryAgain()
     {
         misses++;
