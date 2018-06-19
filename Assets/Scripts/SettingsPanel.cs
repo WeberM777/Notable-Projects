@@ -21,6 +21,7 @@ public class SettingsPanel : MonoBehaviour {
 
     public void SaveAndQuit()
     {
+        Destroy(GameObject.FindObjectOfType<GameManager>());
         SceneManager.LoadScene("Menu");
     }
 }

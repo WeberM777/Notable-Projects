@@ -280,6 +280,7 @@ public class Level1GameManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(delay);
         GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        Destroy(GameObject.FindObjectOfType<GameManager>());
         SceneManager.LoadScene("Menu");
     }
 
