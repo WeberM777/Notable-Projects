@@ -340,9 +340,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'LEVEL
-
-    3'
+  m_Text: "LEVEL 3\n\u0E0A\u0E31\u0E49\u0E19  3"
 --- !u!222 &287304106
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -750,9 +748,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'LEVEL
-
-    2'
+  m_Text: "LEVEL 2\n\u0E0A\u0E31\u0E49\u0E19  2"
 --- !u!222 &391217388
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -771,7 +767,7 @@ GameObject:
   - component: {fileID: 506634946}
   - component: {fileID: 506634945}
   m_Layer: 5
-  m_Name: BeginnerButton
+  m_Name: Level1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -836,7 +832,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1366307119}
-        m_MethodName: StartBeginnerGame
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1179,7 +1175,7 @@ GameObject:
   - component: {fileID: 636413782}
   - component: {fileID: 636413781}
   m_Layer: 5
-  m_Name: Lock
+  m_Name: Level2Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1200,7 +1196,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 46.34, y: 5.33}
+  m_AnchoredPosition: {x: 44.682785, y: 6.1672983}
   m_SizeDelta: {x: 36.67, y: 47.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &636413781
@@ -1705,9 +1701,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'LEVEL
-
-    4'
+  m_Text: "LEVEL 4\n\u0E0A\u0E31\u0E49\u0E19  4"
 --- !u!222 &1109275827
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1909,7 +1903,7 @@ GameObject:
   - component: {fileID: 1263693138}
   - component: {fileID: 1263693137}
   m_Layer: 5
-  m_Name: Lock (1)
+  m_Name: Level3Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1930,7 +1924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -58.1, y: -77.216}
+  m_AnchoredPosition: {x: -58.1, y: -77.215515}
   m_SizeDelta: {x: 36.67, y: 47.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1263693137
@@ -2068,6 +2062,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2716ab9dcaa3eb44daffcf8201f2d8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Level2Lock: {fileID: 636413779}
+  Level3Lock: {fileID: 1263693135}
+  Level4Lock: {fileID: 1865353850}
+  Level2Button: {fileID: 1859367588}
+  Level3Button: {fileID: 1554452202}
+  Level4Button: {fileID: 352725987}
   progress: 0
   UIManager: {fileID: 373100726}
   scenes:
@@ -2475,7 +2475,7 @@ GameObject:
   - component: {fileID: 1859367591}
   - component: {fileID: 1859367590}
   m_Layer: 5
-  m_Name: IntermediateButton
+  m_Name: Level2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2585,7 +2585,7 @@ GameObject:
   - component: {fileID: 1865353853}
   - component: {fileID: 1865353852}
   m_Layer: 5
-  m_Name: Lock (2)
+  m_Name: Level4Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

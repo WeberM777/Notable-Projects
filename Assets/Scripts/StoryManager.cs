@@ -234,7 +234,18 @@ public class StoryManager : MonoBehaviour
 		{
             if (story.Phrases[storyProgress].Contains("What color do you like?"))
             {
-                SceneManager.LoadScene("Round1MidActivity", LoadSceneMode.Additive);
+                switch (SceneManager.GetActiveScene().name)
+                {
+                    case "Story - Level 1":
+                        SceneManager.LoadScene("Round1MidActivity", LoadSceneMode.Additive);
+                        break;
+                    case "Story - Level 2":
+                        break;
+                    case "Story - Level 3":
+                        break;
+                    case "Story - Level 4":
+                        break;
+                }
                 storyProgress++;
             }
             else if (!locked)
@@ -246,7 +257,10 @@ public class StoryManager : MonoBehaviour
 		}
 		else
 		{
-            GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+            if (GameObject.FindObjectOfType<GameManager>().progress < SceneManager.GetActiveScene().buildIndex)
+            {
+                GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+            }
             SceneManager.LoadScene("Level1Activity"); // load the activity
 		}
 	}
