@@ -18,6 +18,14 @@ public class clickToChange : MonoBehaviour {
 
 	public int currentIndex; //keeps track of the index for words
 
+    ////list of english vocab words
+    //List<string> vocabwords = new List<string>(){"banana", "leaves", "like", "bread", "wish", "river",
+    //"dancing", "friend", "bright", "moon", "candle", "music"};
+
+    ////list of thai vocab words
+    //List<string> thaivocabwords = new List<string>(){"กล้วย", "ใบไม้", "ชอบ", "ขนมปัง", "ประสงค์", "แม่น้ำ",
+        //"การเต้นรำ", "เพื่อน", "สดใส", "ดวงจันทร์", "เทียน", "เพลง"};
+
 	//english text on screen
 	public Text textshowed = null;
 	//thai text on screen
@@ -33,22 +41,22 @@ public class clickToChange : MonoBehaviour {
 
 	//banana
 	public AudioClip banana_eng;
-	public Sprite BananaVisual;
+	public Sprite banana;
 	//leaves
 	public AudioClip leaves_eng;
-	public Sprite LeavesVisual;
+	public Sprite leaves;
 	//like
 	public AudioClip like_eng;
-	public Sprite LikeVisual;
+	public Sprite like;
 	//bread
 	public AudioClip bread_eng;
-	public Sprite BreadVisual;
+	public Sprite bread;
 	//wish
 	public AudioClip wish_eng;
-	public Sprite WishVisual;
+	public Sprite wish;
 	//river
 	public AudioClip river_eng;
-	public Sprite RiverVisual;
+	public Sprite river;
 
 	//string m_textshowed;
 	//public string currentText = "";
@@ -93,12 +101,26 @@ public class clickToChange : MonoBehaviour {
 	//all the components for each word
 	public void allTheStuff(){
 
+        //while (currentIndex >= 0){
+            
+        //    textshowed.text = vocabwords[currentIndex];
+        //    thai_textshowed.text = thaivocabwords[currentIndex];
+        //    VocabImage.GetComponent<Image>().sprite = Resources.Load < Sprite > (vocabwords[currentIndex]);
+        //    Eng_RegularAudio.GetComponent<AudioSource>().clip = banana_eng;
+
+
+        //}
+
+
+
+
+
 		//pull in images and audio for word
 		if (currentIndex == 0) {
 
-			textshowed.text = "banana";
+            textshowed.text = "banana";
 			thai_textshowed.text = "กล้วย";
-			VocabImage.GetComponent<Image> ().sprite = BananaVisual;
+			VocabImage.GetComponent<Image> ().sprite = banana;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = banana_eng;
 			Eng_SlowAudio.GetComponent <AudioSource> ().clip = banana_eng;
 			PreviousButton.interactable = false;
@@ -109,7 +131,7 @@ public class clickToChange : MonoBehaviour {
 			//ShowText ();
 			textshowed.text = "leaves";
 			thai_textshowed.text = "ใบไม้";
-			VocabImage.GetComponent<Image> ().sprite = LeavesVisual;
+			VocabImage.GetComponent<Image> ().sprite = leaves;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = leaves_eng;
 			Eng_SlowAudio.GetComponent <AudioSource> ().clip = leaves_eng;
 			PreviousButton.interactable = true;
@@ -120,7 +142,7 @@ public class clickToChange : MonoBehaviour {
 
 			textshowed.text = "like";
 			thai_textshowed.text = "ชอบ";
-			VocabImage.GetComponent<Image> ().sprite = LikeVisual;
+			VocabImage.GetComponent<Image> ().sprite = like;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = like_eng;
 			Eng_SlowAudio.GetComponent <AudioSource> ().clip = like_eng;
 			PreviousButton.interactable = true;
@@ -128,10 +150,10 @@ public class clickToChange : MonoBehaviour {
 		}
 
 		if (currentIndex == 3) {
-
+            
 			textshowed.text = "bread";
 			thai_textshowed.text = "ขนมปัง";
-			VocabImage.GetComponent<Image> ().sprite = BreadVisual;
+			VocabImage.GetComponent<Image> ().sprite = bread;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = bread_eng;
 			Eng_SlowAudio.GetComponent <AudioSource> ().clip = bread_eng;
 			PreviousButton.interactable = true;
@@ -142,7 +164,7 @@ public class clickToChange : MonoBehaviour {
 
 			textshowed.text = "wish";
 			thai_textshowed.text = "ประสงค์";
-			VocabImage.GetComponent<Image> ().sprite = WishVisual;
+			VocabImage.GetComponent<Image> ().sprite = wish;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = wish_eng;
 			Eng_SlowAudio.GetComponent <AudioSource> ().clip = wish_eng;
 			PreviousButton.interactable = true;
@@ -153,7 +175,7 @@ public class clickToChange : MonoBehaviour {
 
 			textshowed.text = "river";
 			thai_textshowed.text = "แม่น้ำ";
-			VocabImage.GetComponent<Image> ().sprite = RiverVisual;
+			VocabImage.GetComponent<Image> ().sprite = river;
 			Eng_RegularAudio.GetComponent <AudioSource> ().clip = river_eng;
 			Eng_SlowAudio.GetComponent <AudioSource> ().clip = river_eng;
 			PreviousButton.interactable = true;

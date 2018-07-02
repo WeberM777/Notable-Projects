@@ -127,90 +127,88 @@ public class level2ClickToChange : MonoBehaviour {
 	}
 
 
-//	//IMPLMENT GAME LOGIC
-//	//all the components for each word
-//	public void allTheStuff(){
-//
-//		//int to save the random button number
-//		int buttonNumber;
-//
-//		randomWord = Random.Range(0,12);
-//		randomButton = Random.Range (0, 4);
-//
-//		/* TO USE IN FIRST VOCAB SCENE!!!
-//		while (currentIndex >= 0) {
-//			BTN3Text.text = vocabwords[0];
-//			
-//		}*/
-//
-//		//randomize answers
-//		BTNText1.text = vocabwords [randomWord];
-//		BTNText2.text = vocabwords [randomWord];
-//		BTNText3.text = vocabwords [randomWord];
-//		BTNText4.text = vocabwords [randomWord];
-//
-//
-//
-//		//pull in images and audio for word
-//		while (currentIndex >= 0) {
-//
-//			//FIX randomButton = buttonNumber;
-//
-//			if (currentIndex == 0) {
-//				PreviousButton.interactable = false;
-//			} else {
-//				PreviousButton.interactable = true;
-//			}
-//
-//			if (currentIndex == 12) {
-//				//changeScenes6 ();
-//			}
-//
-//			//create text variable to hold correct word
-//			Text correctWord;
-//			Text correctButton;
-//
-//			//add in next word from the list - will be the correct word ie sample: will put in "banana" 
-//			//FIX correctWord = vocabwords [currentIndex];
-//
-//
-//			//randomizes the button with correct word ie sample will put in "BTNText1.text"
-//			//FIX correctButton = buttonTextName[buttonNumber];
-//
-//
-//			//adds in the correct text inside the correct button *hopefully
-//			//FIXcorrectButton = correctWord;
-//			//places in correct thai word
-//			thai_textshowed.text = thaivocabwords[currentIndex];
-//			//places in correct visual
-//			VocabImage.GetComponent<Image> ().sprite = BananaVisual;
-//
-//			//places in correct audio clip
-//			//FIX Eng_RegularAudio.GetComponent <AudioSource> ().clip = correctWord+_eng;
-//
-//			//if correct button change that symbol to checkmark
-//			if (correctButton) {
-//
-//				if (buttonNumber == 0) {
-//					Symbol1.GetComponent<Image> ().sprite = checkmark;
-//				}
-//				if (buttonNumber == 1) {
-//					Symbol2.GetComponent<Image> ().sprite = checkmark;
-//				}
-//				if (buttonNumber == 2) {
-//					Symbol3.GetComponent<Image> ().sprite = checkmark;
-//				}
-//				if (buttonNumber == 3) {
-//					Symbol4.GetComponent<Image> ().sprite = checkmark;
-//				}
-//
-//			}
-//
-//
-//		}
-//
-//
-//	}
+	////IMPLMENT GAME LOGIC
+	////all the components for each word
+	//public void allTheStuff(){
+
+	//	//int to save the random button number
+	//	int buttonNumber;
+
+	//	randomWord = Random.Range(0,12);
+	//	randomButton = Random.Range (0, 4);
+
+	//	/* TO USE IN FIRST VOCAB SCENE!!!
+	//	while (currentIndex >= 0) {
+	//		BTN3Text.text = vocabwords[0];
+			
+	//	}*/
+
+	//	//randomize answers
+	//	BTNText1.text = vocabwords [randomWord];
+	//	BTNText2.text = vocabwords [randomWord];
+	//	BTNText3.text = vocabwords [randomWord];
+	//	BTNText4.text = vocabwords [randomWord];
+
+	//	//pull in images and audio for word
+	//	while (currentIndex >= 0) {
+
+	//		randomButton = buttonNumber;
+
+	//		if (currentIndex == 0) {
+	//			PreviousButton.interactable = false;
+	//		} else {
+	//			PreviousButton.interactable = true;
+	//		}
+
+	//		if (currentIndex == 12) {
+	//			//changeScenes6 ();
+	//		}
+
+	//		//create text variable to hold correct word
+	//		Text correctWord;
+	//		Text correctButton;
+
+	//		//add in next word from the list - will be the correct word ie sample: will put in "banana" 
+	//		correctWord = vocabwords [currentIndex];
+
+
+	//		//randomizes the button with correct word ie sample will put in "BTNText1.text"
+	//		correctButton = buttonTextName[buttonNumber];
+
+
+	//		//adds in the correct text inside the correct button *hopefully
+	//		correctButton = correctWord;
+	//		//places in correct thai word
+	//		thai_textshowed.text = thaivocabwords[currentIndex];
+	//		//places in correct visual
+	//		VocabImage.GetComponent<Image> ().sprite = BananaVisual;
+
+	//		//places in correct audio clip
+	//		Eng_RegularAudio.GetComponent <AudioSource> ().clip = correctWord + "_eng";
+
+	//		//if correct button change that symbol to checkmark
+	//		if (correctButton) {
+
+	//			if (buttonNumber == 0) {
+	//				Symbol1.GetComponent<Image> ().sprite = checkmark;
+	//			}
+	//			if (buttonNumber == 1) {
+	//				Symbol2.GetComponent<Image> ().sprite = checkmark;
+	//			}
+	//			if (buttonNumber == 2) {
+	//				Symbol3.GetComponent<Image> ().sprite = checkmark;
+	//			}
+	//			if (buttonNumber == 3) {
+	//				Symbol4.GetComponent<Image> ().sprite = checkmark;
+	//			}
+
+	//		}
+
+
+	//	}
+
+
+	//}
 
 	/*TO DO: CHANGE TO NEXT SCENE 
 	//change the scene to Color Activity (then that scene is programed to go to story
