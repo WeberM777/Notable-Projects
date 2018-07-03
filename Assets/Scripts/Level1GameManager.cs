@@ -37,6 +37,8 @@ public class Level1GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        endGame();
+        return;
         if (Application.platform != RuntimePlatform.Android)
         {
             Debug.Log("Speech recognition is only available on Android platform.");

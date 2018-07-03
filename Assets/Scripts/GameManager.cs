@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour {
         {
             loadUserProgress();
 
-            if (progress > 15)
+            if (progress > 12)
             {
                 Level1Button.GetComponent<Button>().interactable = false;
                 Level1Lock.SetActive(true);
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
                 Level4Lock.SetActive(false);
                 Level4Button.GetComponent<Button>().interactable = true;
             }
-            else if (progress > 10)
+            else if (progress > 8)
             {
                 Level1Lock.SetActive(true);
                 Level2Button.GetComponent<Button>().interactable = false;
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour {
                 Level3Lock.SetActive(false);
                 Level3Button.GetComponent<Button>().interactable = true;
             }
-            else if (progress > 5)
+            else if (progress > 4)
             {
                 Level2Lock.SetActive(false);
                 Level2Button.GetComponent<Button>().interactable = true;
