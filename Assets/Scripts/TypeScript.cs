@@ -1,43 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class TypeScript : MonoBehaviour {
 
-	public float delay = 2.1f;
-	public string fullText;
+	public float delay = .5f;
+	public string fullText = "";
 	public string currentText = "";
-	//public int vCount;
+
+	public int vCount;
+
+    //list of english vocab words
+    List<string> vocabwords = new List<string>(){"banana ", "leaves ", "like ", "bread ", "wish ", "river ",
+    "dancing ", "friend ", "bright ", "moon ", "candle ", "music "};
 
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(ShowText());
 	}
 
-	public IEnumerator ShowText(){
-		/*vCount++;
-		if (vCount <= 5) {
+    //next button push
+    public void nextMouseClick()
+    {
+        if (vCount <= 12)
+        {
+            vCount++;
+        }
+        StartCoroutine(ShowText());
+    }
 
-			if (vCount == 0) {
-				fullText = "Banana";
-			}
-			if (vCount == 1) {
-				fullText = "Leaves";
-			}
-			if (vCount == 2) {
-				fullText = "Like";
-			}
-			if (vCount == 3) {
-				fullText = "Bread";
-			}
-			if (vCount == 4) {
-				fullText = "Wish";
-			}
-			if (vCount == 5) {
-				fullText = "River";
-			}
-				
-		}*/
+    //next button push
+    public void previousMouseClick()
+    {
+        if (vCount <= 12)
+        {
+            vCount--;
+        }
+        StartCoroutine(ShowText());
+    }
+
+	public IEnumerator ShowText(){
+        fullText = vocabwords[vCount];
 
 		for(int i = 0; i < fullText.Length; i++){
 			currentText = fullText.Substring(0,i);

@@ -9,13 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class level2ClickToChange : MonoBehaviour {
 
-	public int currentIndex; //keeps track of the index for words
-
-	//randomizes the word
-	public static int randomWord;
-	//randomizes the correct answer button
-	public static int randomButton;
-
 	//list of english vocab words
 	List <string> vocabwords = new List <string> (){"banana", "leaves", "like", "bread", "wish", "river",
 	"dancing", "friend", "bright", "moon", "candle", "music"};
@@ -24,31 +17,33 @@ public class level2ClickToChange : MonoBehaviour {
 	List <string> thaivocabwords = new List <string> (){"กล้วย", "ใบไม้", "ชอบ", "ขนมปัง", "ประสงค์", "แม่น้ำ",
 		"การเต้นรำ", "เพื่อน", "สดใส", "ดวงจันทร์", "เทียน", "เพลง"};
 
-	//list of button names
-	List <string> buttonTextName = new List <string>() {"BTNText1.text", "BTNText2.text", "BTNText3.text", "BTNText4.text"};
+    //keeps track of the index for words
+    public int currentIndex = 0;
+    public int buttonPosition = 0;
 
-	//list of symbol names
-	List <string> buttonSyms = new List <string>() {"Symbol1", "Symbol2", "Symbol3", "Symbol4"};
+    //randomizes the word
+    public static int randomWord1;
+    //randomizes the word
+    public static int randomWord2;
+    //randomizes the word
+    public static int randomWord3;
+    //randomizes the word
+    public static int randomWord4;
 
-
-
+    //randomizes the correct answer button
+    public static int randomButton;
+   
 	//english button options
 	public Text BTNText1;
 	public Text BTNText2;
 	public Text BTNText3;
 	public Text BTNText4;
 
-	//english button audio source
-	public AudioSource Eng_Button1Audio;
-	public AudioSource Eng_Button2Audio;
-	public AudioSource Eng_Button3Audio;
-	public AudioSource Eng_Button4Audio;
-
-	//symbol button image
-	public Image Symbol1;
-	public Image Symbol2;
-	public Image Symbol3;
-	public Image Symbol4;
+	//symbol correct or wrong image
+	public GameObject Symbol1;
+	public GameObject Symbol2;
+	public GameObject Symbol3;
+	public GameObject Symbol4;
 
 	//symbol image
 	public Sprite checkmark;
@@ -60,165 +55,353 @@ public class level2ClickToChange : MonoBehaviour {
 	public Image VocabImage;
 	//english audio button
 	public AudioSource Eng_RegularAudio;
-	//previous button (left)
-	public Button PreviousButton;
+    //english slow audio button
+    public AudioSource answerSound;
+    //add audio clip for correct answer
+    public AudioClip checkmarkSound;
+    //add audio clip for wrong answer
+    public AudioClip xmarkSound;
+	//next button (left)
+    public Button NextButton;
 
-	//banana
-	public AudioClip banana_eng;
-	public Sprite BananaVisual;
-	//leaves
-	public AudioClip leaves_eng;
-	public Sprite LeavesVisual;
-	//like
-	public AudioClip like_eng;
-	public Sprite LikeVisual;
-	//bread
-	public AudioClip bread_eng;
-	public Sprite BreadVisual;
-	//wish
-	public AudioClip wish_eng;
-	public Sprite WishVisual;
-	//river
-	public AudioClip river_eng;
-	public Sprite RiverVisual;
-	//dancing
-	public AudioClip dancing_eng;
-	public Sprite DancingVisual;
-	//friend
-	public AudioClip friend_eng;
-	public Sprite FriendVisual;
-	//bright
-	public AudioClip bright_eng;
-	public Sprite BrightVisual;
-	//moon
-	public AudioClip moon_eng;
-	public Sprite MoonVisual;
-	//candle
-	public AudioClip candle_eng;
-	public Sprite CandleVisual;
-	//music
-	public AudioClip music_eng;
-	public Sprite MusicVisual;
+    // Use this for initialization
+    void Start()
+    {
+        //deactivate all symbols
+        Symbol1.gameObject.SetActive(false);
+        Symbol2.gameObject.SetActive(false);
+        Symbol3.gameObject.SetActive(false);
+        Symbol4.gameObject.SetActive(false);
+        NextButton.interactable = false;
+      
+    }
 
 	//next button push
 	public void nextMouseClick(){
-		//vocabTextAsset = (TextAsset)Resources.Load(vocabTextFile);
-		//vocabTextArr = vocabTextAsset.text.Split ('\n').ToList ();
-		Symbol1.enabled=false;
-		Symbol2.enabled=false;
-		Symbol3.enabled=false;
-		Symbol4.enabled=false;
+		
+        //deactivate all symbols
+        Symbol1.gameObject.SetActive(false);
+        Symbol2.gameObject.SetActive(false);
+        Symbol3.gameObject.SetActive(false);
+        Symbol4.gameObject.SetActive(false);
+		
 
+        //create count
 		if (currentIndex <= 12) {
 			currentIndex++;	
+            buttonPosition++;
 		}
 		//loads everything for that screen
-		//allTheStuff ();
+		allTheStuff ();
+        //after all stuff loads make next button inactive
+        NextButton.interactable = false;
 	}
 
-	//previous button push
-	public void previousMouseClick(){
-		if (currentIndex <= 12) {
-			currentIndex--;
-		}
-		//loads everthing for that screen
-		//ShowText();
-		//allTheStuff ();
-	}
+    //IMPLMENT GAME LOGIC
+    //all the components for each word
+    public void allTheStuff()
+    {
+        //initializes randon variables
+        randomWord1 = Random.Range(0, 12);
+        randomWord2 = Random.Range(0, 12);
+        randomWord3 = Random.Range(0, 12);
+        randomWord4 = Random.Range(0, 12);
+        randomButton = Random.Range(0, 4);
 
+        if (currentIndex >= 0 && currentIndex != 12)
+        {
 
-//	//IMPLMENT GAME LOGIC
-//	//all the components for each word
-//	public void allTheStuff(){
-//
-//		//int to save the random button number
-//		int buttonNumber;
-//
-//		randomWord = Random.Range(0,12);
-//		randomButton = Random.Range (0, 4);
-//
-//		/* TO USE IN FIRST VOCAB SCENE!!!
-//		while (currentIndex >= 0) {
-//			BTN3Text.text = vocabwords[0];
-//			
-//		}*/
-//
-//		//randomize answers
-//		BTNText1.text = vocabwords [randomWord];
-//		BTNText2.text = vocabwords [randomWord];
-//		BTNText3.text = vocabwords [randomWord];
-//		BTNText4.text = vocabwords [randomWord];
-//
-//
-//
-//		//pull in images and audio for word
-//		while (currentIndex >= 0) {
-//
-//			//FIX randomButton = buttonNumber;
-//
-//			if (currentIndex == 0) {
-//				PreviousButton.interactable = false;
-//			} else {
-//				PreviousButton.interactable = true;
-//			}
-//
-//			if (currentIndex == 12) {
-//				//changeScenes6 ();
-//			}
-//
-//			//create text variable to hold correct word
-//			Text correctWord;
-//			Text correctButton;
-//
-//			//add in next word from the list - will be the correct word ie sample: will put in "banana" 
-//			//FIX correctWord = vocabwords [currentIndex];
-//
-//
-//			//randomizes the button with correct word ie sample will put in "BTNText1.text"
-//			//FIX correctButton = buttonTextName[buttonNumber];
-//
-//
-//			//adds in the correct text inside the correct button *hopefully
-//			//FIXcorrectButton = correctWord;
-//			//places in correct thai word
-//			thai_textshowed.text = thaivocabwords[currentIndex];
-//			//places in correct visual
-//			VocabImage.GetComponent<Image> ().sprite = BananaVisual;
-//
-//			//places in correct audio clip
-//			//FIX Eng_RegularAudio.GetComponent <AudioSource> ().clip = correctWord+_eng;
-//
-//			//if correct button change that symbol to checkmark
-//			if (correctButton) {
-//
-//				if (buttonNumber == 0) {
-//					Symbol1.GetComponent<Image> ().sprite = checkmark;
-//				}
-//				if (buttonNumber == 1) {
-//					Symbol2.GetComponent<Image> ().sprite = checkmark;
-//				}
-//				if (buttonNumber == 2) {
-//					Symbol3.GetComponent<Image> ().sprite = checkmark;
-//				}
-//				if (buttonNumber == 3) {
-//					Symbol4.GetComponent<Image> ().sprite = checkmark;
-//				}
-//
-//			}
-//
-//
-//		}
-//
-//
-//	}
+            if(buttonPosition == 0){
+                BTNText3.text = vocabwords[currentIndex];
+                BTNText2.text = vocabwords[randomWord2];
+                BTNText1.text = vocabwords[randomWord1];
+                BTNText4.text = vocabwords[randomWord4];
 
-	/*TO DO: CHANGE TO NEXT SCENE 
-	//change the scene to Color Activity (then that scene is programed to go to story
-	public void changeScenes6() {
+                if (BTNText1.text == BTNText2.text)
+                {
+                    randomWord2++;
+                    BTNText2.text = vocabwords[randomWord2];
+                }
+                if (BTNText1.text == BTNText3.text)
+                {
+                    randomWord1++;
+                    BTNText1.text = vocabwords[randomWord1];
+                }
+                if (BTNText1.text == BTNText4.text)
+                {
+                    randomWord4++;
+                    BTNText4.text = vocabwords[randomWord4];
+                }
+                if (BTNText2.text == BTNText3.text)
+                {
+                    randomWord2++;
+                    BTNText2.text = vocabwords[randomWord2];
+                }
+                if (BTNText2.text == BTNText4.text)
+                {
+                    randomWord4++;
+                    BTNText4.text = vocabwords[randomWord4];
+                }
+                if (BTNText3.text == BTNText4.text)
+                {
+                    randomWord4++;
+                    BTNText4.text = vocabwords[randomWord4];
+                }
+            }
+            if(buttonPosition == 1){
+                BTNText1.text = vocabwords[currentIndex];
+                BTNText2.text = vocabwords[randomWord2];
+                BTNText3.text = vocabwords[randomWord3];
+                BTNText4.text = vocabwords[randomWord4];
 
-		FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
-		SceneManager.LoadScene("Level1Round1Activity");
-	}
-	*/
-		
+                if (BTNText1.text == BTNText2.text)
+                {
+                    randomWord2++;
+                    BTNText2.text = vocabwords[randomWord2];
+                }
+                if (BTNText1.text == BTNText3.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+                if (BTNText1.text == BTNText4.text)
+                {
+                    randomWord4++;
+                    BTNText4.text = vocabwords[randomWord4];
+                }
+                if (BTNText2.text == BTNText3.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+                if (BTNText2.text == BTNText4.text)
+                {
+                    randomWord4++;
+                    BTNText4.text = vocabwords[randomWord4];
+                }
+                if (BTNText3.text == BTNText4.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+            }
+            if(buttonPosition == 2){
+                BTNText4.text = vocabwords[currentIndex];
+                BTNText2.text = vocabwords[randomWord2];
+                BTNText3.text = vocabwords[randomWord3];
+                BTNText1.text = vocabwords[randomWord1];
+
+                if (BTNText1.text == BTNText2.text)
+                {
+                    randomWord2++;
+                    BTNText2.text = vocabwords[randomWord2];
+                }
+                if (BTNText1.text == BTNText3.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+                if (BTNText1.text == BTNText4.text)
+                {
+                    randomWord1++;
+                    BTNText1.text = vocabwords[randomWord1];
+                }
+                if (BTNText2.text == BTNText3.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+                if (BTNText2.text == BTNText4.text)
+                {
+                    randomWord2++;
+                    BTNText2.text = vocabwords[randomWord2];
+                }
+                if (BTNText3.text == BTNText4.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+            }
+            if(buttonPosition == 3){
+                BTNText2.text = vocabwords[currentIndex];
+                BTNText4.text = vocabwords[randomWord4];
+                BTNText3.text = vocabwords[randomWord3];
+                BTNText1.text = vocabwords[randomWord1];
+
+                if (BTNText1.text == BTNText2.text)
+                {
+                    randomWord1++;
+                    BTNText1.text = vocabwords[randomWord1];
+                }
+                if (BTNText1.text == BTNText3.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+                if (BTNText1.text == BTNText4.text)
+                {
+                    randomWord4++;
+                    BTNText4.text = vocabwords[randomWord4];
+                }
+                if (BTNText2.text == BTNText3.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+                if (BTNText2.text == BTNText4.text)
+                {
+                    randomWord4++;
+                    BTNText4.text = vocabwords[randomWord4];
+                }
+                if (BTNText3.text == BTNText4.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+            }
+            if(buttonPosition >= 4){
+                BTNText1.text = vocabwords[currentIndex];
+                BTNText4.text = vocabwords[randomWord4];
+                BTNText3.text = vocabwords[randomWord3];
+                BTNText2.text = vocabwords[randomWord2];
+
+                if (BTNText1.text == BTNText2.text)
+                {
+                    randomWord2++;
+                    BTNText2.text = vocabwords[randomWord2];
+                }
+                if (BTNText1.text == BTNText3.text)
+                {
+                    randomWord3++;
+                    BTNText1.text = vocabwords[randomWord3];
+                }
+                if (BTNText1.text == BTNText4.text)
+                {
+                    randomWord4++;
+                    BTNText4.text = vocabwords[randomWord4];
+                }
+                if (BTNText2.text == BTNText3.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+                if (BTNText2.text == BTNText4.text)
+                {
+                    randomWord4++;
+                    BTNText4.text = vocabwords[randomWord4];
+                }
+                if (BTNText3.text == BTNText4.text)
+                {
+                    randomWord3++;
+                    BTNText3.text = vocabwords[randomWord3];
+                }
+
+                buttonPosition = 0;
+            }
+                
+            //places in the correct thai word
+            thai_textshowed.text = thaivocabwords[currentIndex];
+
+            //use temp string and convert to sprite
+            Sprite aTempSprite = Resources.Load(("VocabSprites/" + vocabwords[currentIndex]), typeof(Sprite)) as Sprite;
+            //use temp converted sprite to call the correct spirit
+            VocabImage.GetComponent<Image>().sprite = aTempSprite;
+
+            //create temp strings to get correct audio names
+            string temp1 = "";
+            string temp2 = "";
+            temp1 = vocabwords[currentIndex];
+            temp2 = temp1 + "_eng";
+
+            //use temp string and convert to an audio clip
+            AudioClip aTempAudioClip = Resources.Load(("Words/" + temp2), typeof(AudioClip)) as AudioClip;
+            //use temp coverted audio clip to retrieve the correct audioclip
+            Eng_RegularAudio.GetComponent<AudioSource>().clip = aTempAudioClip;
+        }
+
+        //change scenes
+        if (currentIndex == 12)
+        {
+            FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene("Story - Level 2");
+        }
+    }
+
+    //button1 push
+    public void BTN1MouseClick()
+    {
+
+        Symbol1.gameObject.SetActive(true);
+        //if it equals the correct button
+        if (BTNText1.text == vocabwords[currentIndex])
+        {
+            Symbol1.GetComponent<Image>().sprite = checkmark;
+            answerSound.GetComponent<AudioSource>().clip = checkmarkSound;
+            NextButton.interactable = true;
+        }
+        else
+        {
+            Symbol1.GetComponent<Image>().sprite = xmark;
+            answerSound.GetComponent<AudioSource>().clip = xmarkSound;
+        }
+    }
+
+    //button2 push
+    public void BTN2MouseClick()
+    {
+        Symbol2.gameObject.SetActive(true);
+        //if it equals the correct button
+        if (BTNText2.text == vocabwords[currentIndex])
+        {
+            Symbol2.GetComponent<Image>().sprite = checkmark;
+            answerSound.GetComponent<AudioSource>().clip = checkmarkSound;
+            NextButton.interactable = true;
+           
+
+        }else
+        {
+            Symbol2.GetComponent<Image>().sprite = xmark;
+            answerSound.GetComponent<AudioSource>().clip = xmarkSound;
+         
+        }
+     
+
+    }
+
+    //button3 push
+    public void BTN3MouseClick()
+    {
+        Symbol3.gameObject.SetActive(true);
+        //if it equals the correct button
+        if (BTNText3.text == vocabwords[currentIndex])
+        {
+            Symbol3.GetComponent<Image>().sprite = checkmark;
+            answerSound.GetComponent<AudioSource>().clip = checkmarkSound;
+            NextButton.interactable = true;
+        }
+        else
+        {
+            Symbol3.GetComponent<Image>().sprite = xmark;
+            answerSound.GetComponent<AudioSource>().clip = xmarkSound;
+        }
+    }
+
+    //button4 push
+    public void BTN4MouseClick()
+    {
+        Symbol4.gameObject.SetActive(true);
+        //if it equals the correct button
+        if (BTNText4.text == vocabwords[currentIndex])
+        {
+            Symbol4.GetComponent<Image>().sprite = checkmark;
+            answerSound.GetComponent<AudioSource>().clip = checkmarkSound;
+            NextButton.interactable = true;
+           
+        }else
+        {
+            Symbol4.GetComponent<Image>().sprite = xmark;
+            answerSound.GetComponent<AudioSource>().clip = xmarkSound;
+        }
+
+    }
 }

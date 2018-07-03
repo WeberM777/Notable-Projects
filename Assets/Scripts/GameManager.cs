@@ -136,7 +136,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-
     /// <summary>
     /// loads the users progress if exists
     /// </summary>
@@ -144,4 +143,34 @@ public class GameManager : MonoBehaviour {
     {
         progress = PlayerPrefs.GetInt(userName);
     }
+
+    /// <summary>
+    /// Level 2 Vocab Section
+    /// </summary>
+    public void Level2()
+    {
+        FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("Level2Round1");
+    }
+
+    /// <summary>
+    /// Level 3 Vocab Section
+    /// </summary>
+    public void Level3()
+    {
+        FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("Level3Round1");
+    }
+
+    /// <summary>
+    /// Level 3 Vocab Section
+    /// </summary>
+    public void Level4()
+    {
+        FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("Level4Round1");
+    }
+
+
+
 }
