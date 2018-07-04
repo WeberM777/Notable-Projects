@@ -13,12 +13,8 @@ public class Level1GameManager : MonoBehaviour {
     public GameObject lamon;
     public GameObject gameOverPanel;
     public Text status;
-    public GameObject nextButton;
-    public GameObject tryAgainButton;
-    public GameObject listenButton;
     private SpeechRecognizerManager speech;
     private List<string> sentences;
-    private List<AudioClip> sentenceAudioClips;
     private bool listening = false;
     private string message = "";
     private int progress = 0; // what progress they are in the game
@@ -28,17 +24,8 @@ public class Level1GameManager : MonoBehaviour {
     private Vector2 origLamon;
     private int misses; // how many missed pronounced phrases
 
-    private AudioSource audioSource;
-
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    // Use this for initialization
-    void Start () {
-        endGame();
-        return;
+	// Use this for initialization
+	void Start () {
         if (Application.platform != RuntimePlatform.Android)
         {
             Debug.Log("Speech recognition is only available on Android platform.");
@@ -54,7 +41,6 @@ public class Level1GameManager : MonoBehaviour {
 
         // Adds sentences to the game
         sentences = new List<string>();
-        sentenceAudioClips = new List<AudioClip>();
         sentences.Add("She is glad");
         sentences.Add("He is sad");
         sentences.Add("She likes pink");
@@ -181,12 +167,8 @@ public class Level1GameManager : MonoBehaviour {
     /// Moves on the the next sentence in the list.  This is called at the beginning of the game and after each correct sentence
     /// </summary>
     /// <returns></returns>
-    public IEnumerator NextSentence()
+    private IEnumerator NextSentence()
     {
-        listenButton.SetActive(false);
-        nextButton.SetActive(false);
-        tryAgainButton.SetActive(false);
-
         resetTMs();
         yield return new WaitForSeconds(1);
         misses = 0;
@@ -218,19 +200,10 @@ public class Level1GameManager : MonoBehaviour {
                 progress++;
                 if(progress < sentences.Count)
                 {
-
                     voiceOpen = false;
                     movePeopleForward();
-                    if(misses > 2)
-                    {
-                        status.text = "Incorrect ไม่ถูกต้อง"; 
-                    }
-                    else
-                    {
-                        status.text = "Good Job งานที่ดี";
-                    }
-                    listenButton.SetActive(true);
-                    nextButton.SetActive(true);
+                    status.text = "Good Job งานที่ดี";
+                    StartCoroutine(NextSentence());
                 }
                 else
                 {
@@ -242,7 +215,7 @@ public class Level1GameManager : MonoBehaviour {
             }
         }
         //movePeopleBackward();
-        tryAgain();
+        StartCoroutine(tryAgain());
     }
 
     /// <summary>
@@ -315,31 +288,13 @@ public class Level1GameManager : MonoBehaviour {
     /// Called when users input is not validated correctly
     /// </summary>
     /// <returns></returns>
-    private void tryAgain()
+    private IEnumerator tryAgain()
     {
         misses++;
         voiceOpen = false;
         status.text = "Try Again ลองอีกครั้ง";
-        tryAgainButton.SetActive(true);
-        listenButton.SetActive(true);
-    }
-
-    public void SentenceAudio()
-    {
-        if(!audioSource.isPlaying)
-        audioSource.Play();
-    }
-
-    public void StartNextSentence()
-    {
-        StartCoroutine(NextSentence());
-        audioSource.Stop();
-    }
-
-    public void StartTryAgain()
-    {
+        yield return new WaitForSeconds(1);
         status.text = "";
         voiceOpen = true;
-        audioSource.Stop();
     }
 }
