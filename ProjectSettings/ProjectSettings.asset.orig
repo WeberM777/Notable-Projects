@@ -317,6 +317,7 @@ PlayerSettings:
       m_Height: 36
       m_Kind: 1
       m_SubKind: 
+<<<<<<< HEAD
     - m_Textures: []
       m_Width: 192
       m_Height: 192
@@ -347,6 +348,8 @@ PlayerSettings:
       m_Height: 36
       m_Kind: 0
       m_SubKind: 
+=======
+>>>>>>> 502a60e71866f1da42e0d451993617cf460a7491
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
   m_BuildTargetVRSettings: []

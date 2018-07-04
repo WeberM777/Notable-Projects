@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour {
 	const int INTERMEDIATE = 1;
 
     // Level Buttons
+    public GameObject Level1Lock;
     public GameObject Level2Lock;
     public GameObject Level3Lock;
     public GameObject Level4Lock;
+    public GameObject Level1Button;
     public GameObject Level2Button;
     public GameObject Level3Button;
     public GameObject Level4Button;
@@ -56,29 +58,43 @@ public class GameManager : MonoBehaviour {
         {
             loadUserProgress();
 
-            if (progress > 15)
+            if (progress > 12)
             {
-                Level2Lock.SetActive(false);
-                Level2Button.GetComponent<Button>().interactable = true;
-                Level3Lock.SetActive(false);
-                Level3Button.GetComponent<Button>().interactable = true;
+                Level1Button.GetComponent<Button>().interactable = false;
+                Level1Lock.SetActive(true);
+                Level2Lock.SetActive(true);
+                Level2Button.GetComponent<Button>().interactable = false;
+                Level3Lock.SetActive(true);
+                Level3Button.GetComponent<Button>().interactable = false;
                 Level4Lock.SetActive(false);
                 Level4Button.GetComponent<Button>().interactable = true;
             }
-            else if (progress > 10)
+            else if (progress > 8)
             {
-                Level2Lock.SetActive(false);
-                Level2Button.GetComponent<Button>().interactable = true;
+                Level1Lock.SetActive(true);
+                Level2Button.GetComponent<Button>().interactable = false;
+                Level2Lock.SetActive(true);
+                Level2Button.GetComponent<Button>().interactable = false;
+                Level4Lock.SetActive(true);
+                Level4Button.GetComponent<Button>().interactable = false;
                 Level3Lock.SetActive(false);
                 Level3Button.GetComponent<Button>().interactable = true;
             }
-            else if (progress > 5)
+            else if (progress > 4)
             {
                 Level2Lock.SetActive(false);
                 Level2Button.GetComponent<Button>().interactable = true;
+                Level1Lock.SetActive(true);
+                Level1Button.GetComponent<Button>().interactable = false;
+                Level3Lock.SetActive(true);
+                Level3Button.GetComponent<Button>().interactable = false;
+                Level4Lock.SetActive(true);
+                Level4Button.GetComponent<Button>().interactable = false;
             }
             else
             {
+                Level1Button.GetComponent<Button>().interactable = true;
+                Level2Lock.SetActive(true);
                 Level2Lock.SetActive(true);
                 Level2Button.GetComponent<Button>().interactable = false;
                 Level3Lock.SetActive(true);
