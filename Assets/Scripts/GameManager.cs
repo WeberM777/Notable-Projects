@@ -155,6 +155,13 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene("Level4Round1");
     }
 
+    /// <summary>
+    /// Exit Application
+    /// </summary>
+    public void ExitApplication()
+    {
+        Application.Quit();
+    }
 
 
 }
