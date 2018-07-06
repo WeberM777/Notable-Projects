@@ -60,6 +60,7 @@ public class colorManager : MonoBehaviour {
 			GreenFrame.gameObject.SetActive (true); 
 			colorButton.gameObject.SetActive (false);
 			endText.gameObject.SetActive (true);
+            GameObject.Find("next2").GetComponent<Button>().interactable = true;
 		}
 
 	}
