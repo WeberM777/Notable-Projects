@@ -86,8 +86,18 @@ public class level3ClickToChange : MonoBehaviour
 
         if (currentIndex == 12)
         {
-            FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
-            SceneManager.LoadScene("Story - Level 3");
+            if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
+            {
+                GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+            }
+            if (GameObject.FindObjectOfType<GameManager>().progress < SceneManager.sceneCountInBuildSettings)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 }

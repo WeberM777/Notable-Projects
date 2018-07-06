@@ -63,7 +63,7 @@ public class clickToChange : MonoBehaviour
     {
        
 
-        if (currentIndex >= 0 && currentIndex != 12)
+        if (currentIndex >= 0 && currentIndex < 12)
         {
 
             if (currentIndex == 0)
@@ -95,8 +95,20 @@ public class clickToChange : MonoBehaviour
 
         if (currentIndex == 12)
         {
-            FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
-            SceneManager.LoadScene("Level1Round1Activity");
+            //GameObject.Find("chalkSound").GetComponent<AudioSource>().Stop();
+
+            if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
+            {
+                GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+            }
+            if (GameObject.FindObjectOfType<GameManager>().progress < SceneManager.sceneCountInBuildSettings)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 }

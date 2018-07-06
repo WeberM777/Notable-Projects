@@ -11,25 +11,30 @@ public class GameManager : MonoBehaviour {
 	const int INTERMEDIATE = 1;
 
     // Level Buttons
+    public GameObject Level1Lock;
     public GameObject Level2Lock;
     public GameObject Level3Lock;
     public GameObject Level4Lock;
+    public GameObject Level1Button;
     public GameObject Level2Button;
     public GameObject Level3Button;
     public GameObject Level4Button;
+
+    public int numScenesLevel1;
+    public int numScenesLevel2;
+    public int numScenesLevel3;
+    public int numScenesLevel4;
 
 
     private string userName;
     public int progress;
     public UIManager UIManager;
 
-    public string[] scenes;
-
     public void StartGame()
     {
-        if (scenes[progress] == "Round1MidActivity")
+        if (progress == 0 )
             progress++;
-        SceneManager.LoadScene(scenes[progress]);
+        SceneManager.LoadScene(progress);
     }
 
     // Use this for initialization
@@ -54,37 +59,53 @@ public class GameManager : MonoBehaviour {
     {
         if (!userName.Equals(null))
         {
+
+            if (progress >= SceneManager.sceneCountInBuildSettings)
+            {
+                SaveUserProgress(0);
+            }
+
             loadUserProgress();
 
-            if (progress > 15)
+            Level1Button.GetComponent<Button>().interactable = false;
+            Level2Button.GetComponent<Button>().interactable = false;
+            Level3Button.GetComponent<Button>().interactable = false;
+            Level4Button.GetComponent<Button>().interactable = false;
+            Level1Lock.SetActive(true);
+            Level2Lock.SetActive(true);
+            Level3Lock.SetActive(true);
+            Level4Lock.SetActive(true);
+
+            if(progress > (numScenesLevel1 + numScenesLevel2 + numScenesLevel3 + numScenesLevel4))
             {
-                Level2Lock.SetActive(false);
+                Level1Button.GetComponent<Button>().interactable = true;
                 Level2Button.GetComponent<Button>().interactable = true;
-                Level3Lock.SetActive(false);
                 Level3Button.GetComponent<Button>().interactable = true;
+                Level4Button.GetComponent<Button>().interactable = true;
+                Level1Lock.SetActive(false);
+                Level2Lock.SetActive(false);
+                Level3Lock.SetActive(false);
+                Level4Lock.SetActive(false);
+            }
+            else if (progress > (numScenesLevel1 + numScenesLevel2 + numScenesLevel3))
+            {
                 Level4Lock.SetActive(false);
                 Level4Button.GetComponent<Button>().interactable = true;
             }
-            else if (progress > 10)
+            else if (progress > (numScenesLevel1 + numScenesLevel2))
             {
-                Level2Lock.SetActive(false);
-                Level2Button.GetComponent<Button>().interactable = true;
                 Level3Lock.SetActive(false);
                 Level3Button.GetComponent<Button>().interactable = true;
             }
-            else if (progress > 5)
+            else if (progress > numScenesLevel1)
             {
                 Level2Lock.SetActive(false);
                 Level2Button.GetComponent<Button>().interactable = true;
             }
             else
             {
-                Level2Lock.SetActive(true);
-                Level2Button.GetComponent<Button>().interactable = false;
-                Level3Lock.SetActive(true);
-                Level4Lock.SetActive(true);
-                Level3Button.GetComponent<Button>().interactable = false;
-                Level4Button.GetComponent<Button>().interactable = false;
+                Level1Lock.SetActive(false);
+                Level1Button.GetComponent<Button>().interactable = true;
             }
 
             UIManager.showDifficultyPanel();
@@ -110,13 +131,13 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void SaveUserProgress(int progress)
     {
-        if(progress >= scenes.Length)
+        if(progress >= SceneManager.sceneCountInBuildSettings)
         {
             PlayerPrefs.SetInt(userName, 0);
         }
         else
         {
-                PlayerPrefs.SetInt(userName, progress);
+            PlayerPrefs.SetInt(userName, progress+1);
         }
     }
 
@@ -126,33 +147,6 @@ public class GameManager : MonoBehaviour {
     private void loadUserProgress()
     {
         progress = PlayerPrefs.GetInt(userName);
-    }
-
-    /// <summary>
-    /// Level 2 Vocab Section
-    /// </summary>
-    public void Level2()
-    {
-        FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
-        SceneManager.LoadScene("Level2Round1");
-    }
-
-    /// <summary>
-    /// Level 3 Vocab Section
-    /// </summary>
-    public void Level3()
-    {
-        FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
-        SceneManager.LoadScene("Level3Round1");
-    }
-
-    /// <summary>
-    /// Level 3 Vocab Section
-    /// </summary>
-    public void Level4()
-    {
-        FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
-        SceneManager.LoadScene("Level4Round1");
     }
 
     /// <summary>

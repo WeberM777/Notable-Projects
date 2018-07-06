@@ -193,6 +193,7 @@ public class Level1GameManager : MonoBehaviour {
     /// <param name="texts"></param>
     private void validateSpeech(string[] texts)
     {
+        endGame();
         foreach (string text in texts) 
         {
             if(text.ToLower().Equals(sentences[progress].ToLower()) || misses > 2)
@@ -279,9 +280,19 @@ public class Level1GameManager : MonoBehaviour {
     private IEnumerator LoadNextSceneDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
-        Destroy(GameObject.FindObjectOfType<GameManager>());
-        SceneManager.LoadScene("Menu");
+
+        if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
+        {
+            GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (GameObject.FindObjectOfType<GameManager>().progress < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     /// <summary>
