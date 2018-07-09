@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Oversees all aspects of the story
@@ -18,7 +18,7 @@ public class StoryManager : MonoBehaviour
 	public TextMeshControl phrase;
 	public GameObject popUpBottomPrefab;
 	public GameObject popUpTopPrefab;
-	public TextMeshProUGUI thaiHelp;
+	public Text thaiHelp;
     public GameObject ThaiHelpPanel;
 
 	public bool locked = false;
@@ -82,9 +82,9 @@ public class StoryManager : MonoBehaviour
 	public void PlayWord(string word)
 	{
 		// finds the appropriate audioclip for the given word
-		Word tmp = words.Find(w => w.sWord.Equals(word.ToLower()));
+		Word tmp = words.Find(w => w.word.ToLower().Equals(word.ToLower()));
 		if (tmp == null) return; // if recording doesnt exist return
-		audioSource.clip = tmp.audioClip;
+		audioSource.clip = tmp.audioEng;
 
 		if (audioSource != null && audioSource.clip != null)
 		{
@@ -106,46 +106,40 @@ public class StoryManager : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Finds all audio files and calls LoadFile() to load all the sound files
-	/// </summary>
-	void LoadSounds()
-	{
-		if (SystemInfo.deviceType == DeviceType.Desktop)
-		{
-			FileInfo[] files;
-			string fileName = Application.dataPath + "/Resources/Words/";
-			var info = new DirectoryInfo(fileName);
-
-			files = info.GetFiles()
-				.Where(f => Path.GetExtension(f.Name) == ".wav" || Path.GetExtension(f.Name) == ".ogg" || Path.GetExtension(f.Name) == ".mp3")
-				.ToArray();
-
-
-			foreach (var file in files)
-			{
-				StartCoroutine(LoadFile(file.FullName));
-			}
-		}
-		else
-		{
-			AudioClip[] files = Resources.LoadAll<AudioClip>("Words/");
-			Debug.Log(files.ToString());
-			foreach (var clip in files)
-			{
-				words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
-			}
-		}
+    /// <summary>
+    /// Finds all audio files and calls LoadFile() to load all the sound files
+    /// </summary>
+    void LoadSounds()
+    {
+        AudioClip[] wordFiles = Resources.LoadAll<AudioClip>("Words/");
+        AudioClip[] sentenceFiles = Resources.LoadAll<AudioClip>("Sentences/");
+        Word tmp;
+        foreach (var clip in wordFiles)
+        {
+            tmp = words.Find(w => w.word.ToLower().Equals(clip.name.Substring(0, clip.name.IndexOf("_eng")).ToLower()));
+            if(tmp != null)
+            {
+                tmp.audioEng = clip;
+            }
+        }
+        foreach (var clip in sentenceFiles)
+        {
+            foreach (var sentence in story.Sentences)
+            {
+                // if _eng add to english
+                // if _thai add to thai
+            }
+        }
 
 
-	}
+    }
 
-	/// <summary>
-	/// Loads a single audio clip from file into the List words
-	/// </summary>
-	/// <param name="path">path of audiofile</param>
-	/// <returns></returns>
-	IEnumerator LoadFile(string path)
+    /// <summary>
+    /// Loads a single audio clip from file into the List words
+    /// </summary>
+    /// <param name="path">path of audiofile</param>
+    /// <returns></returns>
+    IEnumerator LoadFile(string path)
 	{
 		WWW www = new WWW("file://" + path);
 
@@ -154,7 +148,7 @@ public class StoryManager : MonoBehaviour
 			yield return www;
 
 		clip.name = Path.GetFileName(path);
-		words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip, true));
+		words.Add(new Word(clip.name.Substring(0, clip.name.IndexOf("_")).ToLower(), clip));
 	}
 
 	/// <summary>
@@ -164,35 +158,34 @@ public class StoryManager : MonoBehaviour
 	{
 
 		string tmp;
-		try
-		{
-			if (SystemInfo.deviceType == DeviceType.Desktop)
-			{
-				StreamReader file = new StreamReader(Application.dataPath + "/Resources/story.txt");
-				while ((tmp = file.ReadLine()) != null)
-				{
-					story.Sentences.Add(tmp.Trim());
-				}
+        try
+        {
+            TextAsset file = Resources.Load("story") as TextAsset;
+            tmp = file.text;
 
-			}
-			else
-			{
-				TextAsset file = Resources.Load("story") as TextAsset;
-				string[] text = file.text.Split("\n"[0]);
-				foreach (string line in text)
-				{
-					story.Sentences.Add(line.Trim());
-				}
-			}
-		}
-		catch (FileNotFoundException ex)
-		{
-			Debug.Log("story.txt is not found in the Assets Folder. Exception: " + ex.Message);
+            Sentence[] sentences = JsonHelper.FromJson<Sentence>(tmp);
+            foreach (Sentence sentence in sentences)
+            {
+                story.Sentences.Add(sentence);
+            }
+
+            file = Resources.Load("ThaiWords") as TextAsset;
+            tmp = file.text;
+            Word[] jsonWords = JsonHelper.FromJson<Word>(tmp);
+            foreach (Word word in jsonWords)
+            {
+                words.Add(word);
+            }
+
+        }
+        catch (FileNotFoundException ex)
+        {
+            Debug.Log("story.json is not found in the Assets Folder. Exception: " + ex.Message);
 			return;
 		}
 		catch (NullReferenceException ex)
 		{
-			Debug.Log("story.txt is not found in the Assets Folder. Exception: " + ex.Message);
+			Debug.Log("story.json is not found in the Assets Folder. Exception: " + ex.Message);
 			return;
 		}
 
@@ -211,14 +204,14 @@ public class StoryManager : MonoBehaviour
 		{
 			if (storyProgress < story.Phrases.Count)
 			{
-				phrase.SetPhrase(story.Phrases[storyProgress++]);
+				phrase.SetPhrase(story.Phrases[storyProgress++].ToString());
 			}
 		}
 		else
 		{
 			if (storyProgress > 1)
 			{
-				phrase.SetPhrase(story.Phrases[--storyProgress - 1]);
+				phrase.SetPhrase(story.Phrases[--storyProgress - 1].ToString());
 			}
 
 		}
@@ -232,7 +225,7 @@ public class StoryManager : MonoBehaviour
 	{
         if (storyProgress < story.Phrases.Count)
 		{
-            if (story.Phrases[storyProgress].Contains("What color do you like?"))
+            if (story.Phrases[storyProgress].ToString().Contains("What color do you like?"))
             {
                 switch (SceneManager.GetActiveScene().name)
                 {
@@ -248,12 +241,13 @@ public class StoryManager : MonoBehaviour
                 }
                 storyProgress++;
             }
-            else if (!locked)
-			{
-				thaiHelp.text = "";
-				UpdateText(1);
-				StartCoroutine(DestroyPopUp(0));
-			}
+            if (!locked)
+            {
+                HideThaiHelp();
+                UpdateText(1);
+                StartCoroutine(DestroyPopUp(0));
+                audioSource.Stop();
+            }
 		}
 		else
 		{
@@ -263,7 +257,6 @@ public class StoryManager : MonoBehaviour
                     GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex+1);
                 GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
             }
-            int progress = GameObject.FindObjectOfType<GameManager>().progress;
             if (GameObject.FindObjectOfType<GameManager>().progress < SceneManager.sceneCountInBuildSettings-1)
             {
                 if(SceneManager.GetActiveScene().name.Equals("Story - Level 1"))
@@ -285,12 +278,13 @@ public class StoryManager : MonoBehaviour
 	{
 		if (storyProgress > 1)
 		{
-			thaiHelp.text = "";
-			UpdateText(-1);
-		}
+            HideThaiHelp();
+            UpdateText(-1);
+            audioSource.Stop();
+        }
 		else
 		{
-			SceneManager.LoadScene("Level1Round1");
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
 		}
 
 	}
@@ -303,24 +297,41 @@ public class StoryManager : MonoBehaviour
 	{
 		HideThaiHelp();
 		Vector2 pos = Camera.main.ScreenToWorldPoint(eventData.position);
+        Word tmp;
 
 		GameObject popUp;
 		if (firstLine)
 		{
 			pos.y += 1f;
 			popUp = Instantiate(popUpTopPrefab, pos, popUpTopPrefab.transform.rotation);
-			if (Thai.WORDS.ContainsKey(word.ToLower()))
+			if ((tmp = words.Find(w => w.word.ToLower().Equals(word.ToLower()))) != null)
 			{
-				popUp.GetComponentInChildren<TextMesh>().text = Thai.WORDS[word.ToLower()];
+                if (tmp.thai.Length > 5)
+                {
+                    popUp.GetComponentInChildren<TextMesh>().fontSize = 250;
+                }
+                else
+                {
+                    popUp.GetComponentInChildren<TextMesh>().fontSize = 350;
+                }
+                popUp.GetComponentInChildren<TextMesh>().text = tmp.thai;
 			}
 		}
 		else
 		{
 			pos.y -= 1f;
 			popUp = Instantiate(popUpBottomPrefab, pos, popUpTopPrefab.transform.rotation);
-			if (Thai.WORDS.ContainsKey(word.ToLower()))
+			if ((tmp = words.Find(w => w.word.ToLower().Equals(word.ToLower()))) != null)
 			{
-				popUp.GetComponentInChildren<TextMesh>().text = Thai.WORDS[word.ToLower()];
+                if(tmp.thai.Length > 5)
+                {
+                    popUp.GetComponentInChildren<TextMesh>().fontSize = 250;
+                }
+                else
+                {
+                    popUp.GetComponentInChildren<TextMesh>().fontSize = 350;
+                }
+				popUp.GetComponentInChildren<TextMesh>().text = tmp.thai;
 			}
 		}
 		popUp.transform.SetParent(transform);
@@ -349,8 +360,25 @@ public class StoryManager : MonoBehaviour
 	/// </summary>
 	public void PlayPhrase()
 	{
+        float length = 0;
+        foreach (Sentence sentence in story.Phrases[storyProgress - 1].sentences)
+        {
 
-	}
+            if (sentence.AudioEng != null)
+            {
+                audioSource.clip = sentence.AudioEng;
+
+                if (audioSource != null && audioSource.clip != null)
+                {
+                    if (!audioSource.isPlaying)
+                    {
+                        audioSource.PlayDelayed(length);
+                        length += audioSource.clip.length + 1; // this may need to change
+                    }
+                }
+            }
+        }
+    }
 
 	/// <summary>
 	/// Shows a summary of the phrase in thai
@@ -360,14 +388,18 @@ public class StoryManager : MonoBehaviour
 		// Eventually will add a mapper to the words from english to thai and access the translation that way
 		if (thaiHelp.text == "")
 		{
+            string tmp = "";
 			StartCoroutine(DestroyPopUp(0));
-			thaiHelp.text = "Phrase in thai";
+            foreach (Sentence sentence in story.Phrases[storyProgress-1].sentences)
+            {
+                tmp += sentence.sentThai + " ";
+            }
+			thaiHelp.text = tmp;
             ThaiHelpPanel.SetActive(true);
 		}
 		else
 		{
-			thaiHelp.text = "";
-            ThaiHelpPanel.SetActive(false);
+            HideThaiHelp();
 
         }
 

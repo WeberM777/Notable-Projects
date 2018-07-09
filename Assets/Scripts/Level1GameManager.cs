@@ -16,7 +16,6 @@ public class Level1GameManager : MonoBehaviour {
     private SpeechRecognizerManager speech;
     private List<string> sentences;
     private bool listening = false;
-    private string message = "";
     private int progress = 0; // what progress they are in the game
     private int movement;
     private bool voiceOpen = false; // value that if true tells the speech recognizer it should be listening for a response
@@ -193,7 +192,7 @@ public class Level1GameManager : MonoBehaviour {
     /// <param name="texts"></param>
     private void validateSpeech(string[] texts)
     {
-        endGame();
+
         foreach (string text in texts) 
         {
             if(text.ToLower().Equals(sentences[progress].ToLower()) || misses > 2)

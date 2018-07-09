@@ -1,44 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Represents the entire story
 /// </summary>
+[Serializable]
 public class Story {
 
     public const int PHRASE_MAX = 75;
 
-    private List<string> sentences; // these will be lists of sentence and phrase objects in the future once the recordings are recieved
-    private List<string> phrases;
+    public List<Sentence> Sentences { get; set; }
+    public List<Phrase> Phrases { get; set; }
 
     public Story()
     {
-        sentences = new List<string>();
-        phrases = new List<string>();
+        Sentences = new List<Sentence>();
+        Phrases = new List<Phrase>();
     }
-
-    public List<string> Sentences {
-        get
-        {
-            return sentences;
-        }
-        set
-        {
-            sentences = value;
-        }
-    }
-
-    public List<string> Phrases
+    public Story(List<Sentence> sent)
     {
-        get
-        {
-            return phrases;
-        }
-        set
-        {
-            phrases = value;
-        }
+        Sentences = sent;
+        Phrases = new List<Phrase>();
     }
 
     /// <summary>
@@ -47,30 +31,36 @@ public class Story {
     public void setPhrases() // Once there are recordings for all sentences, make a sentence class and use StoryPhrase Class
     {
 
-        string tmp = "";
+        int tmp = 0;
         int numSent = 0;
+        Phrase phrase = new Phrase();
 
-        tmp = sentences[0];
         numSent++;
 
         // updates tmp to the next line in the story
-        for (int i = 1; i < sentences.Count; i++)
+        for (int i = 0; i < Sentences.Count; i++)
         {
 
-            if(tmp.Length + sentences[i].Length < PHRASE_MAX && sentences[i] != "")
+            if(tmp + Sentences[i].sentEng.Length < PHRASE_MAX && Sentences[i].sentEng != "" && !Sentences[i].sentEng.Contains("?"))
             {
-                tmp += " " + sentences[i];
-
+                phrase.sentences.Add(Sentences[i]);
+                tmp += Sentences[i].sentEng.Length;
             }
             else
             {
-                phrases.Add(tmp.Trim());
+                Phrases.Add(phrase);
                 numSent = 0;
-                tmp = sentences[i];
+                tmp = Sentences[i].sentEng.Length;
+                phrase = new Phrase();
+                phrase.sentences.Add(Sentences[i]);
+                if(Sentences[i].sentEng.Contains("?"))
+                {
+                    tmp = PHRASE_MAX + 1;
+                }
             }
 
         }
-        phrases.Add(tmp.Trim());
+        Phrases.Add(phrase);
 
     }
 }

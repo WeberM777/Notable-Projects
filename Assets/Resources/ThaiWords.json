@@ -1,0 +1,301 @@
+﻿{
+  "Items": [
+    {
+      "word": "a",
+      "thai": "อันเดียว"
+    },
+    {
+      "word": "are",
+      "thai": "เป็น"
+    },
+    {
+      "word": "as",
+      "thai": "เนื่องจาก"
+    },
+    {
+      "word": "at",
+      "thai": "ที่"
+    },
+    {
+      "word": "banana",
+      "thai": "กล้วย"
+    },
+    {
+      "word": "blue",
+      "thai": "สีฟ้า"
+    },
+    {
+      "word": "bread",
+      "thai": "ขนมปัง"
+    },
+    {
+      "word": "bright",
+      "thai": "สดใส"
+    },
+    {
+      "word": "brother",
+      "thai": "พี่ชาย"
+    },
+    {
+      "word": "but",
+      "thai": "แต่"
+    },
+    {
+      "word": "came",
+      "thai": "มาพร้อม"
+    },
+    {
+      "word": "candle",
+      "thai": "เทียน"
+    },
+    {
+      "word": "color",
+      "thai": "สี"
+    },
+    {
+      "word": "dance",
+      "thai": "เต้นรำ"
+    },
+    {
+      "word": "day",
+      "thai": "วัน"
+    },
+    {
+      "word": "do",
+      "thai": "ทำ"
+    },
+    {
+      "word": "ever",
+      "thai": "เคย"
+    },
+    {
+      "word": "float",
+      "thai": "ลอย"
+    },
+    {
+      "word": "flower",
+      "thai": "ดอกไม้"
+    },
+    {
+      "word": "friend",
+      "thai": "เพื่อน"
+    },
+    {
+      "word": "glad",
+      "thai": "ดีใจ"
+    },
+    {
+      "word": "green",
+      "thai": "สีเขียว"
+    },
+    {
+      "word": "had",
+      "thai": "มี"
+    },
+    {
+      "word": "have",
+      "thai": "มี"
+    },
+    {
+      "word": "he",
+      "thai": "เขา"
+    },
+    {
+      "word": "hear",
+      "thai": "ได้ยิน"
+    },
+    {
+      "word": "hello",
+      "thai": "สวัสดี"
+    },
+    {
+      "word": "helped",
+      "thai": "ช่วย"
+    },
+    {
+      "word": "her",
+      "thai": "ของเธอ"
+    },
+    {
+      "word": "him",
+      "thai": "ของเขา"
+    },
+    {
+      "word": "home",
+      "thai": "บ้าน"
+    },
+    {
+      "word": "I",
+      "thai": "ฉีน"
+    },
+    {
+      "word": "in",
+      "thai": "ใน"
+    },
+    {
+      "word": "Krathong",
+      "thai": "ลอยกระทง"
+    },
+    {
+      "word": "Peach",
+      "thai": "พีช"
+    },
+    {
+      "word": "leaves",
+      "thai": "ใบ"
+    },
+    {
+      "word": "like",
+      "thai": "ชอบ"
+    },
+    {
+      "word": "likes",
+      "thai": "ชอบ"
+    },
+    {
+      "word": "line",
+      "thai": "สาย"
+    },
+    {
+      "word": "Loy",
+      "thai": "ลอย"
+    },
+    {
+      "word": "made",
+      "thai": "ทำ"
+    },
+    {
+      "word": "moon",
+      "thai": "ดวงจันทร์"
+    },
+    {
+      "word": "moved",
+      "thai": "ย้าย"
+    },
+    {
+      "word": "music",
+      "thai": "เพลง"
+    },
+    {
+      "word": "not",
+      "thai": "ไม่"
+    },
+    {
+      "word": "old",
+      "thai": "เก่า"
+    },
+    {
+      "word": "people",
+      "thai": "คน"
+    },
+    {
+      "word": "pink",
+      "thai": "สีชมพู"
+    },
+    {
+      "word": "put",
+      "thai": "วางลง"
+    },
+    {
+      "word": "puts",
+      "thai": "ทำให้"
+    },
+    {
+      "word": "river",
+      "thai": "แม่น้ำ"
+    },
+    {
+      "word": "red",
+      "thai": "สีแดง"
+    },
+    {
+      "word": "Ploy",
+      "thai": "พลอย"
+    },
+    {
+      "word": "sad",
+      "thai": "เศร้า"
+    },
+    {
+      "word": "same",
+      "thai": "เดียวกัน"
+    },
+    {
+      "word": "says",
+      "thai": "กล่าวว่า"
+    },
+    {
+      "word": "she",
+      "thai": "เธอ"
+    },
+    {
+      "word": "SuratThani",
+      "thai": "สุราษฏร์ธานี"
+    },
+    {
+      "word": "that",
+      "thai": "ที่"
+    },
+    {
+      "word": "the",
+      "thai": "การ"
+    },
+    {
+      "word": "There",
+      "thai": "ที่นั่น"
+    },
+    {
+      "word": "They",
+      "thai": "พวกเขา"
+    },
+    {
+      "word": "to",
+      "thai": "ถึง"
+    },
+    {
+      "word": "today",
+      "thai": "วันนี้"
+    },
+    {
+      "word": "too",
+      "thai": "ด้วย"
+    },
+    {
+      "word": "true",
+      "thai": "จริง"
+    },
+    {
+      "word": "was",
+      "thai": "เคย"
+    },
+    {
+      "word": "what",
+      "thai": "อะไร"
+    },
+    {
+      "word": "will",
+      "thai": "จะ"
+    },
+    {
+      "word": "wish",
+      "thai": "ความหวัง"
+    },
+    {
+      "word": "with",
+      "thai": "กับ"
+    },
+    {
+      "word": "yellow",
+      "thai": "สีเหลือง"
+    },
+    {
+      "word": "you",
+      "thai": "คุณ"
+    },
+    {
+      "word": "your",
+      "thai": "ของคุณ"
+    }
+
+  ]
+}

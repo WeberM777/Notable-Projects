@@ -8,6 +8,8 @@ public class changeScenes : MonoBehaviour {
 	//change the scene to story scene
 	public void changeStory1(){
 
+
+
         if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
         {
             GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);

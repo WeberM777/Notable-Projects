@@ -1,18 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Represents a sentence in the story
 /// </summary>
-public class Sentence : MonoBehaviour {
-
-    private string sentence;
-    private AudioClip audioClip;
-
-    public Sentence(string s, AudioClip ac)
-    {
-        sentence = s;
-        audioClip = ac;
-    }
+[Serializable]
+public class Sentence {
+    public string sentEng;
+    public string sentThai;
+    public AudioClip AudioEng { get; set; }
+    public AudioClip AudioThai { get; set; }
 }

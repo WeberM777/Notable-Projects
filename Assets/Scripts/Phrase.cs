@@ -7,37 +7,29 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Represents a phrase of the story
 /// </summary>
-public class Phrase : MonoBehaviour
+public class Phrase
 {
 
-    private string sPhrase;
-    private List<AudioClip> audioClips;
+    public List<Sentence> sentences { get; set; }
 
-    public Phrase(string p, List<AudioClip> ac)
+    public Phrase(List<Sentence> s, List<AudioClip> ac)
     {
-        sPhrase = p;
-        audioClips = new List<AudioClip>();
+        sentences = s;
     }
 
-    public string SPhrase
+    public Phrase()
     {
-        get
-        {
-            return sPhrase;
-        }
+        sentences = new List<Sentence>();
     }
 
-    public List<AudioClip> AudioClips
+    public override string ToString()
     {
-        get
+        string tmp = "";
+        foreach (Sentence sentence in sentences)
         {
-            return audioClips;
+            tmp += sentence.sentEng + " ";
         }
-
-        set
-        {
-            audioClips = value;
-        }
+        return tmp;
     }
 
 }

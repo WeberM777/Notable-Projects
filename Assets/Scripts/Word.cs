@@ -5,16 +5,17 @@ using UnityEngine;
 /// <summary>
 /// Represents a single word
 /// </summary>
+[System.Serializable]
 public class Word {
 
-    public string sWord;
-    public AudioClip audioClip;
-    public bool eng;
+    public string word;
+    public string thai = "";
+    public AudioClip audioEng;
+    //public AudioClip audioThai;
 
-    public Word(string w, AudioClip ac, bool e)
+    public Word(string w, AudioClip ac)
     {
-        sWord = w;
-        audioClip = ac;
-        eng = e;
+        word = w;
+        audioEng = ac;
     }
 }
