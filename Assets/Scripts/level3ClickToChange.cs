@@ -90,7 +90,7 @@ public class level3ClickToChange : MonoBehaviour
             {
                 GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
             }
-            if (GameObject.FindObjectOfType<GameManager>().progress < SceneManager.sceneCountInBuildSettings)
+            if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }

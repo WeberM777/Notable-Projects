@@ -42,6 +42,7 @@ public class clickToChange : MonoBehaviour
         {
             currentIndex++;
         }
+        GameObject.Find("chalkSound").GetComponent<AudioSource>().Stop();
         //loads everything for that screen
         allTheStuff();
     }
@@ -53,6 +54,7 @@ public class clickToChange : MonoBehaviour
         {
             currentIndex--;
         }
+        GameObject.Find("chalkSound").GetComponent<AudioSource>().Stop();
         //loads everthing for that screen
         //ShowText();
         allTheStuff();
@@ -101,7 +103,7 @@ public class clickToChange : MonoBehaviour
             {
                 GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
             }
-            if (GameObject.FindObjectOfType<GameManager>().progress < SceneManager.sceneCountInBuildSettings)
+            if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }

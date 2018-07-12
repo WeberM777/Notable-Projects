@@ -254,10 +254,15 @@ public class StoryManager : MonoBehaviour
             if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
             {
                 if (SceneManager.GetActiveScene().name.Equals("Story - Level 1"))
-                    GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex+1);
-                GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+                {
+                    GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex + 1);
+                }
+                else
+                {
+                    GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+                }
             }
-            if (GameObject.FindObjectOfType<GameManager>().progress < SceneManager.sceneCountInBuildSettings-1)
+            if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
             {
                 if(SceneManager.GetActiveScene().name.Equals("Story - Level 1"))
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);

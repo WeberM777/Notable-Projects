@@ -16,8 +16,10 @@ public class Level1GameManager : MonoBehaviour {
     public GameObject nextButton;
     public GameObject tryAgainButton;
     public GameObject listenButton;
+    public GameObject endSpeechButton;
     private SpeechRecognizerManager speech;
     private List<string> sentences;
+    private List<AudioClip> sentenceAudio;
     private bool listening = false;
     private int progress = 0; // what progress they are in the game
     private int movement;
@@ -35,6 +37,7 @@ public class Level1GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //endGame(); // for debugging purposes only
         if (Application.platform != RuntimePlatform.Android)
         {
             Debug.Log("Speech recognition is only available on Android platform.");
@@ -47,17 +50,22 @@ public class Level1GameManager : MonoBehaviour {
 
         // We pass the game object's name that will receive the callback messages.
         speech = new SpeechRecognizerManager(gameObject.name);
+        sentenceAudio = new List<AudioClip>();
+
+        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 01_eng"));
+        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 08_eng"));
+        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 14_eng"));
+        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 31_eng"));
+        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 37_eng"));
 
         // Adds sentences to the game
         sentences = new List<string>();
-        sentences.Add("She is glad");
-        sentences.Add("He is sad");
-        sentences.Add("She likes pink");
-        sentences.Add("He will make a wish");
+        sentences.Add("Ploy is glad");
+        sentences.Add("Peach is sad");
+        sentences.Add("Peach will make a wish today.");
         sentences.Add("I wish I had a friend");
-        sentences.Add("He likes pink too");
-        sentences.Add("His wish came true");
-        movement = (Screen.width - 500) / 2 / sentences.Count; // calculates the movement of the characters based on the screen size
+        sentences.Add("Peach is glad that her wish came true.");
+        movement = (Screen.width - 200) / 2 / sentences.Count; // calculates the movement of the characters based on the screen size
         origLamon = lamon.transform.position;
         origRudee = rudee.transform.position;
     }
@@ -107,7 +115,7 @@ public class Level1GameManager : MonoBehaviour {
     void OnSpeechResults(string results)
     {
         listening = false;
-
+        endSpeechButton.SetActive(false);
         // Need to parse
         string[] texts = results.Split(new string[] { SpeechRecognizerManager.RESULT_SEPARATOR }, System.StringSplitOptions.None);
         
@@ -182,6 +190,7 @@ public class Level1GameManager : MonoBehaviour {
         listenButton.SetActive(false);
         nextButton.SetActive(false);
         tryAgainButton.SetActive(false);
+        audioSource.Stop();
 
         resetTMs();
         yield return new WaitForSeconds(1);
@@ -191,10 +200,12 @@ public class Level1GameManager : MonoBehaviour {
         int index = Random.Range(0, 3);
         TextMeshProUGUI TMP = SentenceTextMesh[index];
         TMP.text = sentences[progress];
+        audioSource.clip = sentenceAudio[progress];
         if (SpeechRecognizerManager.IsAvailable()) {
             if(!listening)
             {
                 listening = true;
+                endSpeechButton.SetActive(true);
                 speech.StartListening(3, "en-US");
             }
         }
@@ -210,7 +221,7 @@ public class Level1GameManager : MonoBehaviour {
 
         foreach (string text in texts)
         {
-            if (text.ToLower().Equals(sentences[progress].ToLower()) || misses > 2)
+            if (text.ToLower().Equals(sentences[progress].ToLower()) || misses > 1)
             {
                 progress++;
                 if (progress < sentences.Count)
@@ -218,7 +229,7 @@ public class Level1GameManager : MonoBehaviour {
 
                     voiceOpen = false;
                     movePeopleForward();
-                    if (misses > 2)
+                    if (misses > 1)
                     {
                         status.text = "Incorrect ไม่ถูกต้อง";
                     }
@@ -308,7 +319,7 @@ public class Level1GameManager : MonoBehaviour {
         {
             GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
         }
-        if (GameObject.FindObjectOfType<GameManager>().progress < SceneManager.sceneCountInBuildSettings)
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings-1)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
@@ -346,7 +357,19 @@ public class Level1GameManager : MonoBehaviour {
     public void StartTryAgain()
     {
         status.text = "";
+        audioSource.Stop();
+        listenButton.SetActive(false);
+        nextButton.SetActive(false);
+        tryAgainButton.SetActive(false);
+        endSpeechButton.SetActive(true);
         voiceOpen = true;
         audioSource.Stop();
+    }
+
+    public void StopSeech()
+    {
+        endSpeechButton.GetComponentInChildren<Text>().text = "Processing . . .";
+        speech.StopListening();
+        endSpeechButton.GetComponentInChildren<Text>().text = "Touch here when finished speaking.";
     }
 }
