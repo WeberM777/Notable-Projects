@@ -22,6 +22,7 @@ public class StoryManager : MonoBehaviour
     public GameObject ThaiHelpPanel;
 
 	public bool locked = false;
+    private bool audioLock = false;
 	private string currWord;
 
 
@@ -84,24 +85,22 @@ public class StoryManager : MonoBehaviour
 		// finds the appropriate audioclip for the given word
 		Word tmp = words.Find(w => w.word.ToLower().Equals(word.ToLower()));
 		if (tmp == null) return; // if recording doesnt exist return
-		audioSource.clip = tmp.audioEng;
+
+        if(slowAudio)
+        {
+            audioSource.clip = tmp.audioSlow;
+        }
+        else
+        {
+            audioSource.clip = tmp.audioEng;
+        }
 
 		if (audioSource != null && audioSource.clip != null)
 		{
 			if (!audioSource.isPlaying)
 			{
-				if (slowAudio)
-				{
-					audioSource.pitch = .7f;
-					audioSource.Play();
-					slowAudio = false;
-				}
-				else
-				{
-					audioSource.pitch = 1;
-					audioSource.Play();
-                    slowAudio = false;
-				}
+                audioSource.Play();
+                slowAudio = false;
 			}
 		}
 	}
@@ -116,18 +115,57 @@ public class StoryManager : MonoBehaviour
         Word tmp;
         foreach (var clip in wordFiles)
         {
-            tmp = words.Find(w => w.word.ToLower().Equals(clip.name.Substring(0, clip.name.IndexOf("_eng")).ToLower()));
-            if(tmp != null)
+            if (clip.name.Contains("_eng"))
             {
-                tmp.audioEng = clip;
+                tmp = words.Find(w => w.word.ToLower().Equals(clip.name.Substring(0, clip.name.IndexOf("_eng")).ToLower()));
+                if (tmp != null)
+                {
+                    tmp.audioEng = clip;
+                }
+            }
+            else if(clip.name.Contains("_slow"))
+            {
+                tmp = words.Find(w => w.word.ToLower().Equals(clip.name.Substring(0, clip.name.IndexOf("_slow")).ToLower()));
+                if (tmp != null)
+                {
+                    tmp.audioSlow = clip;
+                }
+            }
+            else if (clip.name.Contains("_thai"))
+            {
+                tmp = words.Find(w => w.word.ToLower().Equals(clip.name.Substring(0, clip.name.IndexOf("_thai")).ToLower()));
+                if (tmp != null)
+                {
+                    tmp.audioThai = clip;
+                }
             }
         }
-        foreach (var clip in sentenceFiles)
+        int j = 0;
+        for (int i = 0; i < sentenceFiles.Length; i++)
         {
-            foreach (var sentence in story.Sentences)
+            if (Int32.TryParse(sentenceFiles[i].name.Substring(7, sentenceFiles[i].name.IndexOf("_") - 7), out j))
             {
-                // if _eng add to english
-                // if _thai add to thai
+                if (sentenceFiles[i].name.Contains("_eng"))
+                {
+                    story.Sentences[j-1].AudioEng = sentenceFiles[i];
+
+                }
+                else if (sentenceFiles[i].name.Contains("_slow"))
+                {
+                    story.Sentences[j-1].AudioSlow = sentenceFiles[i];
+                }
+                else if (sentenceFiles[i].name.Contains("_thai"))
+                {
+                    story.Sentences[j-1].AudioThai = sentenceFiles[i];
+                }
+                else if (sentenceFiles[i].name.Contains("_fast"))
+                {
+                    story.Sentences[j-1].AudioFast = sentenceFiles[i];
+                }
+            }
+            else
+            {
+                break;
             }
         }
 
@@ -363,32 +401,39 @@ public class StoryManager : MonoBehaviour
 	/// <summary>
 	/// Plays the Audio of the sentences, of the current phrase
 	/// </summary>
-	public void PlayPhrase()
+	private IEnumerator PlayPhrase()
 	{
-        float length = 0;
-        foreach (Sentence sentence in story.Phrases[storyProgress - 1].sentences)
+        if (!audioSource.isPlaying)
         {
-
-            if (sentence.AudioEng != null)
+            foreach (Sentence sentence in story.Phrases[storyProgress - 1].sentences)
             {
-                audioSource.clip = sentence.AudioEng;
-
-                if (audioSource != null && audioSource.clip != null)
+                if (!audioLock)
                 {
-                    if (!audioSource.isPlaying)
+                    if (sentence.AudioEng != null)
                     {
-                        audioSource.PlayDelayed(length);
-                        length += audioSource.clip.length + 1; // this may need to change
+                        audioSource.clip = sentence.AudioEng;
+
+                        if (audioSource != null && audioSource.clip != null)
+                        {
+
+                            audioSource.Play();
+                            yield return new WaitForSeconds(audioSource.clip.length + 1);
+                        }
                     }
                 }
             }
         }
     }
 
-	/// <summary>
-	/// Shows a summary of the phrase in thai
-	/// </summary>
-	public void ShowThaiHelpText()
+    public void StartPhraseAudio()
+    {
+        StartCoroutine(PlayPhrase());
+    }
+
+    /// <summary>
+    /// Shows a summary of the phrase in thai
+    /// </summary>
+    public void ShowThaiHelpText()
 	{
 		// Eventually will add a mapper to the words from english to thai and access the translation that way
 		if (thaiHelp.text == "")

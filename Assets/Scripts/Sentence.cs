@@ -12,4 +12,6 @@ public class Sentence {
     public string sentThai;
     public AudioClip AudioEng { get; set; }
     public AudioClip AudioThai { get; set; }
+    public AudioClip AudioSlow { get; set; }
+    public AudioClip AudioFast{ get; set; }
 }

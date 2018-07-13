@@ -37,6 +37,7 @@ public class Level1GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        endSpeechButton.GetComponentInChildren<Text>().text = "wow";
         //endGame(); // for debugging purposes only
         if (Application.platform != RuntimePlatform.Android)
         {
@@ -52,19 +53,17 @@ public class Level1GameManager : MonoBehaviour {
         speech = new SpeechRecognizerManager(gameObject.name);
         sentenceAudio = new List<AudioClip>();
 
-        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 01_eng"));
         sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 08_eng"));
-        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 14_eng"));
+        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 15_eng"));
         sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 31_eng"));
-        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 37_eng"));
+        sentenceAudio.Add(Resources.Load<AudioClip>("Sentences/phrase 35_eng"));
 
         // Adds sentences to the game
         sentences = new List<string>();
-        sentences.Add("Ploy is glad");
         sentences.Add("Peach is sad");
-        sentences.Add("Peach will make a wish today.");
+        sentences.Add("She will make a wish at the river.");
         sentences.Add("I wish I had a friend");
-        sentences.Add("Peach is glad that her wish came true.");
+        sentences.Add("I like pink.");
         movement = (Screen.width - 200) / 2 / sentences.Count; // calculates the movement of the characters based on the screen size
         origLamon = lamon.transform.position;
         origRudee = rudee.transform.position;
@@ -205,6 +204,7 @@ public class Level1GameManager : MonoBehaviour {
             if(!listening)
             {
                 listening = true;
+                endSpeechButton.GetComponentInChildren<Text>().text = "Touch here when finished speaking.";
                 endSpeechButton.SetActive(true);
                 speech.StartListening(3, "en-US");
             }
@@ -361,6 +361,7 @@ public class Level1GameManager : MonoBehaviour {
         listenButton.SetActive(false);
         nextButton.SetActive(false);
         tryAgainButton.SetActive(false);
+        endSpeechButton.GetComponentInChildren<Text>().text = "Touch here when finished speaking.";
         endSpeechButton.SetActive(true);
         voiceOpen = true;
         audioSource.Stop();
@@ -370,6 +371,5 @@ public class Level1GameManager : MonoBehaviour {
     {
         endSpeechButton.GetComponentInChildren<Text>().text = "Processing . . .";
         speech.StopListening();
-        endSpeechButton.GetComponentInChildren<Text>().text = "Touch here when finished speaking.";
     }
 }

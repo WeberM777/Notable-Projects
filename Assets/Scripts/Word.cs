@@ -11,7 +11,8 @@ public class Word {
     public string word;
     public string thai = "";
     public AudioClip audioEng;
-    //public AudioClip audioThai;
+    public AudioClip audioThai;
+    public AudioClip audioSlow;
 
     public Word(string w, AudioClip ac)
     {

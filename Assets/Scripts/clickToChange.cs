@@ -88,10 +88,10 @@ public class clickToChange : MonoBehaviour
             temp1 = vocabwords[currentIndex];
             temp2 = temp1 + "_eng";
 
-            AudioClip aTempAudioClip = Resources.Load(("Words/"+temp2), typeof(AudioClip)) as AudioClip;
+            AudioClip aTempAudioClip = Resources.Load(("Words/"+temp2+"_eng"), typeof(AudioClip)) as AudioClip;
             Eng_RegularAudio.GetComponent<AudioSource>().clip = aTempAudioClip;
 
-            AudioClip aTempAudioClip2 = Resources.Load(("Words/"+temp2), typeof(AudioClip)) as AudioClip;
+            AudioClip aTempAudioClip2 = Resources.Load(("Words/"+temp2+"_eng"), typeof(AudioClip)) as AudioClip;
             Eng_SlowAudio.GetComponent<AudioSource>().clip = aTempAudioClip;
         }
 
