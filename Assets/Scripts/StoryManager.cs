@@ -407,6 +407,7 @@ public class StoryManager : MonoBehaviour
         {
             foreach (Sentence sentence in story.Phrases[storyProgress - 1].sentences)
             {
+                
                 if (!audioLock)
                 {
                     if (sentence.AudioEng != null)
@@ -417,7 +418,7 @@ public class StoryManager : MonoBehaviour
                         {
 
                             audioSource.Play();
-                            yield return new WaitForSeconds(audioSource.clip.length + 1);
+                            yield return new WaitForSeconds(audioSource.clip.length + .5f);
                         }
                     }
                 }
@@ -442,7 +443,7 @@ public class StoryManager : MonoBehaviour
 			StartCoroutine(DestroyPopUp(0));
             foreach (Sentence sentence in story.Phrases[storyProgress-1].sentences)
             {
-                tmp += sentence.sentThai + " ";
+                tmp += sentence.sentThai;
             }
 			thaiHelp.text = tmp;
             ThaiHelpPanel.SetActive(true);
