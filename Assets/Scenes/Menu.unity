@@ -2445,9 +2445,9 @@ MonoBehaviour:
   Level2Button: {fileID: 1859367588}
   Level3Button: {fileID: 1554452202}
   Level4Button: {fileID: 352725987}
-  numScenesLevel1: 4
+  numScenesLevel1: 3
   numScenesLevel2: 2
-  numScenesLevel3: 2
+  numScenesLevel3: 3
   numScenesLevel4: 3
   progress: 0
   UIManager: {fileID: 373100726}

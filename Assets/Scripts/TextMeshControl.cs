@@ -33,7 +33,6 @@ public class TextMeshControl : MonoBehaviour, IPointerClickHandler {
                 TMP_WordInfo wordInfo = TMP.textInfo.wordInfo[index]; // gets the wordInfo of the given index
 
                 StoryManager.instance.ShowThaiPopUp(wordInfo.GetWord(), line == 0, eventData);
-                StoryManager.instance.PlayWord(wordInfo.GetWord()); // plays audiofile of word
                 Debug.Log("Word [" + wordInfo.GetWord() + "]");
 
                 // Change word color

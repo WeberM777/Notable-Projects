@@ -114,7 +114,7 @@ public class UIColorPick : MonoBehaviour
     private IEnumerator LoadStorySceneDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SceneManager.UnloadSceneAsync("Round1MidActivity");
+        SceneManager.UnloadSceneAsync("Round3MidActivity");
     }
 
     private void loadColorQuestions()

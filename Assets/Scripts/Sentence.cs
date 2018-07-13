@@ -10,6 +10,7 @@ using UnityEngine;
 public class Sentence {
     public string sentEng;
     public string sentThai;
+    public int sentenceNum { get; set; }
     public AudioClip AudioEng { get; set; }
     public AudioClip AudioThai { get; set; }
     public AudioClip AudioSlow { get; set; }
