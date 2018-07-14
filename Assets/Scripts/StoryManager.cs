@@ -74,6 +74,10 @@ public class StoryManager : MonoBehaviour
 	public void StartStory()
 	{
 		UpdateText(1);
+        if (SceneManager.GetActiveScene().name.Equals("Story - Level 1"))
+        {
+            StartPhraseAudio();
+        }
 	}
 
 	/// <summary>
@@ -186,49 +190,27 @@ public class StoryManager : MonoBehaviour
         }
         if (storyProgress < story.Phrases.Count)
 		{
-            if (story.Phrases[storyProgress].ToString().Contains("What color do you like?"))
-            {
-                switch (SceneManager.GetActiveScene().name)
-                {
-                    case "Story - Level 1":
-                        break;
-                    case "Story - Level 2":
-                        break;
-                    case "Story - Level 3":
-                        SceneManager.LoadScene("Round3MidActivity", LoadSceneMode.Additive);
-                        break;
-                    case "Story - Level 4":
-                        break;
-                }
-                storyProgress++;
-            }
             if (!locked)
             {
                 HideThaiHelp();
                 UpdateText(1);
                 StartCoroutine(DestroyPopUp(0));
                 audioSource.Stop();
+                if (SceneManager.GetActiveScene().name.Equals("Story - Level 1"))
+                {
+                    StartPhraseAudio();
+                }
             }
 		}
 		else
 		{
             if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
             {
-                if (SceneManager.GetActiveScene().name.Equals("Story - Level 3"))
-                {
-                    GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex + 1);
-                }
-                else
-                {
-                    GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
-                }
+                GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
             }
             if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
             {
-                if(SceneManager.GetActiveScene().name.Equals("Story - Level 3"))
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
-                else
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
             else
             {
@@ -251,6 +233,10 @@ public class StoryManager : MonoBehaviour
             HideThaiHelp();
             UpdateText(-1);
             audioSource.Stop();
+            if (SceneManager.GetActiveScene().name.Equals("Story - Level 1"))
+            {
+                StartPhraseAudio();
+            }
         }
 		else
 		{
@@ -349,7 +335,7 @@ public class StoryManager : MonoBehaviour
             audioLock = true;
             foreach (Sentence sentence in story.Phrases[storyProgress - 1].sentences)
             {
-                if (sentence.sentenceNum < 10)
+                if (sentence.sentenceNum+1 < 10)
                 {
                     sentence.AudioEng = Resources.Load("Sentences/Phrase 0" + (sentence.sentenceNum+1) + "_eng") as AudioClip;
                 }
@@ -385,11 +371,16 @@ public class StoryManager : MonoBehaviour
     /// <summary>
     /// Shows a summary of the phrase in thai
     /// </summary>
-    public void ShowThaiHelpText()
+    private IEnumerator ShowThaiHelpText()
 	{
-		// Eventually will add a mapper to the words from english to thai and access the translation that way
-		if (thaiHelp.text == "")
+        // Eventually will add a mapper to the words from english to thai and access the translation that way
+        if (thaiHelp.text == "")
 		{
+            if (audioLock)
+            {
+                yield break;
+            }
+
             string tmp = "";
 			StartCoroutine(DestroyPopUp(0));
             foreach (Sentence sentence in story.Phrases[storyProgress-1].sentences)
@@ -398,14 +389,48 @@ public class StoryManager : MonoBehaviour
             }
 			thaiHelp.text = tmp;
             ThaiHelpPanel.SetActive(true);
-		}
+
+            if (!audioSource.isPlaying)
+            {
+                audioLock = true;
+                foreach (Sentence sentence in story.Phrases[storyProgress - 1].sentences)
+                {
+                    if (sentence.sentenceNum < 10)
+                    {
+                        sentence.AudioEng = Resources.Load("Sentences/Phrase 0" + (sentence.sentenceNum + 1) + "_thai") as AudioClip;
+                    }
+                    else
+                    {
+                        sentence.AudioEng = Resources.Load("Sentences/Phrase " + (sentence.sentenceNum + 1) + "_thai") as AudioClip;
+                    }
+
+                    if (sentence.AudioEng != null)
+                    {
+                        audioSource.clip = sentence.AudioEng;
+
+                        if (audioSource != null && audioSource.clip != null)
+                        {
+
+                            audioSource.Play();
+                            yield return new WaitForSeconds(audioSource.clip.length + .4f);
+                        }
+                    }
+                }
+                audioLock = false;
+            }
+        }
 		else
 		{
             HideThaiHelp();
 
         }
 
-	}
+    }
+
+    public void ThaiHelp()
+    {
+        StartCoroutine(ShowThaiHelpText());
+    }
 
     /// <summary>
     /// Hides the thai help panel

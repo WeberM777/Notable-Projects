@@ -118,7 +118,18 @@ public class UIColorPick : MonoBehaviour
     private IEnumerator LoadStorySceneDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SceneManager.UnloadSceneAsync("Round3MidActivity");
+        if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
+        {
+            GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     private void loadColorQuestions()

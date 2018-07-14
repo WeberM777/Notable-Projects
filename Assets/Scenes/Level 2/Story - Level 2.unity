@@ -1150,7 +1150,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 404694600}
-        m_MethodName: ShowThaiHelpText
+        m_MethodName: ThaiHelp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
