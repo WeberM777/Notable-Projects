@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class WordsAtRiver : MonoBehaviour
 {
@@ -9,15 +10,25 @@ public class WordsAtRiver : MonoBehaviour
     private GameObject destination;
     private GameObject player;
 
+    private AudioSource audioSource;
+    public GameObject listenButton;
+    public GameObject nextButton;
+    public GameObject endSpeechButton;
+    public Text status;
+    public GameObject gameOverPanel;
+    public GameObject instructionPanel;
+
     private int wordCount;
     private int matchedCount = 0;
     private Vector3 startPosition;
     private Vector3 destPosition;
 
+    private int misses;
+
     public Text gameText;
 
     private string currWord = "";
-    List<string> words = new List<string> { "green", "yellow", "blue", "purple" };
+    List<string> words = new List<string> { "green", "yellow", "blue", "purple", "black","orange" };
     private bool isListening = false;
 
     //public static System.Random rnd = new System.Random();
@@ -25,17 +36,18 @@ public class WordsAtRiver : MonoBehaviour
     private IEnumerator StartLevelDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        //SceneManager.LoadScene("Main");
     }
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         destination = GameObject.FindWithTag("Destination");
         player = GameObject.FindWithTag("Player");
         startPosition = player.transform.position;
         destPosition = destination.transform.position;
         gameText.text = "Get Ready!";
         wordCount = words.Count;
+        StartCoroutine(NextWord());
     }
 
     void Start()
@@ -77,17 +89,28 @@ public class WordsAtRiver : MonoBehaviour
             speechManager.StartListening(3, "en-US");
         }
 
-        if (player.transform.position.Equals(destPosition))
-        {
-            Debug.Log("Made it to the river");
-        }
-
     }
 
     void OnDestroy()
     {
         if (speechManager != null)
             speechManager.Release();
+    }
+
+    private void ChangeScene()
+    {
+        if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
+        {
+            GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     #region SPEECH_CALLBACKS
@@ -111,6 +134,7 @@ public class WordsAtRiver : MonoBehaviour
     void OnSpeechResults(string results)
     {
         isListening = false;
+        endSpeechButton.SetActive(false);
 
         // Need to parse
         string[] texts = results.Split(new string[] { SpeechRecognizerManager.RESULT_SEPARATOR }, System.StringSplitOptions.None);
@@ -121,24 +145,53 @@ public class WordsAtRiver : MonoBehaviour
         validateSpeech(texts);
     }
 
+    public void StartGame()
+    {
+        instructionPanel.SetActive(false);
+        status.text = "Get ready!";
+        StartCoroutine(NextWord());
+    }
+
     private void validateSpeech(string[] texts)
     {
         foreach (string text in texts)
         {
-            if (text.ToLower().Equals(currWord.ToLower()))
+            if (text.ToLower().Equals(currWord.ToLower()) || misses > 1)
             {
                 matchedCount++;
+
+                if (misses > 1)
+                {
+                    status.text = "Incorrect ไม่ถูกต้อง";
+                }
+                else
+                {
+                    status.text = "Good Job งานที่ดี";
+                }
+                listenButton.SetActive(true);
+                nextButton.SetActive(true);
+                if (player.transform.position.Equals(destPosition))
+                {
+                    endGame();
+                }
                 return;
             }
         }
+        listenButton.SetActive(true);
+        nextButton.SetActive(true);
         matchedCount--;
-        StartCoroutine(NextWord());
     }
 
     private IEnumerator NextWord()
     {
+
+        listenButton.SetActive(false);
+        nextButton.SetActive(false);
+        audioSource.Stop();
+
         Debug.Log("Made it to the NextWord()");
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
+        misses = 0;
         currWord = "";
         int index = Random.Range(0, words.Count);
         currWord = words[index];
@@ -148,6 +201,8 @@ public class WordsAtRiver : MonoBehaviour
             if (!isListening)
             {
                 isListening = true;
+                endSpeechButton.GetComponentInChildren<Text>().text = "Touch here when finished speaking.";
+                endSpeechButton.SetActive(true);
                 speechManager.StartListening(3, "en-US");
             }
         }
@@ -192,6 +247,57 @@ public class WordsAtRiver : MonoBehaviour
         }
 
         isListening = false;
+    }
+
+    /// <summary>
+    /// Ends the game
+    /// </summary>
+    private void endGame()
+    {
+        status.text = "";
+        gameOverPanel.SetActive(true);
+        LoadNextScene();
+    }
+
+    public void LoadNextScene()
+    {
+        StartCoroutine(LoadNextSceneDelay(2));
+    }
+    private IEnumerator LoadNextSceneDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
+        {
+            GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    public void WordAudio()
+    {
+        // Add sentence audio here
+        if (!audioSource.isPlaying)
+            audioSource.Play();
+    }
+
+    public void StartNextWord()
+    {
+        StartCoroutine(NextWord());
+        audioSource.Stop();
+    }
+
+    public void StopSpeech()
+    {
+        endSpeechButton.GetComponentInChildren<Text>().text = "Processing . . .";
+        speechManager.StopListening();
     }
 
     #endregion

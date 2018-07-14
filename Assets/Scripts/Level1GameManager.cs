@@ -37,8 +37,6 @@ public class Level1GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        endSpeechButton.GetComponentInChildren<Text>().text = "wow";
-        //endGame(); // for debugging purposes only
         if (Application.platform != RuntimePlatform.Android)
         {
             Debug.Log("Speech recognition is only available on Android platform.");
@@ -343,7 +341,6 @@ public class Level1GameManager : MonoBehaviour {
     }
     public void SentenceAudio()
     {
-        // Add sentence audio here
         if (!audioSource.isPlaying)
             audioSource.Play();
     }

@@ -266,35 +266,38 @@ public class StoryManager : MonoBehaviour
             tmp.audioEng = Resources.Load("Words/" + tmp.word + "_eng") as AudioClip;
             tmp.audioSlow = Resources.Load("Words/" + tmp.word + "_slow") as AudioClip;
             PlayWord(tmp);
-            if (firstLine)
+            if (!SceneManager.GetActiveScene().name.Equals("Story - Level 4"))
             {
-                pos.y += 1f;
-                popUp = Instantiate(popUpTopPrefab, pos, popUpTopPrefab.transform.rotation);
-                if (tmp.thai.Length > 6)
+                if (firstLine)
                 {
-                    popUp.GetComponentInChildren<TextMesh>().fontSize = 200;
+                    pos.y += 1f;
+                    popUp = Instantiate(popUpTopPrefab, pos, popUpTopPrefab.transform.rotation);
+                    if (tmp.thai.Length > 6)
+                    {
+                        popUp.GetComponentInChildren<TextMesh>().fontSize = 200;
+                    }
+                    else
+                    {
+                        popUp.GetComponentInChildren<TextMesh>().fontSize = 350;
+                    }
+                    popUp.GetComponentInChildren<TextMesh>().text = tmp.thai;
                 }
                 else
                 {
-                    popUp.GetComponentInChildren<TextMesh>().fontSize = 350;
+                    pos.y -= 1f;
+                    popUp = Instantiate(popUpBottomPrefab, pos, popUpTopPrefab.transform.rotation);
+                    if (tmp.thai.Length > 6)
+                    {
+                        popUp.GetComponentInChildren<TextMesh>().fontSize = 200;
+                    }
+                    else
+                    {
+                        popUp.GetComponentInChildren<TextMesh>().fontSize = 350;
+                    }
+                    popUp.GetComponentInChildren<TextMesh>().text = tmp.thai;
                 }
-                popUp.GetComponentInChildren<TextMesh>().text = tmp.thai;
+                popUp.transform.SetParent(transform);
             }
-            else
-            {
-                pos.y -= 1f;
-                popUp = Instantiate(popUpBottomPrefab, pos, popUpTopPrefab.transform.rotation);
-                if (tmp.thai.Length > 6)
-                {
-                    popUp.GetComponentInChildren<TextMesh>().fontSize = 200;
-                }
-                else
-                {
-                    popUp.GetComponentInChildren<TextMesh>().fontSize = 350;
-                }
-                popUp.GetComponentInChildren<TextMesh>().text = tmp.thai;
-            }
-            popUp.transform.SetParent(transform);
             currWord = tmp;
         }
 	}
