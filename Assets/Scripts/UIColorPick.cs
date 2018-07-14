@@ -14,12 +14,16 @@ public class UIColorPick : MonoBehaviour
     private int questNum = 0;
     private string color = "";
     public GameObject doneButton;
+    private AudioSource audioSource;
+    public GameObject soundButton;
 
     Dictionary<string, string> questions;
     List<string> colors;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         questions = new Dictionary<string, string>();
         questions.Add("red", "Touch the color RED?");
         questions.Add("blue", "Touch the color BLUE?");
@@ -129,6 +133,8 @@ public class UIColorPick : MonoBehaviour
         {
             loadFriendActivity();
         }
+        soundButton.SetActive(false);
+        audioSource.Stop();
     }
 
     private void loadFriendActivity()
@@ -140,5 +146,10 @@ public class UIColorPick : MonoBehaviour
         }
         doneButton.SetActive(true);
         textMesh.text = "Ask a friend, \"What color do you like?\"";
+    }
+
+    public void PlaySentence(string tmp)
+    {
+        audioSource.Play();
     }
 }

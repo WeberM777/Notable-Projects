@@ -91,8 +91,8 @@ public class clickToChange : MonoBehaviour
             AudioClip aTempAudioClip = Resources.Load(("Words/"+temp2+"_eng"), typeof(AudioClip)) as AudioClip;
             Eng_RegularAudio.GetComponent<AudioSource>().clip = aTempAudioClip;
 
-            AudioClip aTempAudioClip2 = Resources.Load(("Words/"+temp2+"_eng"), typeof(AudioClip)) as AudioClip;
-            Eng_SlowAudio.GetComponent<AudioSource>().clip = aTempAudioClip;
+            AudioClip aTempAudioClip2 = Resources.Load(("Words/"+temp2+"_slow"), typeof(AudioClip)) as AudioClip;
+            Eng_SlowAudio.GetComponent<AudioSource>().clip = aTempAudioClip2;
         }
 
         if (currentIndex == 12)
