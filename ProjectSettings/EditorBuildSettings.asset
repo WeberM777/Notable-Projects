@@ -27,11 +27,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 3/Level3Round1.unity
     guid: 2d8be8345a492499eb42e6ca7675d11f
   - enabled: 1
-    path: Assets/Scenes/Level 3/Round3MidActivity.unity
-    guid: c2f2388bc6f535a44afc4ba3db95014f
-  - enabled: 1
     path: Assets/Scenes/Level 3/Story - Level 3.unity
     guid: 6874aa6b3f9c8a34ca7278092a15d048
+  - enabled: 1
+    path: Assets/Scenes/Level 3/Round3MidActivity.unity
+    guid: c2f2388bc6f535a44afc4ba3db95014f
   - enabled: 1
     path: Assets/Scenes/Level 4/Level4Round1.unity
     guid: 9e660f6bcd3444990856c12f95b9baae
