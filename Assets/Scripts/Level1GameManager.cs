@@ -317,13 +317,13 @@ public class Level1GameManager : MonoBehaviour {
         {
             GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
         }
-        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings-1)
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneLoader.Instance.LoadNextScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else
         {
-            SceneManager.LoadScene(0);
+            SceneLoader.Instance.LoadNextScene("Menu");
         }
     }
 

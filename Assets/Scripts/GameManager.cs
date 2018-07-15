@@ -32,10 +32,11 @@ public class GameManager : MonoBehaviour {
 
     public void StartGame()
     {
-        if (progress == 0 )
-            progress++;
-        SceneManager.LoadScene(progress);
+        if (progress == 0 || progress == 1 || progress == 2)
+            progress = 3;
+        SceneLoader.Instance.LoadNextScene(progress);
     }
+
 
     // Use this for initialization
     void Start()
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour {
     {
         if(progress >= SceneManager.sceneCountInBuildSettings)
         {
-            PlayerPrefs.SetInt(userName, 0);
+            PlayerPrefs.SetInt(userName, 3);
         }
         else
         {

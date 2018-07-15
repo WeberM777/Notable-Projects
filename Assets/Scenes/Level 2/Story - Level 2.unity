@@ -3963,7 +3963,7 @@ Prefab:
     - target: {fileID: 114807219446362918, guid: a89bc4379967eb744bb6e099f779701e,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114807219446362918, guid: a89bc4379967eb744bb6e099f779701e,
         type: 2}
@@ -4065,7 +4065,7 @@ Prefab:
     - target: {fileID: 114807219446362918, guid: a89bc4379967eb744bb6e099f779701e,
         type: 2}
       propertyPath: m_fontSizeBase
-      value: 30
+      value: 28.7
       objectReference: {fileID: 0}
     - target: {fileID: 114807219446362918, guid: a89bc4379967eb744bb6e099f779701e,
         type: 2}
@@ -4080,7 +4080,7 @@ Prefab:
     - target: {fileID: 114807219446362918, guid: a89bc4379967eb744bb6e099f779701e,
         type: 2}
       propertyPath: m_enableAutoSizing
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a89bc4379967eb744bb6e099f779701e, type: 2}

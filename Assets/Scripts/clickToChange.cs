@@ -88,16 +88,16 @@ public class clickToChange : MonoBehaviour
             temp1 = vocabwords[currentIndex];
             temp2 = temp1 + "_eng";
 
-            AudioClip aTempAudioClip = Resources.Load(("Words/"+temp2+"_eng"), typeof(AudioClip)) as AudioClip;
+            AudioClip aTempAudioClip = Resources.Load(("Words/"+temp2), typeof(AudioClip)) as AudioClip;
             Eng_RegularAudio.GetComponent<AudioSource>().clip = aTempAudioClip;
 
-            AudioClip aTempAudioClip2 = Resources.Load(("Words/"+temp2+"_slow"), typeof(AudioClip)) as AudioClip;
+            AudioClip aTempAudioClip2 = Resources.Load(("Words/"+temp2.Substring(0, temp2.IndexOf("_"))+"_slow"), typeof(AudioClip)) as AudioClip;
             Eng_SlowAudio.GetComponent<AudioSource>().clip = aTempAudioClip2;
         }
 
         if (currentIndex == 12)
         {
-            //GameObject.Find("chalkSound").GetComponent<AudioSource>().Stop();
+            GameObject.Find("chalkSound").GetComponent<AudioSource>().Stop();
 
             if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
             {
@@ -105,11 +105,11 @@ public class clickToChange : MonoBehaviour
             }
             if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                SceneLoader.Instance.LoadNextScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
             else
             {
-                SceneManager.LoadScene(0);
+                SceneLoader.Instance.LoadNextScene("Menu");
             }
         }
     }

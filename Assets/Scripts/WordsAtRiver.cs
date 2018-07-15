@@ -23,12 +23,10 @@ public class WordsAtRiver : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 destPosition;
 
-    private int misses;
-
     public Text gameText;
 
     private string currWord = "";
-    List<string> words = new List<string> { "green", "yellow", "blue", "purple", "black","orange" };
+    List<string> words = new List<string> { "banana", "like", "peach", "flower", "music", "dance" };
     private bool isListening = false;
 
     //public static System.Random rnd = new System.Random();
@@ -47,7 +45,6 @@ public class WordsAtRiver : MonoBehaviour
         destPosition = destination.transform.position;
         gameText.text = "Get Ready!";
         wordCount = words.Count;
-        StartCoroutine(NextWord());
     }
 
     void Start()
@@ -149,25 +146,18 @@ public class WordsAtRiver : MonoBehaviour
     {
         instructionPanel.SetActive(false);
         status.text = "Get ready!";
-        StartCoroutine(NextWord());
+        NextWord();
     }
 
     private void validateSpeech(string[] texts)
     {
         foreach (string text in texts)
         {
-            if (text.ToLower().Equals(currWord.ToLower()) || misses > 1)
+            if (text.ToLower().Equals(currWord.ToLower()))
             {
                 matchedCount++;
 
-                if (misses > 1)
-                {
-                    status.text = "Incorrect ไม่ถูกต้อง";
-                }
-                else
-                {
-                    status.text = "Good Job งานที่ดี";
-                }
+                status.text = "Good Job งานที่ดี";
                 listenButton.SetActive(true);
                 nextButton.SetActive(true);
                 if (player.transform.position.Equals(destPosition))
@@ -177,12 +167,13 @@ public class WordsAtRiver : MonoBehaviour
                 return;
             }
         }
+        status.text = "Incorrect ไม่ถูกต้อง";
         listenButton.SetActive(true);
         nextButton.SetActive(true);
         matchedCount--;
     }
 
-    private IEnumerator NextWord()
+    private void NextWord()
     {
 
         listenButton.SetActive(false);
@@ -190,12 +181,12 @@ public class WordsAtRiver : MonoBehaviour
         audioSource.Stop();
 
         Debug.Log("Made it to the NextWord()");
-        yield return new WaitForSeconds(2);
-        misses = 0;
         currWord = "";
+        status.text = "";
         int index = Random.Range(0, words.Count);
         currWord = words[index];
         gameText.text = currWord;
+        audioSource.clip = Resources.Load(currWord + "_eng") as AudioClip;
         if (SpeechRecognizerManager.IsAvailable())
         {
             if (!isListening)
@@ -273,24 +264,24 @@ public class WordsAtRiver : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneLoader.Instance.LoadNextScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else
         {
-            SceneManager.LoadScene(0);
+            SceneLoader.Instance.LoadNextScene("Menu");
         }
     }
 
     public void WordAudio()
     {
         // Add sentence audio here
-        if (!audioSource.isPlaying)
+        if (!audioSource.isPlaying && audioSource != null)
             audioSource.Play();
     }
 
     public void StartNextWord()
     {
-        StartCoroutine(NextWord());
+        NextWord();
         audioSource.Stop();
     }
 
