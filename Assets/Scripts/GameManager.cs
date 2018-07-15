@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
     public int numScenesLevel2;
     public int numScenesLevel3;
     public int numScenesLevel4;
+    public int numintroScenes;
 
 
     private string userName;
@@ -77,7 +78,7 @@ public class GameManager : MonoBehaviour {
             Level3Lock.SetActive(true);
             Level4Lock.SetActive(true);
 
-            if(progress > (numScenesLevel1 + numScenesLevel2 + numScenesLevel3 + numScenesLevel4))
+            if(progress > (numScenesLevel1 + numScenesLevel2 + numScenesLevel3 + numScenesLevel4 + numintroScenes))
             {
                 Level1Button.GetComponent<Button>().interactable = true;
                 Level2Button.GetComponent<Button>().interactable = true;
@@ -88,17 +89,17 @@ public class GameManager : MonoBehaviour {
                 Level3Lock.SetActive(false);
                 Level4Lock.SetActive(false);
             }
-            else if (progress > (numScenesLevel1 + numScenesLevel2 + numScenesLevel3))
+            else if (progress > (numScenesLevel1 + numScenesLevel2 + numScenesLevel3 + numintroScenes))
             {
                 Level4Lock.SetActive(false);
                 Level4Button.GetComponent<Button>().interactable = true;
             }
-            else if (progress > (numScenesLevel1 + numScenesLevel2))
+            else if (progress > (numScenesLevel1 + numScenesLevel2 + numintroScenes))
             {
                 Level3Lock.SetActive(false);
                 Level3Button.GetComponent<Button>().interactable = true;
             }
-            else if (progress > numScenesLevel1)
+            else if (progress > numScenesLevel1 + numintroScenes)
             {
                 Level2Lock.SetActive(false);
                 Level2Button.GetComponent<Button>().interactable = true;
