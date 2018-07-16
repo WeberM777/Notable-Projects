@@ -13,7 +13,6 @@ using UnityEngine.UI;
 /// </summary>
 public class StoryManager : MonoBehaviour
 {
-
 	public static StoryManager instance;
 	public TextMeshControl phrase;
 	public GameObject popUpBottomPrefab;
@@ -189,7 +188,7 @@ public class StoryManager : MonoBehaviour
             return;
         }
         if (storyProgress < story.Phrases.Count)
-		{
+        {
             if (!locked)
             {
                 HideThaiHelp();
@@ -201,9 +200,9 @@ public class StoryManager : MonoBehaviour
                     StartPhraseAudio();
                 }
             }
-		}
-		else
-		{
+        }
+        else
+        {
             if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
             {
                 GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
@@ -217,6 +216,7 @@ public class StoryManager : MonoBehaviour
                 SceneLoader.Instance.LoadNextScene("Menu");
             }
         }
+
 	}
 
 	/// <summary>

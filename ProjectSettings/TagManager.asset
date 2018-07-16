@@ -10,6 +10,19 @@ TagManager:
   - Button
   - NextButton
   - Panel
+  - BrushColor
+  - ImagePart
+  - Phrase1
+  - Phrase2
+  - Phrase3
+  - Phrase4
+  - Phrase5
+  - Phrase6
+  - Phrase7
+  - Phrase8
+  - StoryDayTimeExtras
+  - Phase9
+  - Phrase10
   layers:
   - Default
   - TransparentFX
