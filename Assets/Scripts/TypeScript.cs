@@ -51,6 +51,7 @@ public class TypeScript : MonoBehaviour {
                 this.GetComponent<Text>().text = currentText;
                 yield return new WaitForSeconds(delay);
             }
+            GameObject.Find("chalkSound").GetComponent<AudioSource>().Stop();
         }
 	}
 		

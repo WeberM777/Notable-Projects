@@ -163,7 +163,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 573c2360dd25644ca83f7db1915ad4e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -382,8 +382,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "Created By: Justus Brown \n& Martha Canizales "
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: df06784040c85b34982fd8b7f03bad20, type: 2}
-  m_sharedMaterial: {fileID: 21730912008610812, guid: df06784040c85b34982fd8b7f03bad20,
+  m_fontAsset: {fileID: 11400000, guid: 1cdf25a935800db44afca09c05b1e7fa, type: 2}
+  m_sharedMaterial: {fileID: 21535259929732218, guid: 1cdf25a935800db44afca09c05b1e7fa,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -408,8 +408,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 9.7
-  m_fontSizeBase: 9.7
+  m_fontSize: 7.9
+  m_fontSizeBase: 7.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -495,7 +495,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 21730912008610812, guid: df06784040c85b34982fd8b7f03bad20, type: 2}
+  - {fileID: 21535259929732218, guid: 1cdf25a935800db44afca09c05b1e7fa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

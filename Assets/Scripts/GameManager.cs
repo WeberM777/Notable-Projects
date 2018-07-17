@@ -33,8 +33,12 @@ public class GameManager : MonoBehaviour {
 
     public void StartGame()
     {
-        if (progress == 0 || progress == 1 || progress == 2)
+        if (progress <= numintroScenes)
             progress = 3;
+        else if (progress >= SceneManager.sceneCountInBuildSettings)
+        {
+            progress = 3;
+        }
         SceneLoader.Instance.LoadNextScene(progress);
     }
 
@@ -133,7 +137,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void SaveUserProgress(int progress)
     {
-        if(progress >= SceneManager.sceneCountInBuildSettings)
+        if(progress >= SceneManager.sceneCountInBuildSettings - numintroScenes)
         {
             PlayerPrefs.SetInt(userName, 3);
         }

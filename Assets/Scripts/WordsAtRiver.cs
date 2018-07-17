@@ -17,9 +17,11 @@ public class WordsAtRiver : MonoBehaviour
     public Text status;
     public GameObject gameOverPanel;
     public GameObject instructionPanel;
+    public GameObject gameOverMessage;
 
     private int wordCount;
     private int matchedCount = 0;
+    private int attempts = 0;
     private Vector3 startPosition;
     private Vector3 destPosition;
 
@@ -49,6 +51,10 @@ public class WordsAtRiver : MonoBehaviour
 
     void Start()
     {
+        if (Application.isEditor)
+        {
+            endGame();
+        }
         if (Application.platform != RuntimePlatform.Android)
         {
             Debug.Log("Speech recognition is only available on Android platform.");
@@ -78,8 +84,6 @@ public class WordsAtRiver : MonoBehaviour
         {
             matchedCount++;
         }
-
-        player.transform.position = Vector2.Lerp(startPosition, destPosition, (float)matchedCount / wordCount);
 
         if (SpeechRecognizerManager.IsAvailable() && isListening)
         {
@@ -151,12 +155,13 @@ public class WordsAtRiver : MonoBehaviour
 
     private void validateSpeech(string[] texts)
     {
+        attempts++;
         foreach (string text in texts)
         {
             if (text.ToLower().Equals(currWord.ToLower()))
             {
                 matchedCount++;
-
+                player.transform.position = Vector2.Lerp(startPosition, destPosition, (float)matchedCount / wordCount);
                 status.text = "Good Job งานที่ดี";
                 listenButton.SetActive(true);
                 nextButton.SetActive(true);
@@ -167,10 +172,15 @@ public class WordsAtRiver : MonoBehaviour
                 return;
             }
         }
+        if(attempts > 8)
+        {
+            endLosingGame();
+        }
         status.text = "Incorrect ไม่ถูกต้อง";
         listenButton.SetActive(true);
         nextButton.SetActive(true);
         matchedCount--;
+        player.transform.position = Vector2.Lerp(startPosition, destPosition, (float)matchedCount / wordCount);
     }
 
     private void NextWord()
@@ -246,6 +256,18 @@ public class WordsAtRiver : MonoBehaviour
     private void endGame()
     {
         status.text = "";
+        nextButton.SetActive(false);
+        listenButton.SetActive(false);
+        gameOverPanel.SetActive(true);
+        LoadNextScene();
+    }
+
+    private void endLosingGame()
+    {
+        status.text = "";
+        nextButton.SetActive(false);
+        listenButton.SetActive(false);
+        gameOverMessage.GetComponent<Text>().text = "Game Over\n|nจบเกม";
         gameOverPanel.SetActive(true);
         LoadNextScene();
     }

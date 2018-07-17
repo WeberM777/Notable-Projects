@@ -26,13 +26,13 @@ public class UIManager : MonoBehaviour {
         difficultyPanel.SetBool("AnimatePanel", animateDiff);
 
 		//hide other ui elements - from martha
-		krathongImage.SetActive(false);
-		//SelectProfile.SetActive (false);
-		PlayButton.SetActive (false);
-		purpbck.SetActive (false);
-		userName.SetActive (false);
-		//select.GetComponent<Text>().enabled = false;
-		GameTitle.GetComponent<Text>().enabled = false;
+		//krathongImage.SetActive(false);
+		////SelectProfile.SetActive (false);
+		//PlayButton.SetActive (false);
+		//purpbck.SetActive (false);
+		//userName.SetActive (false);
+		////select.GetComponent<Text>().enabled = false;
+		//GameTitle.GetComponent<Text>().enabled = false;
 
     }
 

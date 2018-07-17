@@ -37,6 +37,10 @@ public class Level1GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        if (Application.isEditor)
+        {
+            endGame();
+        }
         if (Application.platform != RuntimePlatform.Android)
         {
             Debug.Log("Speech recognition is only available on Android platform.");
@@ -219,7 +223,7 @@ public class Level1GameManager : MonoBehaviour {
 
         foreach (string text in texts)
         {
-            if (text.ToLower().Equals(sentences[progress].ToLower()) || misses > 1)
+            if (text.ToLower().Equals(sentences[progress].ToLower()) || misses > 0)
             {
                 progress++;
                 if (progress < sentences.Count)
@@ -227,7 +231,7 @@ public class Level1GameManager : MonoBehaviour {
 
                     voiceOpen = false;
                     movePeopleForward();
-                    if (misses > 1)
+                    if (misses > 0)
                     {
                         status.text = "Incorrect ไม่ถูกต้อง";
                     }
@@ -313,10 +317,7 @@ public class Level1GameManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(delay);
 
-        if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
-        {
-            GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
-        }
+        GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
         if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
         {
             SceneLoader.Instance.LoadNextScene(SceneManager.GetActiveScene().buildIndex + 1);

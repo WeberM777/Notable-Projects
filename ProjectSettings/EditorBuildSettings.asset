@@ -50,4 +50,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 4/Level4Activity.unity
     guid: fd02e5ddcf965e34489f3c8c36e39842
+  - enabled: 1
+    path: Assets/Scenes/Final Activity/ColoringActivity.unity
+    guid: d4ac9e187e14aad49886048f1eca6780
+  - enabled: 1
+    path: Assets/Scenes/Final Activity/Boy.unity
+    guid: d3604db06028b9e4aa8c388ab8247c8c
+  - enabled: 1
+    path: Assets/Scenes/Final Activity/Flower.unity
+    guid: 79d1d11db6031704cbade6fa4acc4593
+  - enabled: 1
+    path: Assets/Scenes/Final Activity/Girl.unity
+    guid: 26bf26f219c66dd468af040aca511345
   m_configObjects: {}

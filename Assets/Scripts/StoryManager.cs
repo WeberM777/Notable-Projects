@@ -30,7 +30,8 @@ public class StoryManager : MonoBehaviour
 	private Story story; //  all sentences and phrases in the story
 	private int storyProgress; // how far along they are in the story
 	private bool slowAudio; // toggle switch control boolean
-							// private int level; // eventually will be for different levels
+    private Button nextButton;
+    private Button previousButton;
 
 	private void Awake()
 	{
@@ -56,9 +57,11 @@ public class StoryManager : MonoBehaviour
 		slowAudio = false;
 		thaiHelp.text = "";
         currWord = null;
-		// level = 0;
+        nextButton = GameObject.Find("NextButton").GetComponent<Button>();
+        previousButton = GameObject.Find("PreviousButton").GetComponent<Button>();
+        // level = 0;
 
-		LoadStory();
+        LoadStory();
 		//LoadSounds(); // Load the sounds from file
 		StartStory();
 
@@ -336,6 +339,8 @@ public class StoryManager : MonoBehaviour
         if (!audioSource.isPlaying)
         {
             audioLock = true;
+            nextButton.interactable = false;
+            previousButton.interactable = false;
             foreach (Sentence sentence in story.Phrases[storyProgress - 1].sentences)
             {
                 if (sentence.sentenceNum+1 < 10)
@@ -360,6 +365,8 @@ public class StoryManager : MonoBehaviour
                 }
             }
             audioLock = false;
+            nextButton.interactable = true;
+            previousButton.interactable = true;
         }
     }
 
@@ -396,6 +403,8 @@ public class StoryManager : MonoBehaviour
             if (!audioSource.isPlaying)
             {
                 audioLock = true;
+                nextButton.interactable = false;
+                previousButton.interactable = false;
                 foreach (Sentence sentence in story.Phrases[storyProgress - 1].sentences)
                 {
                     if (sentence.sentenceNum < 10)
@@ -420,6 +429,8 @@ public class StoryManager : MonoBehaviour
                     }
                 }
                 audioLock = false;
+                nextButton.interactable = true;
+                previousButton.interactable = true;
             }
         }
 		else
@@ -442,6 +453,22 @@ public class StoryManager : MonoBehaviour
 	{
 		thaiHelp.text = "";
         ThaiHelpPanel.SetActive(false);
+    }
+
+    public void SkipStory()
+    {
+        if (GameObject.FindObjectOfType<GameManager>().progress <= SceneManager.GetActiveScene().buildIndex)
+        {
+            GameObject.FindObjectOfType<GameManager>().SaveUserProgress(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
+        {
+            SceneLoader.Instance.LoadNextScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            SceneLoader.Instance.LoadNextScene("Menu");
+        }
     }
 
 }
